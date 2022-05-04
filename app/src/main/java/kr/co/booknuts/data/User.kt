@@ -22,3 +22,8 @@ data class LoginRequestDTO(
     @SerializedName("password")
     val password: String?,
 )   :Serializable {}
+
+data class Token (
+    @SerializedName("token")
+    val token: String?,
+)   :Serializable {}
