@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_weight="4"
-        android:layout_marginTop="50dp"
+        android:paddingTop="50dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -39,9 +39,15 @@
                 android:id="@+id/editTextTextPersonName2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:hint="아이디 (이메일)"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:paddingHorizontal="21dp"
+                android:paddingVertical="15dp"
+                android:textColor="@color/text_hint"
+                android:textSize="14sp"
+                android:background="@drawable/input_box"/>
 
             <EditText
                 android:id="@+id/editTextTextPassword"
@@ -49,14 +55,23 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="비밀번호"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                android:paddingHorizontal="21dp"
+                android:paddingVertical="15dp"
+                android:textColor="@color/text_hint"
+                android:textSize="14sp"
+                android:background="@drawable/input_box"/>
         </LinearLayout>
 
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:text="로그인하기"
+            android:textSize="16sp"
+            android:textColor="#ffffff"
             app:backgroundTint="#191919" />
 
         <LinearLayout
@@ -68,20 +83,24 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="아직 회원이 아니신가요?"
-                android:textColor="#707070"
+                android:textColor="@color/text_sub_gray"
+                android:layout_weight="2"
+                android:textSize="12sp"
                 tools:layout_weight="2" />
 
-            <Button
+            <TextView
                 android:id="@+id/button3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:gravity="right"
+                android:clickable="true"
+                android:textStyle="normal"
                 android:text="회원가입"
-                android:textColor="#707070" />
+                android:textColor="@color/text_sub_gray"
+                android:textSize="12sp"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -97,12 +116,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="#292A2B"
             android:text="SNS 로그인하기" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <ImageButton
@@ -110,21 +132,32 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/img_kakao" />
+                android:layout_marginRight="30dp"
+                android:padding="5dp"
+                android:backgroundTint="#F2DC00"
+                app:srcCompat="@drawable/img_kakao"
+                android:background="@drawable/icon_circle"/>
 
             <ImageButton
                 android:id="@+id/imageButton2"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/img_naver" />
+                android:padding="5dp"
+                android:backgroundTint="#00BF18"
+                app:srcCompat="@drawable/img_naver"
+                android:background="@drawable/icon_circle"/>
 
             <ImageButton
                 android:id="@+id/imageButton3"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/img_google" />
+                android:padding="8dp"
+                android:layout_marginLeft="30dp"
+                android:backgroundTint="#F6F6F6"
+                app:srcCompat="@drawable/img_google"
+                android:background="@drawable/icon_circle"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -132,34 +165,37 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:gravity="center"
         android:orientation="horizontal">
 
-        <Button
+        <TextView
             android:id="@+id/button4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:clickable="true"
             android:background="@android:color/transparent"
+            android:gravity="center_horizontal"
             android:text="아이디 찾기"
-            android:textColor="#707070" />
+            android:textColor="@color/text_sub_gray" />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="|"
-            android:textColor="#707070" />
+            android:layout_marginHorizontal="15dp"
+            android:textColor="@color/text_sub_gray" />
 
-        <Button
+        <TextView
             android:id="@+id/button5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:clickable="true"
             android:background="@android:color/transparent"
             android:text="비밀번호 찾기"
-            android:textColor="#707070" />
+            android:gravity="center_horizontal"
+            android:textColor="@color/text_sub_gray" />
     </LinearLayout>
 
 </LinearLayout>
