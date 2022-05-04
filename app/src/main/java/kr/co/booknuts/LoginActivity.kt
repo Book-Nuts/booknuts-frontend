@@ -23,6 +23,9 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        val pref = this.getSharedPreferences("authToken", MODE_PRIVATE)
+        val editor = pref.edit()
+
         // 회원가입 textView에 밑줄 추가
         binding.textJoin.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
@@ -46,10 +49,12 @@ class LoginActivity : AppCompatActivity() {
 
                 RetrofitBuilder.api.doLogin(loginInfo).enqueue(object: Callback<Token> {
                     override fun onResponse(call: Call<Token>, response: Response<Token>) {
-                        Toast.makeText(this@LoginActivity, "통신 성공", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this@LoginActivity, "통신 성공", Toast.LENGTH_SHORT).show()
                         responseToken = response.body()
                         if(responseToken != null) {
                             Log.d("Login Success", "Token : " + responseToken?.token)
+                            editor.putString("Token", responseToken?.token).apply()
+                            Toast.makeText(this@LoginActivity, "Token: " + pref.getString("Token", "Token 없음"), Toast.LENGTH_SHORT).show()
                         } else {
                             Log.d("Login", "no user defined")
                             Toast.makeText(this@LoginActivity, "아이디 또는 비밀번호를 잘못 입력했습니다.", Toast.LENGTH_SHORT).show()
