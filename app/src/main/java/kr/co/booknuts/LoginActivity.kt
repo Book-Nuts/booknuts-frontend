@@ -2,6 +2,7 @@ package kr.co.booknuts
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +22,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        // 회원가입 textView에 밑줄 추가
+        binding.textJoin.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
         binding.linearLayout.setOnClickListener{
             hideKeyboard()
