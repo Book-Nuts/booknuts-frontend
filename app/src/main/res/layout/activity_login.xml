@@ -43,7 +43,7 @@
                 android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:hint="아이디 (이메일)"
-                android:inputType="textPersonName"
+                android:inputType="textEmailAddress"
                 android:paddingHorizontal="21dp"
                 android:paddingVertical="15dp"
                 android:textColor="@color/text_hint"
