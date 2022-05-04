@@ -1,6 +1,7 @@
 package kr.co.booknuts
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -63,7 +64,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.textJoin.setOnClickListener {
-            Toast.makeText(this@LoginActivity, "회원가입", Toast.LENGTH_SHORT).show()
+            var intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+            //Toast.makeText(this@LoginActivity, "회원가입", Toast.LENGTH_SHORT).show()
         }
     }
 
