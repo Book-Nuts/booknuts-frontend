@@ -1,5 +1,6 @@
 package kr.co.booknuts.api
 
+import kr.co.booknuts.data.JoinRequestDTO
 import kr.co.booknuts.data.LoginRequestDTO
 import kr.co.booknuts.data.Token
 import kr.co.booknuts.data.User
@@ -11,4 +12,9 @@ interface UserService {
     // request body - 이메일, 비밀번호
     @POST("/auth/login")
     fun doLogin(@Body loginInfo: LoginRequestDTO): Call<Token>
+
+    // 회원가입
+    // request body - 아이디, 비밀번호, 이름, 닉네임, 이메일
+    @POST("/auth/join")
+    fun createUser(@Body joinInfo : JoinRequestDTO): Call<User>
 }
