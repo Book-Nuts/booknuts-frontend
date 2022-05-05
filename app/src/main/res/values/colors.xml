@@ -9,11 +9,10 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- user-defined colors -->
-    <color name="main_red">#FFFE6C4A</color>
-    <color name="grey">#FFBDBDBD</color>
+    <color name="main_red">#BC7160</color>
     <color name="green">#FF10C179</color>
 
     <color name="bg_sub">#FF8265</color>
-    <color name="text_sub_gray">#707070</color>
-    <color name="text_hint">#BDBDBD</color>
+    <color name="grey_700">#707070</color>
+    <color name="grey_200">#FFBDBDBD</color>
 </resources>
