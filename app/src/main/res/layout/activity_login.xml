@@ -134,8 +134,8 @@
                 android:layout_height="40dp"
                 android:scaleType="fitCenter"
                 android:layout_marginRight="30dp"
-                android:padding="5dp"
-                android:backgroundTint="#F2DC00"
+                android:padding="7dp"
+                android:backgroundTint="#FAE301"
                 app:srcCompat="@drawable/img_kakao"
                 android:background="@drawable/icon_circle"/>
 

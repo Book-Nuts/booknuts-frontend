@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:title="홈"/>
+    <item
+        android:id="@+id/search"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:title="탐색"/>
+    <item
+        android:id="@+id/chat"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:title="대화"/>
+    <item
+        android:id="@+id/mypage"
+        app:showAsAction="ifRoom"
+        android:enabled="true"
+        android:title="마이페이지"/>
+</menu>
