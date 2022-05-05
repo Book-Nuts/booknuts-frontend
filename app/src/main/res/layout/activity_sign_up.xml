@@ -87,17 +87,40 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/edit_id"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_idEdit"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="7dp"
-                android:background="@drawable/style_info_form"
-                android:hint="예 : booknuts124"
-                android:inputType="textPersonName"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textSize="14sp" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp">
+
+                <ImageView
+                    android:id="@+id/img_idStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_id"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icon_wrong" />
+
+                <EditText
+                    android:id="@+id/edit_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/style_info_form"
+                    android:hint="예 : booknuts124"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/text_idStatus"
@@ -133,17 +156,41 @@
                     android:textColor="#FE6C4A" />
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/edit_pwd"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_pwdEdit"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="7dp"
-                android:background="@drawable/style_info_form"
-                android:hint="비밀번호를 입력해주세요."
-                android:inputType="textShortMessage|textPersonName|text|textPassword"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textSize="14sp" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="7dp">
+
+                <ImageButton
+                    android:id="@+id/img_pwdStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#00FFFFFF"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_pwd"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icon_wrong"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <EditText
+                    android:id="@+id/edit_pwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/style_info_form"
+                    android:hint="비밀번호를 입력해주세요."
+                    android:inputType="textShortMessage|textPersonName|text|textPassword"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/text_pwdStatus"
@@ -180,17 +227,41 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/edit_pwdConfirm"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_pwdConfirmEdit"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="7dp"
-                android:background="@drawable/style_info_form"
-                android:hint="비밀번호를 입력해주세요."
-                android:inputType="textPassword"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textSize="14sp" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="7dp">
+
+                <ImageView
+                    android:id="@+id/img_pwdConfirmStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_pwdConfirm"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icon_wrong" />
+
+                <EditText
+                    android:id="@+id/edit_pwdConfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/style_info_form"
+                    android:hint="비밀번호를 입력해주세요."
+                    android:inputType="textPassword"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/text_pwdConfirmStatus"
@@ -298,17 +369,39 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/edit_nickname"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_nicknameEdit"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="7dp"
-                android:background="@drawable/style_info_form"
-                android:hint="닉네임을 입력해주세요."
-                android:inputType="textPersonName"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:textSize="14sp" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="7dp">
+
+                <ImageView
+                    android:id="@+id/img_nicknameStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_nickname"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/icon_wrong" />
+
+                <EditText
+                    android:id="@+id/edit_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/style_info_form"
+                    android:hint="닉네임을 입력해주세요."
+                    android:inputType="textPersonName"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
                 android:id="@+id/layout_termsText"
@@ -514,13 +607,14 @@
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="23dp"
+            android:clickable="false"
             android:gravity="center"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="가입하기"
             android:textSize="16sp"
             android:textStyle="normal"
-            app:backgroundTint="@color/main_red"
+            app:backgroundTint="@color/grey"
             app:cornerRadius="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
