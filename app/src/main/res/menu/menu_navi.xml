@@ -12,10 +12,10 @@
         android:enabled="true"
         android:title="탐색"/>
     <item
-        android:id="@+id/dabate"
+        android:id="@+id/chat"
         app:showAsAction="ifRoom"
         android:enabled="true"
-        android:title="토론"/>
+        android:title="대화"/>
     <item
         android:id="@+id/mypage"
         app:showAsAction="ifRoom"
