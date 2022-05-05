@@ -236,7 +236,7 @@ class SignUpActivity : AppCompatActivity() {
     fun check() {
         // 닉네임 변수 수정 ★★★
         if (isIdCorrect && isPwdCorrect && isPwdConfirmCorrect && !binding.editName.text.isEmpty() && !binding.editEmail.text.isEmpty() && !binding.editNickname.text.isEmpty()) {
-            binding.btnSignup.setBackgroundColor(ContextCompat.getColor(this, R.color.main_red))
+            binding.btnSignup.setBackgroundColor(ContextCompat.getColor(this, R.color.coral_500))
             binding.btnSignup.isClickable = true
         } else {
             binding.btnSignup.setBackgroundColor(ContextCompat.getColor(this, R.color.grey_200))
