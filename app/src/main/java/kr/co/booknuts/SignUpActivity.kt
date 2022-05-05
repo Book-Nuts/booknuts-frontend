@@ -86,7 +86,7 @@ class SignUpActivity : AppCompatActivity() {
                 isPwdCorrect = false
                 binding.editPwd.setBackgroundResource(R.drawable.style_info_form)
                 binding.imgPwdStatus.visibility = View.INVISIBLE
-                binding.textPwdStatus.setTextColor(ContextCompat.getColor(this, R.color.grey))
+                binding.textPwdStatus.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
             }
             // 비밀번호를 8자 이상의 영문과 숫자, 특수기호로 조합하지 않은 경우
             else if (!Pattern.matches("^(?=.*\\d)(?=.*[!~@\$])(?=.*[a-zA-Z]).{8,}$", binding.editPwd.text)) {
@@ -94,7 +94,7 @@ class SignUpActivity : AppCompatActivity() {
                 binding.editPwd.setBackgroundResource(R.drawable.style_info_form_wrong)
                 binding.imgPwdStatus.visibility = View.VISIBLE
                 binding.imgPwdStatus.setImageResource(R.drawable.icon_wrong)
-                binding.textPwdStatus.setTextColor(ContextCompat.getColor(this, R.color.grey))
+                binding.textPwdStatus.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
             }
             // 비밀번호가 모든 조건을 만족한 경우
             else {
@@ -120,7 +120,7 @@ class SignUpActivity : AppCompatActivity() {
                 binding.imgPwdConfirmStatus.visibility = View.VISIBLE
                 binding.imgPwdConfirmStatus.setImageResource(R.drawable.icon_wrong)
                 binding.textPwdConfirmStatus.text = "비밀번호가 일치하지 않습니다."
-                binding.textPwdConfirmStatus.setTextColor(ContextCompat.getColor(this, R.color.grey))
+                binding.textPwdConfirmStatus.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
             }
             else if (!binding.editPwdConfirm.text.isEmpty()){
                 isPwdConfirmCorrect = true
@@ -141,7 +141,7 @@ class SignUpActivity : AppCompatActivity() {
                 binding.editPwdConfirm.setBackgroundResource(R.drawable.style_info_form)
                 binding.imgPwdConfirmStatus.visibility = View.INVISIBLE
                 binding.textPwdConfirmStatus.text = "비밀번호가 일치하지 않습니다."
-                binding.textPwdConfirmStatus.setTextColor(ContextCompat.getColor(this, R.color.grey))
+                binding.textPwdConfirmStatus.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
             }
             // 비밀번호가 일치하지 않은 경우
             else if (!binding.editPwdConfirm.text.toString().equals(binding.editPwd.text.toString())) {
@@ -150,7 +150,7 @@ class SignUpActivity : AppCompatActivity() {
                 binding.imgPwdConfirmStatus.visibility = View.VISIBLE
                 binding.imgPwdConfirmStatus.setImageResource(R.drawable.icon_wrong)
                 binding.textPwdConfirmStatus.text = "비밀번호가 일치하지 않습니다."
-                binding.textPwdConfirmStatus.setTextColor(ContextCompat.getColor(this, R.color.grey))
+                binding.textPwdConfirmStatus.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
             }
             // 비밀번호가 일치하는 경우
             else {
@@ -236,10 +236,10 @@ class SignUpActivity : AppCompatActivity() {
     fun check() {
         // 닉네임 변수 수정 ★★★
         if (isIdCorrect && isPwdCorrect && isPwdConfirmCorrect && !binding.editName.text.isEmpty() && !binding.editEmail.text.isEmpty() && !binding.editNickname.text.isEmpty()) {
-            binding.btnSignup.setBackgroundColor(ContextCompat.getColor(this, R.color.main_red))
+            binding.btnSignup.setBackgroundColor(ContextCompat.getColor(this, R.color.coral_500))
             binding.btnSignup.isClickable = true
         } else {
-            binding.btnSignup.setBackgroundColor(ContextCompat.getColor(this, R.color.grey))
+            binding.btnSignup.setBackgroundColor(ContextCompat.getColor(this, R.color.grey_200))
             binding.btnSignup.isClickable = false
         }
     }
