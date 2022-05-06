@@ -130,7 +130,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="5dp"
                 android:text="6자 이상의 영문 혹은 영문과 숫자를 조합해 주세요."
-                android:textColor="@color/grey"
+                android:textColor="@color/grey_200"
                 android:textSize="12sp" />
 
             <LinearLayout
@@ -200,7 +200,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="5dp"
                 android:text="영어, 숫자, 특수기호(!,~,@,$) 포함 8자 이상"
-                android:textColor="@color/grey"
+                android:textColor="@color/grey_200"
                 android:textSize="12sp" />
 
             <LinearLayout
@@ -271,7 +271,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="5dp"
                 android:text="비밀번호가 일치하지 않습니다."
-                android:textColor="@color/grey"
+                android:textColor="@color/grey_200"
                 android:textSize="12sp" />
 
             <LinearLayout
@@ -412,7 +412,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="5dp"
                 android:text="이미 사용 중인 닉네임입니다."
-                android:textColor="@color/grey"
+                android:textColor="@color/grey_200"
                 android:textSize="12sp"
                 android:visibility="gone" />
 
@@ -629,7 +629,7 @@
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="normal"
-            app:backgroundTint="@color/grey"
+            app:backgroundTint="@color/grey_200"
             app:cornerRadius="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -15,14 +15,19 @@ class IntroActivity : AppCompatActivity() {
 
         val pref = this.getSharedPreferences("authToken", MODE_PRIVATE)
 
-        val savedToken = pref.getString("Token", "0")
+        val savedToken = pref.getString("Token", null)
 
         Toast.makeText(this@IntroActivity, "authToken: " + savedToken, Toast.LENGTH_SHORT).show()
 
-        val intent = Intent(this, LoginActivity::class.java)
+        val intentLogin = Intent(this, LoginActivity::class.java)
+        val intentMain = Intent(this, MainActivity::class.java)
+
+        // 로그인(토큰) 확인
+        val isLogin: Boolean = savedToken != null
 
         Timer().schedule(timerTask {
-            startActivity(intent)
+            //startActivity(if(isLogin) intentMain else intentLogin)
+            startActivity(intentLogin)
             finish()
         }, 2000)
 
