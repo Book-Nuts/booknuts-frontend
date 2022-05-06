@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -27,6 +28,46 @@ class SignUpActivity : AppCompatActivity() {
 
     val binding by lazy { ActivitySignUpBinding.inflate(layoutInflater) }
 
+    val listener by lazy {
+        CompoundButton.OnCheckedChangeListener { compoundButton, isChecked ->
+            // 체크박스 선택
+            if (isChecked) {
+                if (binding.checkTerms1.isChecked && binding.checkTerms2.isChecked && binding.checkTerms3.isChecked && binding.checkTerms4.isChecked) binding.checkEntireTerms.isChecked = true
+                when (compoundButton.id) {
+                    R.id.check_entireTerms -> {
+                        binding.checkTerms1.isChecked = true
+                        binding.checkTerms2.isChecked = true
+                        binding.checkTerms3.isChecked = true
+                        binding.checkTerms4.isChecked = true
+                    }
+                    R.id.check_terms1 -> binding.textTerms1Type.setTextColor(ContextCompat.getColor(this, R.color.coral_600))
+                    R.id.check_terms2 -> binding.textTerms2Type.setTextColor(ContextCompat.getColor(this, R.color.coral_600))
+                    R.id.check_terms3 -> binding.textTerms3Type.setTextColor(ContextCompat.getColor(this, R.color.coral_600))
+                    R.id.check_terms4 -> binding.textTerms4Type.setTextColor(ContextCompat.getColor(this, R.color.coral_600))
+                }
+            }
+            // 체크박스 해제
+            else {
+                binding.checkEntireTerms.isChecked = false
+                when (compoundButton.id) {
+                    R.id.check_entireTerms -> {
+                        if (binding.checkTerms1.isChecked && binding.checkTerms2.isChecked && binding.checkTerms3.isChecked && binding.checkTerms4.isChecked) {
+                            binding.checkTerms1.isChecked = false
+                            binding.checkTerms2.isChecked = false
+                            binding.checkTerms3.isChecked = false
+                            binding.checkTerms4.isChecked = false
+                        }
+                    }
+                    R.id.check_terms1 -> binding.textTerms1Type.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+                    R.id.check_terms2 -> binding.textTerms2Type.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+                    R.id.check_terms3 -> binding.textTerms3Type.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+                    R.id.check_terms4 -> binding.textTerms4Type.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+                }
+            }
+            check()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -47,6 +88,13 @@ class SignUpActivity : AppCompatActivity() {
             finish()
         }
 
+        // 이용약관 리스너 연결
+        binding.checkEntireTerms.setOnCheckedChangeListener(listener)
+        binding.checkTerms1.setOnCheckedChangeListener(listener)
+        binding.checkTerms2.setOnCheckedChangeListener(listener)
+        binding.checkTerms3.setOnCheckedChangeListener(listener)
+        binding.checkTerms4.setOnCheckedChangeListener(listener)
+
         // 아이디 입력창 변화
         binding.editId.addTextChangedListener {
             // id를 입력하지 않은 경우
@@ -66,16 +114,38 @@ class SignUpActivity : AppCompatActivity() {
                 binding.textIdStatus.visibility = View.VISIBLE
                 binding.textIdStatus.text = "6자 이상의 영문 혹은 영문과 숫자를 조합해 주세요.";
             }
-            // id가 이미 존재하는 경우 ★★★
-            // id가 모든 조건을 만족한 경우
             else {
-                isIdCorrect = true
-                binding.editId.setBackgroundResource(R.drawable.style_info_form_correct)
-                binding.imgIdStatus.visibility = View.VISIBLE
-                binding.imgIdStatus.setImageResource(R.drawable.icon_correct)
-                binding.textIdStatus.visibility = View.GONE
-            }
+                // 아이디 중복 확인
+                RetrofitBuilder.api.checkId(binding.editId.text.toString()).enqueue(object : Callback<String> {
+                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                        var isIdDup = response.body().toString()
+                        Log.d("ID_DUP_D", "response : " + isIdDup)
+                        if (isIdDup == "true") {
+                            isIdCorrect = false
+                            binding.editId.setBackgroundResource(R.drawable.style_info_form_wrong)
+                            binding.imgIdStatus.visibility = View.VISIBLE
+                            binding.imgIdStatus.setImageResource(R.drawable.icon_wrong)
+                            binding.textIdStatus.visibility = View.VISIBLE
+                            binding.textIdStatus.text = "이미 사용 중인 아이디입니다.";
+                        }
+                        // id가 모든 조건을 만족한 경우
+                        else {
+                            isIdCorrect = true
+                            binding.editId.setBackgroundResource(R.drawable.style_info_form_correct)
+                            binding.imgIdStatus.visibility = View.VISIBLE
+                            binding.imgIdStatus.setImageResource(R.drawable.icon_correct)
+                            binding.textIdStatus.visibility = View.GONE
+                        }
+                    }
 
+                    override fun onFailure(call: Call<String>, t: Throwable) {
+                        t.message?.let {
+                            Log.e("NICKNAME_DUP_E", it)
+                            Toast.makeText(this@SignUpActivity, "아이디 중복 확인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
+            }
             check()
         }
 
@@ -181,10 +251,10 @@ class SignUpActivity : AppCompatActivity() {
                 binding.imgNicknameStatus.visibility = View.INVISIBLE
             } else {
                 // 닉네임 중복 여부 확인
-                RetrofitBuilder.api.checkNicknameDuplication(binding.editNickname.text.toString()).enqueue(object : Callback<String> {
+                RetrofitBuilder.api.checkNickname(binding.editNickname.text.toString()).enqueue(object : Callback<String> {
                     override fun onResponse(call: Call<String>, response: Response<String>) {
                         var isNicknameDup = response.body().toString()
-                        Log.d("NICKNAME_DUP_D", "response : " + response.body().toString())
+                        Log.d("NICKNAME_DUP_D", "response : " + isNicknameDup)
                         // 이미 존재하는 닉네임인 경우
                         if(isNicknameDup == "true") {
                             isNicknameCorrect = false
@@ -213,7 +283,7 @@ class SignUpActivity : AppCompatActivity() {
             }
             check()
         }
-
+        
         // 가입하기 버튼 클릭
         binding.btnSignup.setOnClickListener {
             var loginId = binding.editId.text.toString().trim()
@@ -269,8 +339,8 @@ class SignUpActivity : AppCompatActivity() {
 
     // 가입 가능 여부 확인 함수
     fun check() {
-        if (isIdCorrect && isPwdCorrect && isPwdConfirmCorrect && isNicknameCorrect && !binding.editName.text.isEmpty() && !binding.editEmail.text.isEmpty()) {
-            binding.btnSignup.setBackgroundColor(ContextCompat.getColor(this, R.color.coral_700))
+        if (isIdCorrect && isPwdCorrect && isPwdConfirmCorrect && isNicknameCorrect && !binding.editName.text.isEmpty() && !binding.editEmail.text.isEmpty() && binding.checkTerms1.isChecked && binding.checkTerms2.isChecked) {
+            binding.btnSignup.setBackgroundColor(ContextCompat.getColor(this, R.color.coral_500))
             binding.btnSignup.isEnabled = true
         } else {
             binding.btnSignup.setBackgroundColor(ContextCompat.getColor(this, R.color.grey_200))
