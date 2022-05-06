@@ -28,7 +28,7 @@ class SignUpActivity : AppCompatActivity() {
 
     val binding by lazy { ActivitySignUpBinding.inflate(layoutInflater) }
 
-    val listener by lazy {
+    val checkListener by lazy {
         CompoundButton.OnCheckedChangeListener { compoundButton, isChecked ->
             // 체크박스 선택
             if (isChecked) {
@@ -89,11 +89,11 @@ class SignUpActivity : AppCompatActivity() {
         }
 
         // 이용약관 리스너 연결
-        binding.checkEntireTerms.setOnCheckedChangeListener(listener)
-        binding.checkTerms1.setOnCheckedChangeListener(listener)
-        binding.checkTerms2.setOnCheckedChangeListener(listener)
-        binding.checkTerms3.setOnCheckedChangeListener(listener)
-        binding.checkTerms4.setOnCheckedChangeListener(listener)
+        binding.checkEntireTerms.setOnCheckedChangeListener(checkListener)
+        binding.checkTerms1.setOnCheckedChangeListener(checkListener)
+        binding.checkTerms2.setOnCheckedChangeListener(checkListener)
+        binding.checkTerms3.setOnCheckedChangeListener(checkListener)
+        binding.checkTerms4.setOnCheckedChangeListener(checkListener)
 
         // 아이디 입력창 변화
         binding.editId.addTextChangedListener {
