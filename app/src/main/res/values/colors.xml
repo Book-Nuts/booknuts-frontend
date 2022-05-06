@@ -11,9 +11,9 @@
     <!-- user-defined colors -->
     <color name="green">#FF10C179</color>
 
-    <color name="coral_500">#BC7160</color>
-    <color name="coral_700">#FF8265</color>
+    <color name="coral_500">#FFFF8265</color>
+    <color name="coral_600">#FFFE6C4A</color>
 
-    <color name="grey_200">#BDBDBD</color>
-    <color name="grey_700">#707070</color>
+    <color name="grey_200">#FFBDBDBD</color>
+    <color name="grey_700">#FF707070</color>
 </resources>

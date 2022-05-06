@@ -21,5 +21,10 @@ interface UserService {
     // 유저 닉네임 중복 체크
     // request body - 닉네임
     @GET("/auth/checkNickname/{nickname}")
-    fun checkNicknameDuplication(@Path("nickname") nickname: String): Call<String>
+    fun checkNickname(@Path("nickname") nickname: String): Call<String>
+
+    // 유저 아이디 중복 체크
+    // request body - 아이디
+    @GET("/auth/checkLoginId/{loginId}")
+    fun checkId(@Path("loginId") loginId: String): Call<String>
 }
