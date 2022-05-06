@@ -4,12 +4,10 @@ import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class User(
-    @SerializedName("id")
-    val id: Long?,
     @SerializedName("userId")
-    val userId: String?,
-    @SerializedName("password")
-    val password: String?,
+    val userId: Long?,
+    @SerializedName("loginId")
+    val loginId: String?,
     @SerializedName("username")
     val username: String?,
     @SerializedName("nickname")
@@ -30,8 +28,8 @@ data class LoginRequestDTO(
 )   :Serializable {}
 
 data class JoinRequestDTO(
-    @SerializedName("userId")
-    val userId: String?,
+    @SerializedName("loginId")
+    val loginId: String?,
     @SerializedName("password")
     val password: String?,
     @SerializedName("username")
