@@ -23,7 +23,7 @@ class SignUpActivity : AppCompatActivity() {
     var isIdCorrect: Boolean = false
     var isPwdCorrect: Boolean = false
     var isPwdConfirmCorrect: Boolean = false
-    // var isNicknameCorrect: Boolean = false
+    var isNicknameCorrect: Boolean = false
 
     val binding by lazy { ActivitySignUpBinding.inflate(layoutInflater) }
 
@@ -170,49 +170,83 @@ class SignUpActivity : AppCompatActivity() {
         binding.editNickname.addTextChangedListener {
             check()
         }
-        // 닉네임 중복 여부 확인 ★★★
+
+        // 닉네임 입력창 변화
         binding.editNickname.addTextChangedListener {
+            // 닉네임을 입력하지 않은 경우
+            if (binding.editNickname.text.isEmpty()) {
+                isNicknameCorrect = false
+                binding.editNickname.setBackgroundResource(R.drawable.style_info_form)
+                binding.textNicknameStatus.visibility = View.GONE
+                binding.imgNicknameStatus.visibility = View.INVISIBLE
+            } else {
+                // 닉네임 중복 여부 확인
+                RetrofitBuilder.api.checkNicknameDuplication(binding.editNickname.text.toString()).enqueue(object : Callback<String> {
+                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                        var isNicknameDup = response.body().toString()
+                        Log.d("NICKNAME_DUP_D", "response : " + response.body().toString())
+                        // 이미 존재하는 닉네임인 경우
+                        if(isNicknameDup == "true") {
+                            isNicknameCorrect = false
+                            binding.editNickname.setBackgroundResource(R.drawable.style_info_form_wrong)
+                            binding.textNicknameStatus.visibility = View.VISIBLE
+                            binding.imgNicknameStatus.visibility = View.VISIBLE
+                            binding.imgNicknameStatus.setImageResource(R.drawable.icon_wrong)
+                        }
+                        // 사용 가능한 닉네임인 경우
+                        else {
+                            isNicknameCorrect = true
+                            binding.editNickname.setBackgroundResource(R.drawable.style_info_form_correct)
+                            binding.textNicknameStatus.visibility = View.GONE
+                            binding.imgNicknameStatus.visibility = View.VISIBLE
+                            binding.imgNicknameStatus.setImageResource(R.drawable.icon_correct)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<String>, t: Throwable) {
+                        t.message?.let {
+                            Log.e("NICKNAME_DUP_E", it)
+                            Toast.makeText(this@SignUpActivity, "닉네임 중복 확인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
+            }
             check()
         }
 
         // 가입하기 버튼 클릭
         binding.btnSignup.setOnClickListener {
-            var userId = binding.editId.text.toString().trim()
+            var loginId = binding.editId.text.toString().trim()
             var password = binding.editPwd.text.toString().trim()
             var username = binding.editName.text.toString().trim()
             var nickname = binding.editNickname.text.toString().trim()
             var email = binding.editEmail.text.toString().trim()
-            // 필수 입력 정보 중 비어있는 입력창이 있는지 확인
-            if (!userId.isEmpty() && !password.isEmpty() && !username.isEmpty() && !nickname.isEmpty() && !email.isEmpty()) {
-                // 비밀번호 재입력 확인 ★★★
-                // 확인해야하는 정보들 모두 확인 ★★★
 
-                var joinInfo = JoinRequestDTO(userId, password, username, nickname, email)
-                var responseUser: User? = null
-                RetrofitBuilder.api.createUser(joinInfo).enqueue(object : Callback<User> {
-                    override fun onResponse(call: Call<User>, response: Response<User>) {
-                        responseUser = response.body()
-                        Log.d("SIGNUP_D", "response : " + responseUser?.toString())
-                        Log.d("SIGNUP_D", "id : " + responseUser?.id.toString())
-                        Log.d("SIGNUP_D", "userId : " + responseUser?.userId.toString())
-                        Log.d("SIGNUP_D", "username : " + responseUser?.username.toString())
-                        Log.d("SIGNUP_D", "nickname : " + responseUser?.nickname.toString())
-                        Log.d("SIGNUP_D", "email : " + responseUser?.email.toString())
-                        Log.d("SIGNUP_D", "accesToken : " + responseUser?.accessToken.toString())
-                        Log.d("SIGNUP_D", "roles : " + responseUser?.roles.toString())
+            var joinInfo = JoinRequestDTO(loginId, password, username, nickname, email)
+            var responseUser: User? = null
+            RetrofitBuilder.api.createUser(joinInfo).enqueue(object : Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    responseUser = response.body()
+                    Log.d("SIGNUP_D", "response : " + responseUser?.toString())
+                    Log.d("SIGNUP_D", "userId : " + responseUser?.userId.toString())
+                    Log.d("SIGNUP_D", "loginId : " + responseUser?.loginId.toString())
+                    Log.d("SIGNUP_D", "username : " + responseUser?.username.toString())
+                    Log.d("SIGNUP_D", "nickname : " + responseUser?.nickname.toString())
+                    Log.d("SIGNUP_D", "email : " + responseUser?.email.toString())
+                    Log.d("SIGNUP_D", "accesToken : " + responseUser?.accessToken.toString())
+                    Log.d("SIGNUP_D", "roles : " + responseUser?.roles.toString())
 
-                        Toast.makeText(this@SignUpActivity, "가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
-                        finish()
+                    Toast.makeText(this@SignUpActivity, "가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    t.message?.let {
+                        Log.e("SIGNUP_E", it)
+                        Toast.makeText(this@SignUpActivity, "오류가 발생하였습니다.", Toast.LENGTH_SHORT).show()
                     }
-
-                    override fun onFailure(call: Call<User>, t: Throwable) {
-                        t.message?.let {
-                            Log.e("SIGNUP_E", it)
-                            Toast.makeText(this@SignUpActivity, it, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                })
-            }
+                }
+            })
         }
     }
 
@@ -233,14 +267,14 @@ class SignUpActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(edit6.windowToken, 0);
     }
 
+    // 가입 가능 여부 확인 함수
     fun check() {
-        // 닉네임 변수 수정 ★★★
-        if (isIdCorrect && isPwdCorrect && isPwdConfirmCorrect && !binding.editName.text.isEmpty() && !binding.editEmail.text.isEmpty() && !binding.editNickname.text.isEmpty()) {
-            binding.btnSignup.setBackgroundColor(ContextCompat.getColor(this, R.color.coral_500))
-            binding.btnSignup.isClickable = true
+        if (isIdCorrect && isPwdCorrect && isPwdConfirmCorrect && isNicknameCorrect && !binding.editName.text.isEmpty() && !binding.editEmail.text.isEmpty()) {
+            binding.btnSignup.setBackgroundColor(ContextCompat.getColor(this, R.color.coral_700))
+            binding.btnSignup.isEnabled = true
         } else {
             binding.btnSignup.setBackgroundColor(ContextCompat.getColor(this, R.color.grey_200))
-            binding.btnSignup.isClickable = false
+            binding.btnSignup.isEnabled = false
         }
     }
 }

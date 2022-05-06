@@ -17,4 +17,9 @@ interface UserService {
     // request body - 아이디, 비밀번호, 이름, 닉네임, 이메일
     @POST("/auth/join")
     fun createUser(@Body joinInfo : JoinRequestDTO): Call<User>
+
+    // 유저 닉네임 중복 체크
+    // request body - 닉네임
+    @GET("/auth/checkNickname/{nickname}")
+    fun checkNicknameDuplication(@Path("nickname") nickname: String): Call<String>
 }

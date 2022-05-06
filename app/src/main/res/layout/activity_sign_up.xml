@@ -271,7 +271,8 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="5dp"
                 android:text="비밀번호가 일치하지 않습니다."
-                android:textColor="@color/grey_200" />
+                android:textColor="@color/grey_200"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:id="@+id/layout_nameText"
@@ -403,6 +404,18 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <TextView
+                android:id="@+id/text_nicknameStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="5dp"
+                android:text="이미 사용 중인 닉네임입니다."
+                android:textColor="@color/grey_200"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
             <LinearLayout
                 android:id="@+id/layout_termsText"
                 android:layout_width="wrap_content"
@@ -476,7 +489,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="#00FFFFFF"
-                    app:srcCompat="@drawable/icon_unchecked" />
+                    app:srcCompat="@drawable/icon_unchecked"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <TextView
                     android:id="@+id/text_terms1"
@@ -607,11 +621,12 @@
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="23dp"
-            android:clickable="false"
+            android:enabled="false"
             android:gravity="center"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="가입하기"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="normal"
             app:backgroundTint="@color/grey_200"
