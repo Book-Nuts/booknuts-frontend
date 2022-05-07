@@ -157,6 +157,7 @@ class SignUpActivity : AppCompatActivity() {
                 binding.editPwd.setBackgroundResource(R.drawable.style_info_form)
                 binding.imgPwdStatus.visibility = View.INVISIBLE
                 binding.textPwdStatus.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+                binding.imgPwdCheck.visibility = View.INVISIBLE
             }
             // 비밀번호를 8자 이상의 영문과 숫자, 특수기호로 조합하지 않은 경우
             else if (!Pattern.matches("^(?=.*\\d)(?=.*[!~@\$])(?=.*[a-zA-Z]).{8,}$", binding.editPwd.text)) {
@@ -165,6 +166,7 @@ class SignUpActivity : AppCompatActivity() {
                 binding.imgPwdStatus.visibility = View.VISIBLE
                 binding.imgPwdStatus.setImageResource(R.drawable.icon_wrong)
                 binding.textPwdStatus.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+                binding.imgPwdCheck.visibility = View.INVISIBLE
             }
             // 비밀번호가 모든 조건을 만족한 경우
             else {
@@ -173,15 +175,7 @@ class SignUpActivity : AppCompatActivity() {
                 binding.imgPwdStatus.visibility = View.VISIBLE
                 binding.imgPwdStatus.setImageResource(R.drawable.icon_correct)
                 binding.textPwdStatus.setTextColor(ContextCompat.getColor(this, R.color.green))
-            }
-
-            if (binding.editPwd.text.toString().equals(binding.editPwdConfirm.text.toString())) {
-                isPwdConfirmCorrect = true
-                binding.editPwdConfirm.setBackgroundResource(R.drawable.style_info_form_correct)
-                binding.imgPwdConfirmStatus.visibility = View.VISIBLE
-                binding.imgPwdConfirmStatus.setImageResource(R.drawable.icon_correct)
-                binding.textPwdConfirmStatus.text = "비밀번호가 일치합니다."
-                binding.textPwdConfirmStatus.setTextColor(ContextCompat.getColor(this, R.color.green))
+                binding.imgPwdCheck.visibility = View.VISIBLE
             }
 
             if (!binding.editPwdConfirm.text.toString().equals(binding.editPwd.text.toString()) && !binding.editPwdConfirm.text.isEmpty()) {
