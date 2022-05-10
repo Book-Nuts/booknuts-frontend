@@ -3,7 +3,6 @@ package kr.co.booknuts
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.WindowManager
 import android.widget.Toast
 import java.util.*
 import kotlin.concurrent.timerTask
@@ -20,7 +19,6 @@ class IntroActivity : AppCompatActivity() {
         Toast.makeText(this@IntroActivity, "authToken: " + savedToken, Toast.LENGTH_SHORT).show()
 
         val intentLogin = Intent(this, LoginActivity::class.java)
-        val intentMain = Intent(this, MainActivity::class.java)
 
         // 로그인(토큰) 확인
         val isLogin: Boolean = savedToken != null
