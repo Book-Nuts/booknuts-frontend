@@ -60,3 +60,8 @@ data class BookSearchInfo (
     @SerializedName("item")
     val item: List<BookItem>?,
 )   :Serializable {}
+
+data class BookSearchRequestDTO (
+    @SerializedName("query")
+    val query: String?,
+)   :Serializable {}
