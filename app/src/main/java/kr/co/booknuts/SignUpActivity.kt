@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
@@ -23,9 +24,49 @@ class SignUpActivity : AppCompatActivity() {
     var isIdCorrect: Boolean = false
     var isPwdCorrect: Boolean = false
     var isPwdConfirmCorrect: Boolean = false
-    // var isNicknameCorrect: Boolean = false
+    var isNicknameCorrect: Boolean = false
 
     val binding by lazy { ActivitySignUpBinding.inflate(layoutInflater) }
+
+    val checkListener by lazy {
+        CompoundButton.OnCheckedChangeListener { compoundButton, isChecked ->
+            // 체크박스 선택
+            if (isChecked) {
+                if (binding.checkTerms1.isChecked && binding.checkTerms2.isChecked && binding.checkTerms3.isChecked && binding.checkTerms4.isChecked) binding.checkEntireTerms.isChecked = true
+                when (compoundButton.id) {
+                    R.id.check_entireTerms -> {
+                        binding.checkTerms1.isChecked = true
+                        binding.checkTerms2.isChecked = true
+                        binding.checkTerms3.isChecked = true
+                        binding.checkTerms4.isChecked = true
+                    }
+                    R.id.check_terms1 -> binding.textTerms1Type.setTextColor(ContextCompat.getColor(this, R.color.coral_600))
+                    R.id.check_terms2 -> binding.textTerms2Type.setTextColor(ContextCompat.getColor(this, R.color.coral_600))
+                    R.id.check_terms3 -> binding.textTerms3Type.setTextColor(ContextCompat.getColor(this, R.color.coral_600))
+                    R.id.check_terms4 -> binding.textTerms4Type.setTextColor(ContextCompat.getColor(this, R.color.coral_600))
+                }
+            }
+            // 체크박스 해제
+            else {
+                binding.checkEntireTerms.isChecked = false
+                when (compoundButton.id) {
+                    R.id.check_entireTerms -> {
+                        if (binding.checkTerms1.isChecked && binding.checkTerms2.isChecked && binding.checkTerms3.isChecked && binding.checkTerms4.isChecked) {
+                            binding.checkTerms1.isChecked = false
+                            binding.checkTerms2.isChecked = false
+                            binding.checkTerms3.isChecked = false
+                            binding.checkTerms4.isChecked = false
+                        }
+                    }
+                    R.id.check_terms1 -> binding.textTerms1Type.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+                    R.id.check_terms2 -> binding.textTerms2Type.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+                    R.id.check_terms3 -> binding.textTerms3Type.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+                    R.id.check_terms4 -> binding.textTerms4Type.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+                }
+            }
+            check()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +88,13 @@ class SignUpActivity : AppCompatActivity() {
             finish()
         }
 
+        // 이용약관 리스너 연결
+        binding.checkEntireTerms.setOnCheckedChangeListener(checkListener)
+        binding.checkTerms1.setOnCheckedChangeListener(checkListener)
+        binding.checkTerms2.setOnCheckedChangeListener(checkListener)
+        binding.checkTerms3.setOnCheckedChangeListener(checkListener)
+        binding.checkTerms4.setOnCheckedChangeListener(checkListener)
+
         // 아이디 입력창 변화
         binding.editId.addTextChangedListener {
             // id를 입력하지 않은 경우
@@ -66,16 +114,38 @@ class SignUpActivity : AppCompatActivity() {
                 binding.textIdStatus.visibility = View.VISIBLE
                 binding.textIdStatus.text = "6자 이상의 영문 혹은 영문과 숫자를 조합해 주세요.";
             }
-            // id가 이미 존재하는 경우 ★★★
-            // id가 모든 조건을 만족한 경우
             else {
-                isIdCorrect = true
-                binding.editId.setBackgroundResource(R.drawable.style_info_form_correct)
-                binding.imgIdStatus.visibility = View.VISIBLE
-                binding.imgIdStatus.setImageResource(R.drawable.icon_correct)
-                binding.textIdStatus.visibility = View.GONE
-            }
+                // 아이디 중복 확인
+                RetrofitBuilder.api.checkId(binding.editId.text.toString()).enqueue(object : Callback<String> {
+                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                        var isIdDup = response.body().toString()
+                        Log.d("ID_DUP_D", "response : " + isIdDup)
+                        if (isIdDup == "true") {
+                            isIdCorrect = false
+                            binding.editId.setBackgroundResource(R.drawable.style_info_form_wrong)
+                            binding.imgIdStatus.visibility = View.VISIBLE
+                            binding.imgIdStatus.setImageResource(R.drawable.icon_wrong)
+                            binding.textIdStatus.visibility = View.VISIBLE
+                            binding.textIdStatus.text = "이미 사용 중인 아이디입니다.";
+                        }
+                        // id가 모든 조건을 만족한 경우
+                        else {
+                            isIdCorrect = true
+                            binding.editId.setBackgroundResource(R.drawable.style_info_form_correct)
+                            binding.imgIdStatus.visibility = View.VISIBLE
+                            binding.imgIdStatus.setImageResource(R.drawable.icon_correct)
+                            binding.textIdStatus.visibility = View.GONE
+                        }
+                    }
 
+                    override fun onFailure(call: Call<String>, t: Throwable) {
+                        t.message?.let {
+                            Log.e("NICKNAME_DUP_E", it)
+                            Toast.makeText(this@SignUpActivity, "아이디 중복 확인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                })
+            }
             check()
         }
 
@@ -87,6 +157,7 @@ class SignUpActivity : AppCompatActivity() {
                 binding.editPwd.setBackgroundResource(R.drawable.style_info_form)
                 binding.imgPwdStatus.visibility = View.INVISIBLE
                 binding.textPwdStatus.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+                binding.imgPwdCheck.visibility = View.INVISIBLE
             }
             // 비밀번호를 8자 이상의 영문과 숫자, 특수기호로 조합하지 않은 경우
             else if (!Pattern.matches("^(?=.*\\d)(?=.*[!~@\$])(?=.*[a-zA-Z]).{8,}$", binding.editPwd.text)) {
@@ -95,6 +166,7 @@ class SignUpActivity : AppCompatActivity() {
                 binding.imgPwdStatus.visibility = View.VISIBLE
                 binding.imgPwdStatus.setImageResource(R.drawable.icon_wrong)
                 binding.textPwdStatus.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+                binding.imgPwdCheck.visibility = View.INVISIBLE
             }
             // 비밀번호가 모든 조건을 만족한 경우
             else {
@@ -103,15 +175,7 @@ class SignUpActivity : AppCompatActivity() {
                 binding.imgPwdStatus.visibility = View.VISIBLE
                 binding.imgPwdStatus.setImageResource(R.drawable.icon_correct)
                 binding.textPwdStatus.setTextColor(ContextCompat.getColor(this, R.color.green))
-            }
-
-            if (binding.editPwd.text.toString().equals(binding.editPwdConfirm.text.toString())) {
-                isPwdConfirmCorrect = true
-                binding.editPwdConfirm.setBackgroundResource(R.drawable.style_info_form_correct)
-                binding.imgPwdConfirmStatus.visibility = View.VISIBLE
-                binding.imgPwdConfirmStatus.setImageResource(R.drawable.icon_correct)
-                binding.textPwdConfirmStatus.text = "비밀번호가 일치합니다."
-                binding.textPwdConfirmStatus.setTextColor(ContextCompat.getColor(this, R.color.green))
+                binding.imgPwdCheck.visibility = View.VISIBLE
             }
 
             if (!binding.editPwdConfirm.text.toString().equals(binding.editPwd.text.toString()) && !binding.editPwdConfirm.text.isEmpty()) {
@@ -170,49 +234,83 @@ class SignUpActivity : AppCompatActivity() {
         binding.editNickname.addTextChangedListener {
             check()
         }
-        // 닉네임 중복 여부 확인 ★★★
+
+        // 닉네임 입력창 변화
         binding.editNickname.addTextChangedListener {
-            check()
-        }
-
-        // 가입하기 버튼 클릭
-        binding.btnSignup.setOnClickListener {
-            var userId = binding.editId.text.toString().trim()
-            var password = binding.editPwd.text.toString().trim()
-            var username = binding.editName.text.toString().trim()
-            var nickname = binding.editNickname.text.toString().trim()
-            var email = binding.editEmail.text.toString().trim()
-            // 필수 입력 정보 중 비어있는 입력창이 있는지 확인
-            if (!userId.isEmpty() && !password.isEmpty() && !username.isEmpty() && !nickname.isEmpty() && !email.isEmpty()) {
-                // 비밀번호 재입력 확인 ★★★
-                // 확인해야하는 정보들 모두 확인 ★★★
-
-                var joinInfo = JoinRequestDTO(userId, password, username, nickname, email)
-                var responseUser: User? = null
-                RetrofitBuilder.api.createUser(joinInfo).enqueue(object : Callback<User> {
-                    override fun onResponse(call: Call<User>, response: Response<User>) {
-                        responseUser = response.body()
-                        Log.d("SIGNUP_D", "response : " + responseUser?.toString())
-                        Log.d("SIGNUP_D", "id : " + responseUser?.id.toString())
-                        Log.d("SIGNUP_D", "userId : " + responseUser?.userId.toString())
-                        Log.d("SIGNUP_D", "username : " + responseUser?.username.toString())
-                        Log.d("SIGNUP_D", "nickname : " + responseUser?.nickname.toString())
-                        Log.d("SIGNUP_D", "email : " + responseUser?.email.toString())
-                        Log.d("SIGNUP_D", "accesToken : " + responseUser?.accessToken.toString())
-                        Log.d("SIGNUP_D", "roles : " + responseUser?.roles.toString())
-
-                        Toast.makeText(this@SignUpActivity, "가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
-                        finish()
+            // 닉네임을 입력하지 않은 경우
+            if (binding.editNickname.text.isEmpty()) {
+                isNicknameCorrect = false
+                binding.editNickname.setBackgroundResource(R.drawable.style_info_form)
+                binding.textNicknameStatus.visibility = View.GONE
+                binding.imgNicknameStatus.visibility = View.INVISIBLE
+            } else {
+                // 닉네임 중복 여부 확인
+                RetrofitBuilder.api.checkNickname(binding.editNickname.text.toString()).enqueue(object : Callback<String> {
+                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                        var isNicknameDup = response.body().toString()
+                        Log.d("NICKNAME_DUP_D", "response : " + isNicknameDup)
+                        // 이미 존재하는 닉네임인 경우
+                        if(isNicknameDup == "true") {
+                            isNicknameCorrect = false
+                            binding.editNickname.setBackgroundResource(R.drawable.style_info_form_wrong)
+                            binding.textNicknameStatus.visibility = View.VISIBLE
+                            binding.imgNicknameStatus.visibility = View.VISIBLE
+                            binding.imgNicknameStatus.setImageResource(R.drawable.icon_wrong)
+                        }
+                        // 사용 가능한 닉네임인 경우
+                        else {
+                            isNicknameCorrect = true
+                            binding.editNickname.setBackgroundResource(R.drawable.style_info_form_correct)
+                            binding.textNicknameStatus.visibility = View.GONE
+                            binding.imgNicknameStatus.visibility = View.VISIBLE
+                            binding.imgNicknameStatus.setImageResource(R.drawable.icon_correct)
+                        }
                     }
 
-                    override fun onFailure(call: Call<User>, t: Throwable) {
+                    override fun onFailure(call: Call<String>, t: Throwable) {
                         t.message?.let {
-                            Log.e("SIGNUP_E", it)
-                            Toast.makeText(this@SignUpActivity, it, Toast.LENGTH_SHORT).show()
+                            Log.e("NICKNAME_DUP_E", it)
+                            Toast.makeText(this@SignUpActivity, "닉네임 중복 확인에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                         }
                     }
                 })
             }
+            check()
+        }
+        
+        // 가입하기 버튼 클릭
+        binding.btnSignup.setOnClickListener {
+            var loginId = binding.editId.text.toString().trim()
+            var password = binding.editPwd.text.toString().trim()
+            var username = binding.editName.text.toString().trim()
+            var nickname = binding.editNickname.text.toString().trim()
+            var email = binding.editEmail.text.toString().trim()
+
+            var joinInfo = JoinRequestDTO(loginId, password, username, nickname, email)
+            var responseUser: User? = null
+            RetrofitBuilder.api.createUser(joinInfo).enqueue(object : Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    responseUser = response.body()
+                    Log.d("SIGNUP_D", "response : " + responseUser?.toString())
+                    Log.d("SIGNUP_D", "userId : " + responseUser?.userId.toString())
+                    Log.d("SIGNUP_D", "loginId : " + responseUser?.loginId.toString())
+                    Log.d("SIGNUP_D", "username : " + responseUser?.username.toString())
+                    Log.d("SIGNUP_D", "nickname : " + responseUser?.nickname.toString())
+                    Log.d("SIGNUP_D", "email : " + responseUser?.email.toString())
+                    Log.d("SIGNUP_D", "accesToken : " + responseUser?.accessToken.toString())
+                    Log.d("SIGNUP_D", "roles : " + responseUser?.roles.toString())
+
+                    Toast.makeText(this@SignUpActivity, "가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+
+                override fun onFailure(call: Call<User>, t: Throwable) {
+                    t.message?.let {
+                        Log.e("SIGNUP_E", it)
+                        Toast.makeText(this@SignUpActivity, "오류가 발생하였습니다.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
         }
     }
 
@@ -233,14 +331,14 @@ class SignUpActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(edit6.windowToken, 0);
     }
 
+    // 가입 가능 여부 확인 함수
     fun check() {
-        // 닉네임 변수 수정 ★★★
-        if (isIdCorrect && isPwdCorrect && isPwdConfirmCorrect && !binding.editName.text.isEmpty() && !binding.editEmail.text.isEmpty() && !binding.editNickname.text.isEmpty()) {
+        if (isIdCorrect && isPwdCorrect && isPwdConfirmCorrect && isNicknameCorrect && !binding.editName.text.isEmpty() && !binding.editEmail.text.isEmpty() && binding.checkTerms1.isChecked && binding.checkTerms2.isChecked) {
             binding.btnSignup.setBackgroundColor(ContextCompat.getColor(this, R.color.coral_500))
-            binding.btnSignup.isClickable = true
+            binding.btnSignup.isEnabled = true
         } else {
             binding.btnSignup.setBackgroundColor(ContextCompat.getColor(this, R.color.grey_200))
-            binding.btnSignup.isClickable = false
+            binding.btnSignup.isEnabled = false
         }
     }
 }

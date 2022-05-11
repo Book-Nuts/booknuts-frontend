@@ -113,7 +113,7 @@
                     android:hint="예 : booknuts124"
                     android:inputType="textPersonName"
                     android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
+                    android:paddingRight="39dp"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -184,7 +184,7 @@
                     android:hint="비밀번호를 입력해주세요."
                     android:inputType="textShortMessage|textPersonName|text|textPassword"
                     android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
+                    android:paddingRight="39dp"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -192,16 +192,33 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/text_pwdStatus"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/layout_pwdStatus"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginLeft="2dp"
                 android:layout_marginTop="5dp"
-                android:text="영어, 숫자, 특수기호(!,~,@,$) 포함 8자 이상"
-                android:textColor="@color/grey_200"
-                android:textSize="12sp" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text_pwdStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginLeft="2dp"
+                    android:text="영어, 숫자, 특수기호(!,~,@,$) 포함 8자 이상"
+                    android:textColor="@color/grey_200"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/img_pwdCheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginLeft="7dp"
+                    android:visibility="invisible"
+                    app:srcCompat="@drawable/icon_check" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout_pwdConfirmText"
@@ -253,7 +270,7 @@
                     android:hint="비밀번호를 입력해주세요."
                     android:inputType="textPassword"
                     android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
+                    android:paddingRight="39dp"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -271,7 +288,8 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="5dp"
                 android:text="비밀번호가 일치하지 않습니다."
-                android:textColor="@color/grey_200" />
+                android:textColor="@color/grey_200"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:id="@+id/layout_nameText"
@@ -395,13 +413,25 @@
                     android:hint="닉네임을 입력해주세요."
                     android:inputType="textPersonName"
                     android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
+                    android:paddingRight="39dp"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/text_nicknameStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginTop="5dp"
+                android:text="이미 사용 중인 닉네임입니다."
+                android:textColor="@color/grey_200"
+                android:textSize="12sp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/layout_termsText"
@@ -427,33 +457,22 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/layout_entireTerms"
-                android:layout_width="wrap_content"
+            <CheckBox
+                android:id="@+id/check_entireTerms"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/btn_entireTerms_check"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#00FFFFFF"
-                    app:srcCompat="@drawable/icon_unchecked"
-                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-                <TextView
-                    android:id="@+id/text_entireTerms"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="전체 동의합니다."
-                    android:textColor="#222222"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                android:button="@drawable/style_checkbox_forms"
+                android:checked="false"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:text="     전체 동의합니다."
+                android:textColor="#222222"
+                android:textColorLink="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:useMaterialThemeColors="false"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <TextView
                 android:id="@+id/text_termsInfo"
@@ -471,28 +490,24 @@
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/btn_terms1"
+                <CheckBox
+                    android:id="@+id/check_terms1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#00FFFFFF"
-                    app:srcCompat="@drawable/icon_unchecked" />
-
-                <TextView
-                    android:id="@+id/text_terms1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="이용약관 동의 "
-                    android:textColor="#222222" />
+                    android:button="@drawable/style_checkbox_forms"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:text="     이용약관 동의 "
+                    android:textColor="#222222"
+                    app:useMaterialThemeColors="false"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <TextView
                     android:id="@+id/text_terms1Type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="(필수)"
-                    android:textColor="#FE6C4A" />
+                    android:textColor="@color/grey_200" />
             </LinearLayout>
 
             <LinearLayout
@@ -502,28 +517,23 @@
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/btn_terms2"
+                <CheckBox
+                    android:id="@+id/check_terms2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#00FFFFFF"
-                    app:srcCompat="@drawable/icon_unchecked" />
-
-                <TextView
-                    android:id="@+id/text_terms2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="본인은 만 14세 이상입니다. "
-                    android:textColor="#222222" />
+                    android:button="@drawable/style_checkbox_forms"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:text="     본인은 만 14세 이상입니다. "
+                    android:textColor="#222222"
+                    app:useMaterialThemeColors="false" />
 
                 <TextView
                     android:id="@+id/text_terms2Type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="(필수)"
-                    android:textColor="#FE6C4A" />
+                    android:textColor="@color/grey_200" />
             </LinearLayout>
 
             <LinearLayout
@@ -533,28 +543,23 @@
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/btn_terms3"
+                <CheckBox
+                    android:id="@+id/check_terms3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#00FFFFFF"
-                    app:srcCompat="@drawable/icon_unchecked" />
-
-                <TextView
-                    android:id="@+id/text_terms3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="개인 정보 수집 이용 동의 "
-                    android:textColor="#222222" />
+                    android:button="@drawable/style_checkbox_forms"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:text="     개인 정보 수집 이용 동의 "
+                    android:textColor="#222222"
+                    app:useMaterialThemeColors="false" />
 
                 <TextView
                     android:id="@+id/text_terms3Type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="(선택)"
-                    android:textColor="#FE6C4A" />
+                    android:textColor="@color/grey_200" />
             </LinearLayout>
 
             <LinearLayout
@@ -564,28 +569,23 @@
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/btn_terms4"
+                <CheckBox
+                    android:id="@+id/check_terms4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="#00FFFFFF"
-                    app:srcCompat="@drawable/icon_unchecked" />
-
-                <TextView
-                    android:id="@+id/text_terms4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:text="SMS 관련 광고/정보 수신 동의 "
-                    android:textColor="#222222" />
+                    android:button="@drawable/style_checkbox_forms"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:text="     SMS 관련 광고/정보 수신 동의 "
+                    android:textColor="#222222"
+                    app:useMaterialThemeColors="false" />
 
                 <TextView
                     android:id="@+id/text_terms4Type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="(선택)"
-                    android:textColor="#FE6C4A" />
+                    android:textColor="@color/grey_200" />
             </LinearLayout>
 
         </LinearLayout>
@@ -607,11 +607,12 @@
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="23dp"
-            android:clickable="false"
+            android:enabled="false"
             android:gravity="center"
             android:insetTop="0dp"
             android:insetBottom="0dp"
             android:text="가입하기"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="normal"
             app:backgroundTint="@color/grey_200"
