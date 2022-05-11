@@ -17,6 +17,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="Intro" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <item name="android:statusBarColor" tools:targetApi="l">@color/coral_500</item>
         <!--<item name="android:windowFullscreen">true</item>-->
@@ -24,4 +25,12 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="Theme.BookNuts.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
+        <item name="appWidgetRadius">8dp</item>
+        <item name="appWidgetPadding">4dp</item>
+        <item name="appWidgetInnerRadius">4dp</item>
+    </style>
+
+    <style name="Theme.BookNuts.AppWidgetContainer" parent="Theme.BookNuts.AppWidgetContainerParent" />
 </resources>

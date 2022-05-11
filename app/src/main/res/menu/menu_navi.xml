@@ -3,22 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/home"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:enabled="true"
+        android:icon="@drawable/icon_home"
         android:title="홈"/>
     <item
         android:id="@+id/search"
-        app:showAsAction="ifRoom"
+        app:showAsAction="withText"
         android:enabled="true"
-        android:title="탐색"/>
+        android:icon="@drawable/icon_search"
+        android:title="검색"/>
     <item
-        android:id="@+id/chat"
-        app:showAsAction="ifRoom"
+        android:id="@+id/write"
+        app:showAsAction="withText"
         android:enabled="true"
-        android:title="대화"/>
+        android:icon="@drawable/icon_pen"
+        android:title="글쓰기"/>
     <item
-        android:id="@+id/mypage"
-        app:showAsAction="ifRoom"
+        android:id="@+id/debate"
+        app:showAsAction="withText"
         android:enabled="true"
-        android:title="마이페이지"/>
+        android:icon="@drawable/icon_chat"
+        android:title="토론장"/>
+    <item
+        android:id="@+id/my"
+        app:showAsAction="withText"
+        android:enabled="true"
+        android:icon="@drawable/icon_user"
+        android:title="My"/>
 </menu>
