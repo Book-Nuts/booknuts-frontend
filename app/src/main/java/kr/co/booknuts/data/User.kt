@@ -48,14 +48,14 @@ data class Token (
 
 data class BookSearchInfo (
     @SerializedName("lastBuildDate")
-    val lastBuildDate: Date?,
+    val lastBuildDate: String?,
     @SerializedName("total")
     val total: Int?,
     @SerializedName("start")
     val start: Int?,
     @SerializedName("display")
     val display: Int?,
-    @SerializedName("item")
+    @SerializedName("items")
     val item: List<BookItem>?,
 )   :Serializable {}
 

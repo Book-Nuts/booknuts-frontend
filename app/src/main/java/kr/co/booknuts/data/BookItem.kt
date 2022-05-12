@@ -14,15 +14,15 @@ data class BookItem(
     @SerializedName("author")
     val author: String?,
     @SerializedName("price")
-    val price: Int?,
+    val price: String?,
     @SerializedName("discount")
-    val discount: Int?,
+    val discount: String?,
     @SerializedName("publisher")
     val publisher: String?,
     @SerializedName("isbn")
-    val isbn: Int?,
+    val isbn: String?,
     @SerializedName("description")
     val description: String?,
     @SerializedName("pubdate")
-    val pubdate: Date?,
+    val pubdate: String?,
 )   : Serializable {}

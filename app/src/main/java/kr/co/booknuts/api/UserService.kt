@@ -17,8 +17,10 @@ interface UserService {
 
     // 책 검색
     // request body - 책 제목
-    @GET("https://openapi.naver.com/v1/search/book.json")
-    fun searchBook(@Body searchInfo: BookSearchRequestDTO): Call<BookSearchInfo>
+    @GET("book.json")
+    fun searchBook(
+        @Query("query") bookTitle: String?
+    ): Call<BookSearchInfo>
 
     // 유저 닉네임 중복 체크
     // request body - 닉네임
