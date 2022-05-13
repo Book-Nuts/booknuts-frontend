@@ -1,5 +1,5 @@
-# 🥜 booknuts-frontend
-북넛츠 프론트엔드 레포지토리 / BookNuts Frontend Repository
+# 🥜 BOOKNUTS (Android)
+![아이템포스터_1](https://user-images.githubusercontent.com/70993562/168391539-f233f176-345e-470e-b974-24e4c9d695b6.png)
 
 ## 📌 Commit Message Convention
 - ➕ **[ADD]** : FEAT 이외의 부수적인 코드 추가 및 라이브러리 추가, 새로운 파일 생성
