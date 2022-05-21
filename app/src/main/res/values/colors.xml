@@ -9,6 +9,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- user-defined colors -->
+    <color name="red">#FFFF5E43</color>
+    <color name="blue">#FF316CF2</color>
+
     <color name="green">#FF10C179</color>
 
     <color name="coral_500">#FFFF8265</color>
@@ -16,6 +19,7 @@
 
     <color name="grey_200">#FFBDBDBD</color>
     <color name="grey_700">#FF707070</color>
+    <color name="grey_800">#FF3A3A3A</color>
     <color name="light_blue_50">#FFE1F5FE</color>
     <color name="light_blue_200">#FF81D4FA</color>
     <color name="light_blue_600">#FF039BE5</color>
