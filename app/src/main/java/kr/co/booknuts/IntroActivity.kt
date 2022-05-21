@@ -13,19 +13,18 @@ class IntroActivity : AppCompatActivity() {
         setContentView(R.layout.activity_intro)
 
         val pref = this.getSharedPreferences("authToken", MODE_PRIVATE)
-
         val savedToken = pref.getString("Token", null)
-
-        Toast.makeText(this@IntroActivity, "authToken: " + savedToken, Toast.LENGTH_SHORT).show()
-
-        val intentLogin = Intent(this, LoginActivity::class.java)
 
         // 로그인(토큰) 확인
         val isLogin: Boolean = savedToken != null
 
+        Toast.makeText(this@IntroActivity, "authToken: " + savedToken, Toast.LENGTH_SHORT).show()
+
+        val intentLogin = Intent(this, LoginActivity::class.java)
+        val intentMain = Intent(this, MainActivity::class.java)
+
         Timer().schedule(timerTask {
-            //startActivity(if(isLogin) intentMain else intentLogin)
-            startActivity(intentLogin)
+            startActivity(if(isLogin) intentMain else intentLogin)
             finish()
         }, 2000)
 

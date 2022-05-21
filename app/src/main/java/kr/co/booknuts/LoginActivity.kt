@@ -57,7 +57,9 @@ class LoginActivity : AppCompatActivity() {
                             var authToken = pref.getString("Token", "Token 없음")?.chunked(15)
                             //(authToken?.get(authToken.size-1) ?: null)
                             //pref.getString("Token", "Token 없음")
-                            Toast.makeText(this@LoginActivity, "Token: " + (authToken?.get(authToken.size-1) ?: null), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@LoginActivity, "Token: " + authToken, Toast.LENGTH_SHORT).show()
+                            var intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            startActivity(intent)
                         } else {
                             Log.d("Login", "no user defined")
                             Toast.makeText(this@LoginActivity, "아이디 또는 비밀번호를 잘못 입력했습니다.", Toast.LENGTH_SHORT).show()
