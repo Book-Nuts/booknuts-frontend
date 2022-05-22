@@ -146,11 +146,11 @@
                     android:paddingRight="15dp"
                     android:paddingBottom="4dp"
                     android:text="전체"
-                    android:textColor="@color/grey_200"
+                    android:textColor="@color/white"
                     android:textSize="14sp"
-                    app:backgroundTint="#FFFFFF"
+                    app:backgroundTint="@color/grey_800"
                     app:elevation="0dp"
-                    app:strokeColor="@color/grey_200"
+                    app:strokeColor="@color/grey_800"
                     app:strokeWidth="2dp"
                     tools:ignore="TouchTargetSizeCheck" />
 
@@ -262,8 +262,8 @@
                 android:id="@+id/recycle_personalized"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginLeft="18dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
                 android:layout_marginTop="15dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -324,8 +324,8 @@
                 android:id="@+id/recycle_proceeding"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginLeft="18dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
                 android:layout_marginTop="15dp"
                 android:background="#00FFFFFF"
                 android:orientation="horizontal"
@@ -387,8 +387,8 @@
                 android:id="@+id/recycle_wait"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginLeft="18dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginLeft="6dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="30dp"
                 android:orientation="horizontal"
@@ -412,6 +412,7 @@
         android:background="#00FFFFFF"
         android:src="@drawable/btn_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
