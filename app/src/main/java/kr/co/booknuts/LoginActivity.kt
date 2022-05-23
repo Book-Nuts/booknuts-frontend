@@ -60,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
                             Toast.makeText(this@LoginActivity, "Token: " + authToken, Toast.LENGTH_SHORT).show()
                             var intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)
+                            finish()
                         } else {
                             Log.d("Login", "no user defined")
                             Toast.makeText(this@LoginActivity, "아이디 또는 비밀번호를 잘못 입력했습니다.", Toast.LENGTH_SHORT).show()

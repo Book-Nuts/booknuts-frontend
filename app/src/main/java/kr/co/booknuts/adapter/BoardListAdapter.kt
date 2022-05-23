@@ -1,7 +1,6 @@
-package kr.co.booknuts.Adapter
+package kr.co.booknuts.adapter
 
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,22 +10,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kr.co.booknuts.R
-import kr.co.booknuts.data.BoardList
 import kr.co.booknuts.data.Post
-import kr.co.booknuts.databinding.FragmentHomeBinding
-import kr.co.booknuts.fragment.HomeFragment
-import java.net.URL
+import kr.co.booknuts.databinding.HomeRecyclerviewItemBinding
 
-class BoardListAdapter(private val context: Context, private val dataList: ArrayList<Post>?) : RecyclerView.Adapter<BoardListAdapter.ViewHolder>() {
+class BoardListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.Adapter<BoardListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.home_recyclerview_item, parent, false)
-        return ViewHolder(view)
+        val binding = HomeRecyclerviewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     // 게시글 개수
@@ -43,12 +35,12 @@ class BoardListAdapter(private val context: Context, private val dataList: Array
         dataList?.get(position)?.let { holder?.bind(it) }
     }
 
-    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        private val title: TextView = itemView.findViewById(R.id.board_text_title)
-        private val writer: TextView = itemView.findViewById(R.id.board_text_writer)
-        private val bookImg: ImageView = itemView.findViewById(R.id.board_img_bookImg)
-        private val bookTitle: TextView = itemView.findViewById(R.id.board_text_bookTitle)
-        private val content: TextView = itemView.findViewById(R.id.board_text_content)
+    inner class ViewHolder(val binding: HomeRecyclerviewItemBinding): RecyclerView.ViewHolder(binding.root) {
+        private val title: TextView = binding.boardTextTitle
+        private val writer: TextView = binding.boardTextWriter
+        private val bookImg: ImageView = binding.boardImgBookImg
+        private val bookTitle: TextView = binding.boardTextBookTitle
+        private val content: TextView = binding.boardTextContent
         fun bind(item: Post) {
             title.text = item.title
             bookTitle.text = item.bookTitle

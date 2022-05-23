@@ -14,10 +14,11 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_intro.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
-import kr.co.booknuts.Adapter.BoardListAdapter
+import kr.co.booknuts.adapter.BoardListAdapter
 import kr.co.booknuts.R
 import kr.co.booknuts.data.BoardList
 import kr.co.booknuts.data.Post
+import kr.co.booknuts.databinding.FragmentHomeBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
 import retrofit2.Call
 import retrofit2.Response
@@ -44,7 +45,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        //val binding = FragmentHomeBinding.inflate(inflater, container, false)
         val rootView = inflater.inflate(R.layout.fragment_home, container, false)
 
         rootView.home_text_my_sub.setOnClickListener{
@@ -86,7 +87,7 @@ class HomeFragment : Fragment() {
             rootView.home_text_today.setBackgroundResource(R.drawable.top_tab_view)
             rootView.home_text_indie.setBackgroundResource(R.drawable.top_tab_view_fill)
             rootView.home_text_title.text = "오늘의 독립출판 서적"
-            
+
             // 독립출판 이벤트 이미지 동적 추가
             /*val img_indie = ImageView(context)
             val layoutParams: ViewGroup.LayoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -114,7 +115,7 @@ class HomeFragment : Fragment() {
                 recyclerView = rootView.findViewById(R.id.rv_board!!)as RecyclerView
                 recyclerView.layoutManager = LinearLayoutManager(requireContext())
                 if(dataArray?.size != 0 )
-                    recyclerView.adapter = BoardListAdapter(requireContext(), dataArray);
+                    recyclerView.adapter = BoardListAdapter(dataArray);
             }
             override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
