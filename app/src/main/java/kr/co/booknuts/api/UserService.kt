@@ -39,4 +39,11 @@ interface UserService {
         @Header("X-AUTH-TOKEN") token: String?,
         @Path("type") type: Int
     ): Call<ArrayList<Post>>
+
+    // 유저 정보 조회
+    // request body - token
+    @GET("/auth/userinfo")
+    fun getUserInfo(
+        @Header("X-AUTH-TOKEN") token: String?,
+    ): Call<UserInfo>
 }
