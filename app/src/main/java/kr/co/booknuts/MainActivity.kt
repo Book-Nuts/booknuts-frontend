@@ -3,7 +3,8 @@ package kr.co.booknuts
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_main.*
+import kr.co.booknuts.databinding.ActivityMainBinding
+import kr.co.booknuts.databinding.ActivitySignUpBinding
 import kr.co.booknuts.fragment.*
 
 class MainActivity : AppCompatActivity() {
@@ -14,15 +15,20 @@ class MainActivity : AppCompatActivity() {
     private val fragmentDebate by lazy {DebateFragment()}
     private val fragmentMy by lazy { MyFragment() }
 
+    val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
         initNavigationBar()
+
+        val pref = getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
+        val editor = pref.edit()
     }
 
     private fun initNavigationBar() {
-        bnv_main.run {
+        binding.bnvMain.run {
             setOnNavigationItemSelectedListener {
                 when(it.itemId) {
                     R.id.home -> {
