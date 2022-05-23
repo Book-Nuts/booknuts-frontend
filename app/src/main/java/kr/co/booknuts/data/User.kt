@@ -45,21 +45,3 @@ data class Token (
     @SerializedName("token")
     val token: String?,
 )   :Serializable {}
-
-data class BookSearchInfo (
-    @SerializedName("lastBuildDate")
-    val lastBuildDate: Date?,
-    @SerializedName("total")
-    val total: Int?,
-    @SerializedName("start")
-    val start: Int?,
-    @SerializedName("display")
-    val display: Int?,
-    @SerializedName("item")
-    val item: List<BookItem>?,
-)   :Serializable {}
-
-data class BookSearchRequestDTO (
-    @SerializedName("query")
-    val query: String?,
-)   :Serializable {}

@@ -17,8 +17,10 @@ interface UserService {
 
     // 책 검색
     // request body - 책 제목
-    @GET("https://openapi.naver.com/v1/search/book.json")
-    fun searchBook(@Body searchInfo: BookSearchRequestDTO): Call<BookSearchInfo>
+    @GET("book.json")
+    fun searchBook(
+        @Query("query") bookTitle: String?
+    ): Call<BookSearchInfo>
 
     // 유저 닉네임 중복 체크
     // request body - 닉네임
@@ -29,4 +31,12 @@ interface UserService {
     // request body - 아이디
     @GET("/auth/checkLoginId/{loginId}")
     fun checkId(@Path("loginId") loginId: String): Call<String>
+
+    // 전체 게시글 검색
+    // request body - type
+    @GET("/board/list/{type}")
+    fun getBoardList(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Path("type") type: Int
+    ): Call<ArrayList<Post>>
 }

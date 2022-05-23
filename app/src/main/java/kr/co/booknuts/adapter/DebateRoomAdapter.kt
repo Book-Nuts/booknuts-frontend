@@ -8,10 +8,7 @@ import kr.co.booknuts.data.DebateSearchInfo
 import kr.co.booknuts.databinding.ListitemDebateRoomBinding
 import android.widget.LinearLayout
 
-
-
-
-class DebateRoomAdapter: RecyclerView.Adapter<DebateRoomHolder>() {
+class DebateRoomAdapter() : RecyclerView.Adapter<DebateRoomAdapter.DebateRoomHolder>() {
     var listData = mutableListOf<DebateSearchInfo>()
 
     // 한 화면의 레이아웃 생성
@@ -31,25 +28,24 @@ class DebateRoomAdapter: RecyclerView.Adapter<DebateRoomHolder>() {
     // 목록에 보여줄 아이템의 개수
     override fun getItemCount(): Int {
         if (listData != null) {
-            Log.d("ROOMLIST_ADAPTER", "dataListSize " + listData.size)
+            Log.d("ROOMLIST_ADAPTER", "dataListSize " + listData.size + " : " + listData.toString())
             return listData.size
         }
         Log.d("ROOMLIST_ADAPTER", "dataListSize zero")
         return 0
     }
 
-}
-
-class DebateRoomHolder(val binding: ListitemDebateRoomBinding): RecyclerView.ViewHolder(binding.root) {
-    fun setDebate(debate: DebateSearchInfo) {
-        Log.d("ROOMLIST_PROCEED", "setDebate 실행")
-        // ★★★ 토론장 사진 바꿀수 있게 설정하기
-        binding.textTitle.text = "${debate.topic}"
-        binding.textBookTitle.text = "${debate.bookTitle}"
-        binding.textParticipant.text = "${debate.owner}님 외 ${debate.participants - 1}명"
-        binding.textTime.text = "${debate.time}전"
-        (binding.lineCons.layoutParams as LinearLayout.LayoutParams).weight = debate.cons.toFloat()
-        (binding.linePros.layoutParams as LinearLayout.LayoutParams).weight = debate.pros.toFloat()
-        Log.d("ROOMLIST_PROCEED", debate.toString())
+    inner class DebateRoomHolder(val binding: ListitemDebateRoomBinding): RecyclerView.ViewHolder(binding.root) {
+        fun setDebate(debate: DebateSearchInfo) {
+            Log.d("ROOMLIST_PROCEED", "setDebate 실행")
+            // ★★★ 토론장 사진 바꿀수 있게 설정하기
+            binding.textTitle.text = "${debate.topic}"
+            binding.textBookTitle.text = "${debate.bookTitle}"
+            binding.textParticipant.text = "${debate.owner}님 외 ${debate.participants - 1}명"
+            binding.textTime.text = "${debate.time}전"
+            (binding.lineCons.layoutParams as LinearLayout.LayoutParams).weight = debate.cons.toFloat()
+            (binding.linePros.layoutParams as LinearLayout.LayoutParams).weight = debate.pros.toFloat()
+            Log.d("ROOMLIST_PROCEED", debate.toString())
+        }
     }
 }

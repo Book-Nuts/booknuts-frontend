@@ -57,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
                             var authToken = pref.getString("Token", "Token 없음")?.chunked(15)
                             //(authToken?.get(authToken.size-1) ?: null)
                             //pref.getString("Token", "Token 없음")
-                            Toast.makeText(this@LoginActivity, "Token: " + (authToken?.get(authToken.size-1) ?: null), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@LoginActivity, "Token: " + authToken, Toast.LENGTH_SHORT).show()
                             var intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)
                             finish()
