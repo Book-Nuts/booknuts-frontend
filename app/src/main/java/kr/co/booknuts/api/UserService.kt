@@ -46,4 +46,18 @@ interface UserService {
     fun getUserInfo(
         @Header("X-AUTH-TOKEN") token: String?,
     ): Call<UserInfo>
+
+    // 내가 쓴 게시글 조회
+    // request body - token
+    @GET("/board/mypost")
+    fun getMyPostList(
+        @Header("X-AUTH-TOKEN") token: String?,
+    ): Call<ArrayList<Post>>
+
+    // 나의 시리즈 조회
+    // request body - token
+    @GET("/series/list")
+    fun getMySeriesList(
+        @Header("X-AUTH-TOKEN") token: String?,
+    ): Call<ArrayList<MySeries>>
 }

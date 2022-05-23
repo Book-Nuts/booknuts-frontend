@@ -13,11 +13,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.R
 import kr.co.booknuts.data.Post
 import kr.co.booknuts.databinding.HomeRecyclerviewItemBinding
+import kr.co.booknuts.databinding.MyRecyclerviewPostItemBinding
 
-class MyListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.Adapter<MyListAdapter.ViewHolder>() {
+class MyPostListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.Adapter<MyPostListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = HomeRecyclerviewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = MyRecyclerviewPostItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -35,16 +36,14 @@ class MyListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.Adapt
         dataList?.get(position)?.let { holder?.bind(it) }
     }
 
-    inner class ViewHolder(val binding: HomeRecyclerviewItemBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: MyRecyclerviewPostItemBinding): RecyclerView.ViewHolder(binding.root) {
         private val title: TextView = binding.boardTextTitle
-        private val writer: TextView = binding.boardTextWriter
         private val bookImg: ImageView = binding.boardImgBookImg
         private val bookTitle: TextView = binding.boardTextBookTitle
         private val content: TextView = binding.boardTextContent
         fun bind(item: Post) {
             title.text = item.title
             bookTitle.text = item.bookTitle
-            writer.text = item.writer
             content.text = item.content
             Glide.with(bookImg.context)
                 .load(item.bookImgUrl)

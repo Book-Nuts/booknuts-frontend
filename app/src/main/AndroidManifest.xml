@@ -9,14 +9,19 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_booknuts"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round_booknuts"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round_booknuts"
         android:supportsRtl="true"
         android:theme="@style/Theme.BookNuts"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".fragment.MySeriesDetailFragment"
+            android:exported="true" />
+
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/network_security_config" />
+
         <activity
             android:name=".DebateCreateActivity"
             android:exported="true" />
@@ -29,9 +34,10 @@
         <activity
             android:name=".IntroActivity"
             android:exported="true"
-            android:theme="@style/Intro" >
+            android:theme="@style/Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -40,6 +46,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

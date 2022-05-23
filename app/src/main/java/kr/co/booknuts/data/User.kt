@@ -62,4 +62,4 @@ data class UserInfo (
     val accessToken: String?,
     @SerializedName("roles")
     val roles: ArrayList<String>?,
-    )   :Serializable {}
+)   :Serializable {}
