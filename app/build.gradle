@@ -24,6 +24,8 @@ android {
         multiDexEnabled true
 
         buildConfigField "String", "BASE_URL", properties['base_url']
+        buildConfigField "String", "NAVER_CLIENT_ID", properties['naver_client_id']
+        buildConfigField "String", "NAVER_CLIENT_SECRET", properties['naver_client_secret']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
