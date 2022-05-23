@@ -28,16 +28,16 @@ import java.net.URL
 
 class WriteFragment : Fragment() {
 
-    lateinit var binding: FragmentWriteBinding
+    //lateinit var binding: FragmentWriteBinding
 
-    // val binding by lazy { FragmentWriteBinding.inflate(layoutInflater) }
+    val binding by lazy { FragmentWriteBinding.inflate(layoutInflater) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentWriteBinding.inflate(inflater, container, false)
+        val binding = FragmentWriteBinding.inflate(inflater, container, false)
 
         return binding.root
     }

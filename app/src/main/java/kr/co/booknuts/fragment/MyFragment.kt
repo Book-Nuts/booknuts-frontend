@@ -1,60 +1,69 @@
 package kr.co.booknuts.fragment
 
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.Typeface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kr.co.booknuts.R
+import kr.co.booknuts.databinding.FragmentMyBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MyFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MyFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    var tab: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my, container, false)
-    }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MyFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MyFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        val binding = FragmentMyBinding.inflate(inflater, container, false)
+
+        binding.myImgBg.setColorFilter(Color.parseColor("#bbbbbb"), PorterDuff.Mode.MULTIPLY);
+
+        binding.myLinearPost.setOnClickListener{
+            tab = 0
+            // 탭 밑줄
+            binding.myViewPost.visibility = View.VISIBLE
+            binding.myViewSeries.visibility = View.GONE
+            binding.myViewArchive.visibility = View.GONE
+
+            // 글씨 굵기
+            binding.myTextPost.setTypeface(null, Typeface.BOLD)
+            binding.myTextSeries.setTypeface(null, Typeface.NORMAL)
+            binding.myTextArchive.setTypeface(null, Typeface.NORMAL)
+        }
+
+        binding.myLinearSeries.setOnClickListener{
+            tab = 0
+            // 탭 밑줄
+            binding.myViewPost.visibility = View.GONE
+            binding.myViewSeries.visibility = View.VISIBLE
+            binding.myViewArchive.visibility = View.GONE
+
+            // 글씨 굵기
+            binding.myTextPost.setTypeface(null, Typeface.NORMAL)
+            binding.myTextSeries.setTypeface(null, Typeface.BOLD)
+            binding.myTextArchive.setTypeface(null, Typeface.NORMAL)
+        }
+
+        binding.myLinearArchive.setOnClickListener{
+            tab = 0
+            // 탭 밑줄
+            binding.myViewPost.visibility = View.GONE
+            binding.myViewSeries.visibility = View.GONE
+            binding.myViewArchive.visibility = View.VISIBLE
+
+            // 글씨 굵기
+            binding.myTextPost.setTypeface(null, Typeface.NORMAL)
+            binding.myTextSeries.setTypeface(null, Typeface.NORMAL)
+            binding.myTextArchive.setTypeface(null, Typeface.BOLD)
+        }
+
+        // Inflate the layout for this fragment
+        return binding.root
     }
 }

@@ -35,10 +35,7 @@ private const val ARG_PARAM2 = "param2"
  */
 class HomeFragment : Fragment() {
 
-    //lateinit var binding: FragmentHomeBinding
-    //var datas = mutableListOf<Post>()
     var dataArray: ArrayList<Post>? = null
-    var datas: BoardList? = null
     var tabType: Int = 0    // 0 -> 나의 구독, 1 -> 오늘 추천, 2 -> 독립출판
 
     lateinit var recyclerView: RecyclerView
@@ -59,6 +56,10 @@ class HomeFragment : Fragment() {
             rootView.home_text_today.setBackgroundResource(R.drawable.top_tab_view)
             rootView.home_text_indie.setBackgroundResource(R.drawable.top_tab_view)
             rootView.home_text_title.text = "내가 구독한 게시글"
+
+            // 독립출판 뷰
+            rootView.home_img_indie_event.visibility = View.GONE
+            rootView.home_linear_indie_list.visibility = View.GONE
         }
 
         rootView.home_text_today.setOnClickListener{
@@ -70,6 +71,10 @@ class HomeFragment : Fragment() {
             rootView.home_text_today.setBackgroundResource(R.drawable.top_tab_view_fill)
             rootView.home_text_indie.setBackgroundResource(R.drawable.top_tab_view)
             rootView.home_text_title.text = "오늘의 추천 게시글"
+
+            // 독립출판 뷰
+            rootView.home_img_indie_event.visibility = View.GONE
+            rootView.home_linear_indie_list.visibility = View.GONE
         }
 
         rootView.home_text_indie.setOnClickListener{
@@ -81,11 +86,17 @@ class HomeFragment : Fragment() {
             rootView.home_text_today.setBackgroundResource(R.drawable.top_tab_view)
             rootView.home_text_indie.setBackgroundResource(R.drawable.top_tab_view_fill)
             rootView.home_text_title.text = "오늘의 독립출판 서적"
-            val img_indie = ImageView(context)
-            //val layoutParams: ViewGroup.LayoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            //img_indie.layoutParams = layoutParams
-            //img_indie.setImageResource(R.drawable.img_today_indie)
-            //rootView.rv_board.addView(img_indie)
+            
+            // 독립출판 이벤트 이미지 동적 추가
+            /*val img_indie = ImageView(context)
+            val layoutParams: ViewGroup.LayoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            img_indie.layoutParams = layoutParams
+            img_indie.setImageResource(R.drawable.img_today_indie)
+            rootView.home_linear_board.addView(img_indie, 0)*/
+
+            // 독립출판 뷰
+            rootView.home_img_indie_event.visibility = View.VISIBLE
+            rootView.home_linear_indie_list.visibility = View.VISIBLE
 
         }
 
@@ -97,7 +108,7 @@ class HomeFragment : Fragment() {
         RetrofitBuilder.api.getBoardList(savedToken, tabType).enqueue(object: Callback<ArrayList<Post>> {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
                 dataArray = response.body()
-                Log.d("BoardList Get Test", "data : " + dataArray?.size)
+                Log.d("BoardList Get Test", "data : " + dataArray.toString())
                 Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
 
                 recyclerView = rootView.findViewById(R.id.rv_board!!)as RecyclerView
