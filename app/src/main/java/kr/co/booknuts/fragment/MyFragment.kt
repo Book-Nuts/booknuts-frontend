@@ -70,6 +70,8 @@ class MyFragment : Fragment() {
                 Log.d("UserInfo Get Test", "data : " + userInfo?.accessToken)
                 Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
                 binding.myTextNickname.text = userInfo?.loginId
+
+
             }
             override fun onFailure(call: Call<UserInfo>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
