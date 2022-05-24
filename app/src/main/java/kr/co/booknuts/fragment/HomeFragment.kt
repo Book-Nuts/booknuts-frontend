@@ -1,5 +1,6 @@
 package kr.co.booknuts.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,8 +15,11 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_intro.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kr.co.booknuts.MainActivity
+import kr.co.booknuts.PostDetailActivity
 import kr.co.booknuts.adapter.BoardListAdapter
 import kr.co.booknuts.R
+import kr.co.booknuts.adapter.MySeriesListAdapter
 import kr.co.booknuts.data.BoardList
 import kr.co.booknuts.data.Post
 import kr.co.booknuts.databinding.FragmentHomeBinding
@@ -56,8 +60,18 @@ class HomeFragment : Fragment() {
 
                 recyclerView = binding.rvBoard
                 recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                val adapter: BoardListAdapter = BoardListAdapter(dataArray)
                 if(dataArray?.size != 0 )
-                    recyclerView.adapter = BoardListAdapter(dataArray);
+                    recyclerView.adapter = adapter
+                adapter.setItemClickListener(object: BoardListAdapter.OnItemClickListener{
+                    override fun onClick(v: View, position: Int) {
+                        var intent = Intent(activity, PostDetailActivity::class.java)
+                        intent.putExtra("id", dataArray?.get(position)?.boardId)
+                        Log.d("Board ID", "" + dataArray?.get(position)?.boardId)
+                        startActivity(intent)
+                    }
+                })
+
             }
             override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
@@ -65,6 +79,7 @@ class HomeFragment : Fragment() {
             }
         })
 
+        //binding.my
         return binding.root
     }
 
@@ -108,13 +123,6 @@ class HomeFragment : Fragment() {
             binding.homeTextToday.setBackgroundResource(R.drawable.top_tab_view)
             binding.homeTextIndie.setBackgroundResource(R.drawable.top_tab_view_fill)
             binding.homeTextTitle.text = "오늘의 독립출판 서적"
-
-            // 독립출판 이벤트 이미지 동적 추가
-            /*val img_indie = ImageView(context)
-            val layoutParams: ViewGroup.LayoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            img_indie.layoutParams = layoutParams
-            img_indie.setImageResource(R.drawable.img_today_indie)
-            rootView.home_linear_board.addView(img_indie, 0)*/
 
             // 독립출판 뷰
             binding.homeImgIndieEvent.visibility = View.VISIBLE

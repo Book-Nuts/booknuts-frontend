@@ -67,5 +67,12 @@ interface UserService {
     fun getMySeriesDetailPost(
         @Header("X-AUTH-TOKEN") token: String?,
         @Path("seriesId") seriesId: Int?
-    ): Call<ArrayList<SeriesPost>>
+    ): Call<ArrayList<PostDetail>>
+
+    // 게시글 상세 가져오기
+    @GET("/board/{boardId}")
+    fun getPostDetail(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Path("boardId") boardId: Long?
+    ): Call<PostDetail>
 }

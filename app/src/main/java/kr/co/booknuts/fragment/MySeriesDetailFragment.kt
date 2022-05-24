@@ -1,5 +1,6 @@
 package kr.co.booknuts.fragment
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -13,11 +14,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.booknuts.MainActivity
+import kr.co.booknuts.PostDetailActivity
 import kr.co.booknuts.R
+import kr.co.booknuts.adapter.BoardListAdapter
 import kr.co.booknuts.adapter.MyPostListAdapter
 import kr.co.booknuts.adapter.MySeriesPostListAdapter
 import kr.co.booknuts.data.Post
-import kr.co.booknuts.data.SeriesPost
+import kr.co.booknuts.data.PostDetail
 import kr.co.booknuts.databinding.FragmentMyBinding
 import kr.co.booknuts.databinding.FragmentMySeriesDetailBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
@@ -35,7 +38,7 @@ class MySeriesDetailFragment : Fragment() {
     var postCnt: Int = 0
 
     private var savedToken: String? = null
-    private var seriesPostDataArray: ArrayList<SeriesPost>? = null
+    private var seriesPostDataArray: ArrayList<PostDetail>? = null
 
     lateinit var recyclerView: RecyclerView
 
@@ -63,8 +66,8 @@ class MySeriesDetailFragment : Fragment() {
 
         // 서버에서 시리즈 세부 데이터 받아오기
         RetrofitBuilder.api.getMySeriesDetailPost(savedToken, id).enqueue(object:
-            Callback<ArrayList<SeriesPost>> {
-            override fun onResponse(call: Call<ArrayList<SeriesPost>>, response: Response<ArrayList<SeriesPost>>) {
+            Callback<ArrayList<PostDetail>> {
+            override fun onResponse(call: Call<ArrayList<PostDetail>>, response: Response<ArrayList<PostDetail>>) {
                 seriesPostDataArray = response.body()
                 Log.d("Series Detail Post List", "data : " + seriesPostDataArray?.get(0)?.boardId)
                 Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
@@ -77,11 +80,19 @@ class MySeriesDetailFragment : Fragment() {
                     if (postCnt != 0)
                         Log.d("DataArray size is not 0", "" + postCnt)
                     recyclerView.adapter = adapter
+                    adapter.setItemClickListener(object: MySeriesPostListAdapter.OnItemClickListener{
+                        override fun onClick(v: View, position: Int) {
+                            var intent = Intent(activity, PostDetailActivity::class.java)
+                            intent.putExtra("id", seriesPostDataArray?.get(position)?.boardId)
+                            Log.d("Board ID", "" + seriesPostDataArray?.get(position)?.boardId)
+                            startActivity(intent)
+                        }
+                    })
                 }
 
                 binding.mySeriesDetailTextPostCount.text = postCnt.toString() + "개의 포스트"
             }
-            override fun onFailure(call: Call<ArrayList<SeriesPost>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<PostDetail>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
                 Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
             }

@@ -79,7 +79,7 @@ data class Post(
     val curUser: Boolean?,
 )   : Serializable {}
 
-data class SeriesPost(
+data class PostDetail(
     @SerializedName("boardId")
     val boardId: Int?,
     @SerializedName("title")

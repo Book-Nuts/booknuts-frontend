@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="11dp"
     android:background="@color/white"
+    android:id="@+id/linear_post_item"
     android:orientation="vertical">
 
     <LinearLayout

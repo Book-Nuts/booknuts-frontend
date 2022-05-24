@@ -3,6 +3,7 @@ package kr.co.booknuts.fragment
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.Typeface
+import android.icu.text.Transliterator
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -70,8 +71,6 @@ class MyFragment : Fragment() {
                 Log.d("UserInfo Get Test", "data : " + userInfo?.accessToken)
                 Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
                 binding.myTextNickname.text = userInfo?.loginId
-
-
             }
             override fun onFailure(call: Call<UserInfo>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
@@ -82,12 +81,14 @@ class MyFragment : Fragment() {
         getPostData()
         getSeriesData()
 
+        postTab()
+
         //seriesDataArray?.add(MySeries(0, "Sample", "Content???", "", 0, 0))
         tabListener()
 
-        binding.myTextEditProfile.setOnClickListener{
+        /*binding.myTextEditProfile.setOnClickListener{
             (activity as MainActivity).changeFragmentWithData(fragmentMySeriesDetail, 1);
-        }
+        }*/
 
         // Inflate the layout for this fragment
         return binding.root
@@ -201,7 +202,7 @@ class MyFragment : Fragment() {
         recyclerView.adapter = adapter
         adapter.setItemClickListener(object: MySeriesListAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
-                (activity as MainActivity).changeFragmentWithData(fragmentMySeriesDetail, position);
+                (activity as MainActivity).changeFragmentWithData(fragmentMySeriesDetail, seriesDataArray?.get(position)?.seriesId!!.toInt());
             }
         })
     }

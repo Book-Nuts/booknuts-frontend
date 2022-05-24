@@ -12,11 +12,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.R
 import kr.co.booknuts.data.Post
-import kr.co.booknuts.data.SeriesPost
+import kr.co.booknuts.data.PostDetail
 import kr.co.booknuts.databinding.HomeRecyclerviewItemBinding
 import kr.co.booknuts.databinding.MyRecyclerviewPostItemBinding
 
-class MySeriesPostListAdapter(private val dataList: ArrayList<SeriesPost>?) : RecyclerView.Adapter<MySeriesPostListAdapter.ViewHolder>() {
+class MySeriesPostListAdapter(private val dataList: ArrayList<PostDetail>?) : RecyclerView.Adapter<MySeriesPostListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = MyRecyclerviewPostItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -35,14 +35,28 @@ class MySeriesPostListAdapter(private val dataList: ArrayList<SeriesPost>?) : Re
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         dataList?.get(position)?.let { holder?.bind(it) }
+        holder.binding.linearPostItem.setOnClickListener{
+            itemClickListener.onClick(it, position)
+        }
     }
 
-    inner class ViewHolder(val binding: MyRecyclerviewPostItemBinding): RecyclerView.ViewHolder(binding.root) {
+    interface OnItemClickListener {
+        fun onClick(v: View, position: Int)
+    }
+
+    fun setItemClickListener(onItemClickListener: OnItemClickListener){
+        this.itemClickListener = onItemClickListener
+    }
+
+    private lateinit var itemClickListener: OnItemClickListener
+
+
+inner class ViewHolder(val binding: MyRecyclerviewPostItemBinding): RecyclerView.ViewHolder(binding.root) {
         private val title: TextView = binding.boardTextTitle
         private val bookImg: ImageView = binding.boardImgBookImg
         private val bookTitle: TextView = binding.boardTextBookTitle
         private val content: TextView = binding.boardTextContent
-        fun bind(item: SeriesPost) {
+        fun bind(item: PostDetail) {
             title.text = item.title
             bookTitle.text = item.bookTitle
             content.text = item.content

@@ -92,7 +92,7 @@
                 android:textColor="@color/grey_900"
                 android:textSize="18dp"
                 android:textStyle="bold"
-                android:text="wonyzzang" />
+                android:text="" />
 
             <TextView
                 android:id="@+id/my_text_edit_profile"
