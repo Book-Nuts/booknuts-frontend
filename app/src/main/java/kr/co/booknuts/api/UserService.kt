@@ -60,4 +60,12 @@ interface UserService {
     fun getMySeriesList(
         @Header("X-AUTH-TOKEN") token: String?,
     ): Call<ArrayList<MySeries>>
+
+    // 나의 시리즈 세부 조회
+    // request body - token
+    @GET("/series/{seriesId}")
+    fun getMySeriesDetailPost(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Path("seriesId") seriesId: Int?
+    ): Call<ArrayList<SeriesPost>>
 }

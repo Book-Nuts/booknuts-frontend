@@ -66,7 +66,8 @@
             <ImageView
                 android:id="@+id/board_img_bookImg"
                 android:layout_width="61dp"
-                android:layout_height="95dp" />
+                android:layout_height="95dp"
+                android:scaleType="centerCrop"/>
 
         </LinearLayout>
 

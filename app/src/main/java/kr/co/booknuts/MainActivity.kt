@@ -53,11 +53,29 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeFragment(fragment: Fragment) {
+    fun changeFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fl_container, fragment)
             .commit()
     }
+
+    fun changeFragmentWithData(fragment: Fragment, id: Int) {
+        val bundle = Bundle()
+        bundle.putInt("id", id);
+
+        fragment.arguments = bundle
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fl_container, fragment)
+            .commit()
+    }
+
+    /*fun replaceFragment(fragment: Fragment){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        //fragmentTransaction.replace()
+    }*/
 
 }

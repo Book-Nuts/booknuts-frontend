@@ -40,6 +40,7 @@
         android:id="@+id/my_img_bg"
         android:layout_width="match_parent"
         android:layout_height="190dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/img_my_bg" />
 
     <LinearLayout
@@ -94,7 +95,7 @@
                 android:text="wonyzzang" />
 
             <TextView
-                android:id="@+id/button"
+                android:id="@+id/my_text_edit_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/frame_my_btn"
@@ -186,10 +187,10 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="9dp"
                 android:layout_weight="1"
-                android:text="포스트 13"
                 android:textColor="@color/grey_900"
                 android:textSize="16dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:text="포스트 0"/>
 
             <View
                 android:id="@+id/my_view_post"
@@ -215,10 +216,10 @@
                 android:id="@+id/my_text_series"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="시리즈 1"
                 android:textColor="@color/grey_900"
                 android:textSize="16dp"
-                android:layout_marginBottom="9dp"/>
+                android:layout_marginBottom="9dp"
+                android:text="시리즈 0"/>
 
             <View
                 android:id="@+id/my_view_series"
@@ -244,10 +245,10 @@
                 android:id="@+id/my_text_archive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="아카이브 3"
                 android:textColor="@color/grey_900"
                 android:textSize="16dp"
-                android:layout_marginBottom="9dp"/>
+                android:layout_marginBottom="9dp"
+                android:text="아카이브 0"/>
 
             <View
                 android:id="@+id/my_view_archive"
@@ -300,10 +301,9 @@
         android:id="@+id/my_rv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:background="#E5E5E5"
         android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:translationY="-13dp"/>
+        android:translationY="-13dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
 </LinearLayout>

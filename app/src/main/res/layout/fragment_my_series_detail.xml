@@ -15,21 +15,23 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/imageView15"
+            android:id="@+id/my_detail_img_back"
             android:layout_width="17.5dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:translationX="23dp"
+            android:layout_marginTop="3dp"
             android:src="@drawable/icon_arrow_left" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:gravity="center"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="14dp"
-            android:text="My 프로필"
+            android:text="My 시리즈"
             android:textColor="@color/grey_900"
             android:textSize="20dp"
             android:textStyle="bold" />
@@ -40,7 +42,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/icon_alarm_b"
-            android:translationX="-42dp" />
+            android:layout_marginTop="2dp"
+            android:translationX="-20dp" />
 
     </LinearLayout>
 
@@ -48,12 +51,14 @@
         android:id="@+id/my_img_bg"
         android:layout_width="match_parent"
         android:layout_height="190dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/img_my_bg" />
 
     <LinearLayout
         android:id="@+id/my_detail_linear_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:translationY="-32dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -63,9 +68,9 @@
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/my_card_series_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:translationY="-25dp"
                 android:layout_marginRight="5dp"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="0dp">
@@ -82,13 +87,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingTop="16dp"
+                android:paddingTop="41dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="bottom"
+                    android:layout_marginBottom="2dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -119,6 +125,7 @@
                     android:lineHeight="15dp"
                     android:layout_marginBottom="18dp"
                     android:textColor="@color/grey_900"
+                    android:textFontWeight="500"
                     android:text="내 인생의 갈피를 잡아준 도서들" />
 
                 <LinearLayout
@@ -133,6 +140,7 @@
                         android:textSize="12dp"
                         android:lineHeight="15dp"
                         android:layout_marginRight="11dp"
+                        android:layout_marginLeft="1dp"
                         android:textColor="@color/grey_900"
                         android:text="총 0화" />
 
@@ -167,11 +175,12 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/button3"
+            android:id="@+id/my_detail_text_go_first"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:text="첫 화 보기"
+            android:layout_marginTop="23dp"
             android:gravity="center"
             android:textColor="@color/white"
             android:background="@drawable/my_series_round_btn"/>
@@ -185,7 +194,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView18"
+                android:id="@+id/my_series_detail_text_post_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -217,10 +226,15 @@
         android:id="@+id/view6"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/black"/>
+        android:translationY="-32dp"
+        android:background="@color/grey_900"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_series_detail_rv_post"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:background="#F5F5F5"
+        android:translationY="-32dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 </LinearLayout>
