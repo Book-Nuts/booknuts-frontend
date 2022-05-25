@@ -18,8 +18,12 @@ data class DebateRoom(
     val topic: String,
     @SerializedName("coverImgUrl")
     val coverImgUrl: String,
+    @SerializedName("timeFromNow")
+    val time: String,
     @SerializedName("type")
     val type: String,
+    @SerializedName("maxUser")
+    val maxUser:Int,
     @SerializedName("curYesUser")
     val curYesUser: Int,
     @SerializedName("curNoUser")
@@ -59,3 +63,24 @@ data class DebateSearchInfo(
     @SerializedName("participants")
     val participants: Int,
 )
+
+data class DebateCreateDTO (
+    @SerializedName("bookTitle")
+    val title: String,
+    @SerializedName("bookAuthor")
+    val author: String,
+    @SerializedName("bookImgUrl")
+    val bookImgUrl: String,
+    @SerializedName("bookGenre")
+    val genre: String,
+    @SerializedName("topic")
+    val topic: String,
+    @SerializedName("coverImgUrl")
+    val coverImgURl: String,
+    @SerializedName("type")
+    val type: Int,
+    @SerializedName("maxUser")
+    val maxUser: Int,
+    @SerializedName("opinion")
+    val opinion: Boolean
+)   :Serializable {}

@@ -4,11 +4,17 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import kr.co.booknuts.data.DebateCreateDTO
+import kr.co.booknuts.data.DebateRoom
 import kr.co.booknuts.databinding.ActivityDebateCreateBinding
+import kr.co.booknuts.retrofit.RetrofitBuilder
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class DebateCreateActivity : AppCompatActivity() {
 
@@ -22,8 +28,9 @@ class DebateCreateActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // EditText 입력 중 외부 터치 시 키보드 숨기기
-        binding.layout.setOnClickListener { hideKeyboard() }
-        binding.scrollDebateCreate.setOnClickListener { hideKeyboard() }
+        binding.toolbar.setOnClickListener { hideKeyboard() }
+        binding.linearDebateCreate.setOnClickListener { hideKeyboard() }
+        binding.linearImg.setOnClickListener { hideKeyboard() }
 
         // X 버튼 클릭 시 액티비티 종료
         binding.btnExit.setOnClickListener { finish() }
@@ -31,6 +38,36 @@ class DebateCreateActivity : AppCompatActivity() {
         // 음성 채팅 비활성화
         binding.btnToggleVoicechat.setOnClickListener {
             Toast.makeText(this, "데모 버전에서는 텍스트 채팅만 가능합니다.", Toast.LENGTH_SHORT).show()
+        }
+
+        // 토론 인원 선택
+        binding.btnOneVersesOne.setOnClickListener {
+            toggleRatio = 2
+            binding.btnOneVersesOne.setTextColor(ContextCompat.getColor(this, R.color.coral_600))
+            binding.btnTwoVersesTwo.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+            binding.btnThreeVersesThree.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+            binding.btnFourVersesFour.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+        }
+        binding.btnTwoVersesTwo.setOnClickListener {
+            toggleRatio = 4
+            binding.btnOneVersesOne.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+            binding.btnTwoVersesTwo.setTextColor(ContextCompat.getColor(this, R.color.coral_600))
+            binding.btnThreeVersesThree.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+            binding.btnFourVersesFour.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+        }
+        binding.btnThreeVersesThree.setOnClickListener {
+            binding.btnOneVersesOne.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+            binding.btnTwoVersesTwo.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+            binding.btnThreeVersesThree.setTextColor(ContextCompat.getColor(this, R.color.coral_600))
+            binding.btnFourVersesFour.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+            toggleRatio = 6
+        }
+        binding.btnFourVersesFour.setOnClickListener {
+            binding.btnOneVersesOne.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+            binding.btnTwoVersesTwo.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+            binding.btnThreeVersesThree.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+            binding.btnFourVersesFour.setTextColor(ContextCompat.getColor(this, R.color.coral_600))
+            toggleRatio = 8
         }
 
         // 유저 의견 선택
@@ -43,7 +80,7 @@ class DebateCreateActivity : AppCompatActivity() {
             binding.btnTogglePros.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
         }
         binding.btnTogglePros.setOnClickListener {
-            isOpinion = false
+            isOpinion = true
             userOpinion = true
             binding.btnTogglePros.setTextColor(ContextCompat.getColor(this, R.color.white))
             binding.btnTogglePros.setBackgroundColor(ContextCompat.getColor(this, R.color.coral_600))
@@ -51,6 +88,7 @@ class DebateCreateActivity : AppCompatActivity() {
             binding.btnToggleCons.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
         }
 
+        // 만들기 버튼 클릭
         binding.btnCreate.setOnClickListener {
             if (binding.editDebateName.text.isEmpty()) {
                 Toast.makeText(this, "토론 이름을 입력하세요.", Toast.LENGTH_SHORT).show()
@@ -59,19 +97,39 @@ class DebateCreateActivity : AppCompatActivity() {
             } else if (!isOpinion) {
                 Toast.makeText(this, "찬반을 선택하세요.", Toast.LENGTH_SHORT).show()
             } else {
-                val bookTitle = ""
-                val author = ""
-                val bookImgUrl = ""
-                val bookGenre = ""
-                val topic = binding.editDebateName.text
-                val coverImgUrl = ""
+                val bookTitle = "test" // 책 선택
+                val author = "test" // 책 선택
+                val bookImgUrl = "www.imglink.test" // 책 선택
+                val bookGenre = "test" // 책 선택
+                val topic = binding.editDebateName.text.toString()
+                val coverImgUrl = "www.testurl" // 갤러리
                 val type = 0 // 텍스트 채팅
                 val maxUser = toggleRatio
                 val opinion = userOpinion
 
-                var intent = Intent(this, DebateChatActivity::class.java)
-                startActivity(intent)
-                finish()
+                val pref = this.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
+                val token = pref?.getString("Token", "")
+
+                var debateInfo = DebateCreateDTO(bookTitle, author, bookImgUrl, bookGenre, topic, coverImgUrl, type, maxUser, opinion)
+
+                if (token != null) {
+                    RetrofitBuilder.debateApi.debateCreate(token, debateInfo).enqueue(object : Callback<DebateRoom> {
+                        override fun onResponse(call: Call<DebateRoom>, response: Response<DebateRoom>) {
+                            Log.d("CREATE_DEBATE", response.body().toString())
+                            var intent = Intent(this@DebateCreateActivity, DebateChatActivity::class.java)
+                            intent.putExtra("roomId", response.body()?.roomId)
+                            startActivity(intent)
+                            finish()
+                        }
+
+                        override fun onFailure(call: Call<DebateRoom>, t: Throwable) {
+                            t.message?.let {
+                                Log.e("SIGNUP_E", it)
+                                Toast.makeText(this@DebateCreateActivity, "오류가 발생하였습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    })
+                }
             }
         }
     }

@@ -56,14 +56,10 @@
 
     <ScrollView
         android:id="@+id/scroll_debateCreate"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/btn_create"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="SpeakableTextPresentCheck">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <LinearLayout
             android:id="@+id/linear_debateCreate"
@@ -299,7 +295,7 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/textView7"
+                        android:id="@+id/btn_oneVersesOne"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -310,7 +306,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/textView8"
+                        android:id="@+id/btn_twoVersesTwo"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -321,7 +317,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/textView13"
+                        android:id="@+id/btn_threeVersesThree"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -332,7 +328,7 @@
                         android:textSize="16sp" />
 
                     <TextView
-                        android:id="@+id/textView14"
+                        android:id="@+id/btn_fourVersesFour"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
