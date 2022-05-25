@@ -1,5 +1,6 @@
 package kr.co.booknuts
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +12,7 @@ class MainActivity : AppCompatActivity() {
 
     private val fragmentHome by lazy {HomeFragment()}
     private val fragmentSearch by lazy { SearchFragment() }
-    private val fragmentWrite by lazy { WriteFragment() }
+    //private val fragmentWrite by lazy { WriteFragment() }
     private val fragmentDebate by lazy {DebateFragment()}
     private val fragmentMy by lazy { MyFragment() }
 
@@ -38,7 +39,9 @@ class MainActivity : AppCompatActivity() {
                         changeFragment(fragmentSearch)
                     }
                     R.id.write -> {
-                        changeFragment(fragmentWrite)
+                        //changeFragment(fragmentWrite)
+                        var intent = Intent(this@MainActivity, WriteActivity::class.java)
+                        startActivity(intent)
                     }
                     R.id.debate -> {
                         changeFragment(fragmentDebate)

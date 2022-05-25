@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.android.synthetic.main.activity_intro.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
@@ -29,9 +30,10 @@ import retrofit2.Response
 import retrofit2.Callback
 
 class HomeFragment : Fragment() {
-
+    //private var swipeRefreshLayout: SwipeRefreshLayout? = null
     var dataArray: ArrayList<Post>? = null
     var tabType: Int = 0    // 0 -> 나의 구독, 1 -> 오늘 추천, 2 -> 독립출판
+    var savedToken: String? = null
 
     lateinit var recyclerView: RecyclerView
     //val rootView:
@@ -47,11 +49,23 @@ class HomeFragment : Fragment() {
 
         tabListener()
 
+        binding.swipe.setOnRefreshListener{
+            getPostData()
+            binding.swipe.isRefreshing = false
+        }
+
         // 로컬에 저장된 토큰
         val pref = this.activity?.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
-        val savedToken = pref?.getString("Token", null)
+        savedToken = pref?.getString("Token", null)
 
         // 서버에서 게시글 데이터 받아오기
+        getPostData()
+
+        //binding.my
+        return binding.root
+    }
+
+    fun getPostData() {
         RetrofitBuilder.api.getBoardList(savedToken, tabType).enqueue(object: Callback<ArrayList<Post>> {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
                 dataArray = response.body()
@@ -78,9 +92,6 @@ class HomeFragment : Fragment() {
                 Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
-
-        //binding.my
-        return binding.root
     }
 
     fun tabListener() {

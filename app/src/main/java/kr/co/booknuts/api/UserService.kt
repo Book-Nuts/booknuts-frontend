@@ -75,4 +75,13 @@ interface UserService {
         @Header("X-AUTH-TOKEN") token: String?,
         @Path("boardId") boardId: Long?
     ): Call<PostDetail>
+
+    // 게시글 작성
+    // request body - 제목, 내용, 책제목, 작가, 책표지, 장르
+    @POST("/board/write")
+    fun doPost(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Body postInfo : PostRequestDTO
+    ): Call<PostDetail>
+
 }

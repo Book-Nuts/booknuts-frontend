@@ -26,11 +26,11 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.net.URL
 
-class WriteFragment : Fragment() {
+class BookSearchFragment : Fragment() {
 
     //lateinit var binding: FragmentWriteBinding
 
-    val binding by lazy { FragmentWriteBinding.inflate(layoutInflater) }
+    /*val binding by lazy { FragmentWriteBinding.inflate(layoutInflater) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -83,5 +83,5 @@ class WriteFragment : Fragment() {
                 Toast.makeText(activity, "도서 제목을 입력하세요.", Toast.LENGTH_SHORT).show()
             }
         }
-    }
+    }*/
 }

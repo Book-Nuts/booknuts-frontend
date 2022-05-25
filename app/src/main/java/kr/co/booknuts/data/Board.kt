@@ -113,3 +113,18 @@ data class PostDetail(
     @SerializedName("curUser")
     val curUser: Boolean?,
 )   : Serializable {}
+
+data class PostRequestDTO(
+    @SerializedName("title")
+    val title: String?,
+    @SerializedName("content")
+    val content: String?,
+    @SerializedName("bookTitle")
+    val bookTitle: String?,
+    @SerializedName("bookAuthor")
+    val bookAuthor: String?,
+    @SerializedName("bookImgUrl")
+    val bookImgUrl: String?,
+    @SerializedName("bookGenre")
+    val bookGenre: String?,
+)   : Serializable {}
