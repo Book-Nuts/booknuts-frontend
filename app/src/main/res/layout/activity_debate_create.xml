@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="18dp"
@@ -55,14 +56,10 @@
 
     <ScrollView
         android:id="@+id/scroll_debateCreate"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="SpeakableTextPresentCheck">
+        app:layout_constraintBottom_toTopOf="@+id/btn_create"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <LinearLayout
             android:id="@+id/linear_debateCreate"
@@ -212,30 +209,205 @@
                 android:textStyle="bold" />
 
             <LinearLayout
+                android:id="@+id/linear_debateMode"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="9dp"
                 android:orientation="horizontal"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp">
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/btn_toggle_chat"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="43dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:text="채팅" />
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="채팅"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/coral_600"
+                    app:elevation="0dp"
+                    app:strokeColor="@color/coral_600"
+                    app:strokeWidth="1dp"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/btn_toggle_voicechat"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="43dp"
                     android:layout_weight="1"
-                    android:text="음성" />
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="음성"
+                    android:textColor="@color/grey_200"
+                    app:backgroundTint="#FFFFFF"
+                    app:elevation="0dp"
+                    app:strokeColor="@color/grey_200"
+                    app:strokeWidth="1dp"
+                    tools:ignore="TouchTargetSizeCheck" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_ratio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="토론 인원 및 찬반 비율"
+                android:textColor="#191919"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_ratio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp">
+
+                <TextView
+                    android:id="@+id/text_ratio_background"
+                    android:layout_width="0dp"
+                    android:layout_height="74dp"
+                    android:background="@drawable/style_info_form"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <LinearLayout
+                    android:id="@+id/linear_ratio_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="53dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/btn_oneVersesOne"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_toggle_debate_ratio"
+                        android:gravity="center"
+                        android:text="1:1"
+                        android:textColor="@color/grey_200"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/btn_twoVersesTwo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_toggle_debate_ratio"
+                        android:gravity="center"
+                        android:text="2:2"
+                        android:textColor="@color/grey_200"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/btn_threeVersesThree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/style_toggle_debate_ratio"
+                        android:gravity="center"
+                        android:text="3:3"
+                        android:textColor="@color/grey_200"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/btn_fourVersesFour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="4:4"
+                        android:textColor="@color/grey_200"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/text_prosAndCons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:text="해당 의견에 대한 넛츠님의 의견은?"
+                android:textColor="#191919"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/linear_prosAndCons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="9dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
+
+                <Button
+                    android:id="@+id/btn_toggle_cons"
+                    android:layout_width="wrap_content"
+                    android:layout_height="43dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="반대"
+                    android:textColor="@color/grey_200"
+                    app:backgroundTint="#FFFFFF"
+                    app:elevation="0dp"
+                    app:strokeColor="@color/grey_200"
+                    app:strokeWidth="1dp"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <Button
+                    android:id="@+id/btn_toggle_pros"
+                    android:layout_width="wrap_content"
+                    android:layout_height="43dp"
+                    android:layout_weight="1"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="찬성"
+                    android:textColor="@color/grey_200"
+                    app:backgroundTint="#FFFFFF"
+                    app:elevation="0dp"
+                    app:strokeColor="@color/grey_200"
+                    app:strokeWidth="1dp"
+                    tools:ignore="TouchTargetSizeCheck" />
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/btn_create"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@color/grey_200"
+        android:gravity="center"
+        android:paddingBottom="8dp"
+        android:text="만들기"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="TextContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

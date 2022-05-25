@@ -34,6 +34,10 @@
             android:name=".BookSearchActivity"
             android:exported="true" />
 
+        <activity
+            android:name=".DebateChatActivity"
+            android:exported="true" />
+
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/network_security_config" />
