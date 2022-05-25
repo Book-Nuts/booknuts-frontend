@@ -17,7 +17,7 @@
         android:id="@+id/write"
         app:showAsAction="withText"
         android:enabled="true"
-        android:icon="@drawable/icon_pen"
+        android:icon="@drawable/icon_write"
         android:title="글쓰기"/>
     <item
         android:id="@+id/debate"

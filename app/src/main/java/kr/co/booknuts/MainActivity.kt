@@ -1,5 +1,6 @@
 package kr.co.booknuts
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +12,7 @@ class MainActivity : AppCompatActivity() {
 
     private val fragmentHome by lazy {HomeFragment()}
     private val fragmentSearch by lazy { SearchFragment() }
-    private val fragmentWrite by lazy { WriteFragment() }
+    //private val fragmentWrite by lazy { WriteFragment() }
     private val fragmentDebate by lazy {DebateFragment()}
     private val fragmentMy by lazy { MyFragment() }
 
@@ -38,7 +39,9 @@ class MainActivity : AppCompatActivity() {
                         changeFragment(fragmentSearch)
                     }
                     R.id.write -> {
-                        changeFragment(fragmentWrite)
+                        //changeFragment(fragmentWrite)
+                        var intent = Intent(this@MainActivity, WriteActivity::class.java)
+                        startActivity(intent)
                     }
                     R.id.debate -> {
                         changeFragment(fragmentDebate)
@@ -53,11 +56,29 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeFragment(fragment: Fragment) {
+    fun changeFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.fl_container, fragment)
             .commit()
     }
+
+    fun changeFragmentWithData(fragment: Fragment, id: Int) {
+        val bundle = Bundle()
+        bundle.putInt("id", id);
+
+        fragment.arguments = bundle
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fl_container, fragment)
+            .commit()
+    }
+
+    /*fun replaceFragment(fragment: Fragment){
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        //fragmentTransaction.replace()
+    }*/
 
 }

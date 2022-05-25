@@ -3,6 +3,7 @@ package kr.co.booknuts.data
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.util.*
+import kotlin.collections.ArrayList
 
 data class User(
     @SerializedName("userId")
@@ -44,4 +45,21 @@ data class JoinRequestDTO(
 data class Token (
     @SerializedName("token")
     val token: String?,
+)   :Serializable {}
+
+data class UserInfo (
+    @SerializedName("userId")
+    val userId: Int?,
+    @SerializedName("loginId")
+    val loginId: String?,
+    @SerializedName("username")
+    val username: String?,
+    @SerializedName("nickname")
+    val nickname: String?,
+    @SerializedName("email")
+    val email: String?,
+    @SerializedName("accessToken")
+    val accessToken: String?,
+    @SerializedName("roles")
+    val roles: ArrayList<String>?,
 )   :Serializable {}

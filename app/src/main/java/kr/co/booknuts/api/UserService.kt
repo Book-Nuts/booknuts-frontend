@@ -39,4 +39,64 @@ interface UserService {
         @Header("X-AUTH-TOKEN") token: String?,
         @Path("type") type: Int
     ): Call<ArrayList<Post>>
+
+    // 유저 정보 조회
+    // request body - token
+    @GET("/auth/userinfo")
+    fun getUserInfo(
+        @Header("X-AUTH-TOKEN") token: String?,
+    ): Call<UserInfo>
+
+    // 내가 쓴 게시글 조회
+    // request body - token
+    @GET("/board/mypost")
+    fun getMyPostList(
+        @Header("X-AUTH-TOKEN") token: String?,
+    ): Call<ArrayList<Post>>
+
+    // 나의 시리즈 조회
+    // request body - token
+    @GET("/series/list")
+    fun getMySeriesList(
+        @Header("X-AUTH-TOKEN") token: String?,
+    ): Call<ArrayList<MySeries>>
+
+    // 나의 아카이브 조회
+    // request body - token
+    @GET("/archive/list")
+    fun getMyArchiveList(
+        @Header("X-AUTH-TOKEN") token: String?,
+    ): Call<ArrayList<MyArchive>>
+
+    // 나의 시리즈 세부 조회
+    // request body - token
+    @GET("/series/{seriesId}")
+    fun getMySeriesDetailPost(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Path("seriesId") seriesId: Int?
+    ): Call<ArrayList<PostDetail>>
+
+    // 나의 아카이브 세부 조회
+    // request body - token
+    @GET("/archive/{archiveId}")
+    fun getMyArchiveDetail(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Path("archiveId") archiveId: Int?
+    ): Call<ArrayList<PostDetail>>
+
+    // 게시글 상세 가져오기
+    @GET("/board/{boardId}")
+    fun getPostDetail(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Path("boardId") boardId: Long?
+    ): Call<PostDetail>
+
+    // 게시글 작성
+    // request body - 제목, 내용, 책제목, 작가, 책표지, 장르
+    @POST("/board/write")
+    fun doPost(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Body postInfo : PostRequestDTO
+    ): Call<PostDetail>
+
 }
