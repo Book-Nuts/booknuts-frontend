@@ -26,10 +26,14 @@ import retrofit2.Response
 class DebateFragment : Fragment() {
     val binding by lazy { FragmentDebateBinding.inflate(layoutInflater) }
 
-    var debateData: ArrayList<DebateSearchInfo>? = null
     var debateStatus: Int = 1 // debateStatus : 1 = 맞춤 토론, 2 = 진행 중, 3 = 대기 중
     var debateType: Int = 2 // debateType : 0 = 텍스트, 1 = 음성, 2 = 전체
     lateinit var recyclerView: RecyclerView
+
+    // 어댑터 변수
+    val personalizedAdapter = DebateRoomAdapter()
+    val proceedingAdapter = DebateRoomAdapter()
+    val waitAdapter = DebateRoomAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,10 +42,14 @@ class DebateFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentDebateBinding.inflate(inflater, container, false)
 
+
         // 리사이클러뷰 어댑터 초기화
-        binding.recyclePersonalized.adapter = DebateRoomAdapter()
-        binding.recycleProceeding.adapter = DebateRoomAdapter()
-        binding.recycleWait.adapter = DebateRoomAdapter()
+        binding.recyclePersonalized.adapter = personalizedAdapter
+        binding.recyclePersonalized.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recycleProceeding.adapter = proceedingAdapter
+        binding.recycleProceeding.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.recycleWait.adapter = waitAdapter
+        binding.recycleWait.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
         // debateStatus : 1 = 맞춤 토론, 2 = 진행 중, 3 = 대기 중
         // debateType : 0 = 텍스트, 1 = 음성, 2 = 전체
@@ -56,7 +64,7 @@ class DebateFragment : Fragment() {
         return binding.root
     }
 
-    // toggleType : 1 = 맞춤 토론, 2 = 진행 중, 3 = 대기 중
+    // debateStatus : 1 = 맞춤 토론, 2 = 진행 중, 3 = 대기 중
     // debateType : 0 = 텍스트, 1 = 음성, 2 = 전체
     fun loadData(debateSatatus: Int, debateType: Int) {
         val data: MutableList<DebateSearchInfo> = mutableListOf()
@@ -67,7 +75,6 @@ class DebateFragment : Fragment() {
             override fun onResponse(call: Call<DebateListRequestDTO>, response: Response<DebateListRequestDTO>) {
                 val debateRoomList = response.body()
                 var debateData: List<DebateRoom>
-                var insertIndex = 0
                 // 토글 버튼에 따라 타입 선택
                 when(debateSatatus) {
                     1 -> debateData = debateRoomList?.personalizedDebate!!
@@ -81,20 +88,14 @@ class DebateFragment : Fragment() {
                         // ★★★ 시간과 파이어베이스에서 참여인원 가져오기 !!!
                         var debateRoom = DebateSearchInfo(d.roomId, d.topic, d.bookTitle, d.coverImgUrl, d.curYesUser, d.curNoUser, "10분", d.owner, 5)
                         Log.d("ROOMLIST_SUCCESS", "${debateSatatus} 타입 : ${debateRoom}")
-                        data.add(debateRoom)
-                        insertIndex++
+                        when(debateSatatus) {
+                            1 -> personalizedAdapter.listData.add(debateRoom)
+                            2 -> proceedingAdapter.listData.add(debateRoom)
+                            3 -> waitAdapter.listData.add(debateRoom)
+                            else -> Toast.makeText(this@DebateFragment.activity, "오류가 발생하였습니다.", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
-
-//                var personalizedAdapter: DebateRoomAdapter = binding.recyclePersonalized.adapter as DebateRoomAdapter
-                var personalizedAdapter = DebateRoomAdapter()
-                personalizedAdapter.listData = data
-                Log.d("ROOMLIST_SUCCES_DATA", personalizedAdapter.listData.toString())
-                binding.recyclePersonalized.adapter = personalizedAdapter
-                personalizedAdapter.notifyDataSetChanged()
-                personalizedAdapter.notifyItemInserted(0)
-                personalizedAdapter.notifyItemRangeInserted(insertIndex - 1, data.size)
-                binding.recyclePersonalized.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
             }
 
             override fun onFailure(call: Call<DebateListRequestDTO>, t: Throwable) {
