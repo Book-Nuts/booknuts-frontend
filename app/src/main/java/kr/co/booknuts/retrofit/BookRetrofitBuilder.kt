@@ -1,7 +1,7 @@
 package kr.co.booknuts.retrofit
 
 import com.google.gson.GsonBuilder
-import kr.co.booknuts.BuildConfig.BASE_URL
+import kr.co.booknuts.BuildConfig.*
 import kr.co.booknuts.api.UserService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -29,8 +29,8 @@ object BookRetrofitBuilder {
         override fun intercept(chain: Interceptor.Chain)
                 : Response = with(chain) {
             val newRequest = request().newBuilder()
-                .addHeader("X-Naver-Client-Id", "_72aHxgLB7HtfAoc9iQC")
-                .addHeader("X-Naver-Client-Secret", "QbgL7NEhC5")
+                .addHeader("X-Naver-Client-Id", NAVER_CLIENT_ID)
+                .addHeader("X-Naver-Client-Secret", NAVER_CLIENT_SECRET)
                 .build()
 
             proceed(newRequest)

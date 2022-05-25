@@ -27,6 +27,8 @@ android {
         multiDexEnabled true
 
         buildConfigField "String", "BASE_URL", properties['base_url']
+        buildConfigField "String", "NAVER_CLIENT_ID", properties['naver_client_id']
+        buildConfigField "String", "NAVER_CLIENT_SECRET", properties['naver_client_secret']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -52,6 +54,10 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     implementation 'com.google.firebase:firebase-database-ktx:20.0.5'
     implementation 'com.google.firebase:firebase-database:20.0.5'
+
+    // SwipeRefreshLayout
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
     def fragment_version = "1.4.1"
     // Glide

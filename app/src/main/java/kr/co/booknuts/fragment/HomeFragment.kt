@@ -1,5 +1,6 @@
 package kr.co.booknuts.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,11 +12,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.android.synthetic.main.activity_intro.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kr.co.booknuts.MainActivity
+import kr.co.booknuts.PostDetailActivity
 import kr.co.booknuts.adapter.BoardListAdapter
 import kr.co.booknuts.R
+import kr.co.booknuts.adapter.MySeriesListAdapter
 import kr.co.booknuts.data.BoardList
 import kr.co.booknuts.data.Post
 import kr.co.booknuts.databinding.FragmentHomeBinding
@@ -24,32 +29,72 @@ import retrofit2.Call
 import retrofit2.Response
 import retrofit2.Callback
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
-
-    //lateinit var binding: FragmentHomeBinding
-    //var datas = mutableListOf<Post>()
+    //private var swipeRefreshLayout: SwipeRefreshLayout? = null
     var dataArray: ArrayList<Post>? = null
-    var datas: BoardList? = null
     var tabType: Int = 0    // 0 -> 나의 구독, 1 -> 오늘 추천, 2 -> 독립출판
+    var savedToken: String? = null
 
     lateinit var recyclerView: RecyclerView
+    //val rootView:
+    private var mBinding: FragmentHomeBinding? = null
+    private val binding get() = mBinding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentHomeBinding.inflate(inflater, container, false)
+        mBinding = FragmentHomeBinding.inflate(inflater, container, false)
+        //val rootView = inflater.inflate(R.layout.fragment_home, container, false)
 
+        tabListener()
+
+        binding.swipe.setOnRefreshListener{
+            getPostData()
+            binding.swipe.isRefreshing = false
+        }
+
+        // 로컬에 저장된 토큰
+        val pref = this.activity?.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
+        savedToken = pref?.getString("Token", null)
+
+        // 서버에서 게시글 데이터 받아오기
+        getPostData()
+
+        //binding.my
+        return binding.root
+    }
+
+    fun getPostData() {
+        RetrofitBuilder.api.getBoardList(savedToken, tabType).enqueue(object: Callback<ArrayList<Post>> {
+            override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
+                dataArray = response.body()
+                Log.d("BoardList Get Test", "data : " + dataArray.toString())
+                Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
+
+                recyclerView = binding.rvBoard
+                recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                val adapter: BoardListAdapter = BoardListAdapter(dataArray)
+                if(dataArray?.size != 0 )
+                    recyclerView.adapter = adapter
+                adapter.setItemClickListener(object: BoardListAdapter.OnItemClickListener{
+                    override fun onClick(v: View, position: Int) {
+                        var intent = Intent(activity, PostDetailActivity::class.java)
+                        intent.putExtra("id", dataArray?.get(position)?.boardId)
+                        Log.d("Board ID", "" + dataArray?.get(position)?.boardId)
+                        startActivity(intent)
+                    }
+                })
+
+            }
+            override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
+                Log.d("Approach Fail", "wrong server approach")
+                Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    fun tabListener() {
         binding.homeTextMySub.setOnClickListener{
             tabType = 0
             binding.homeTextMySub.setTextColor(resources.getColor(R.color.white))
@@ -59,6 +104,10 @@ class HomeFragment : Fragment() {
             binding.homeTextToday.setBackgroundResource(R.drawable.top_tab_view)
             binding.homeTextIndie.setBackgroundResource(R.drawable.top_tab_view)
             binding.homeTextTitle.text = "내가 구독한 게시글"
+
+            // 독립출판 뷰
+            binding.homeImgIndieEvent.visibility = View.GONE
+            binding.homeLinearIndieList.visibility = View.GONE
         }
 
         binding.homeTextToday.setOnClickListener{
@@ -70,6 +119,10 @@ class HomeFragment : Fragment() {
             binding.homeTextToday.setBackgroundResource(R.drawable.top_tab_view_fill)
             binding.homeTextIndie.setBackgroundResource(R.drawable.top_tab_view)
             binding.homeTextTitle.text = "오늘의 추천 게시글"
+
+            // 독립출판 뷰
+            binding.homeImgIndieEvent.visibility = View.GONE
+            binding.homeLinearIndieList.visibility = View.GONE
         }
 
         binding.homeTextIndie.setOnClickListener{
@@ -81,36 +134,11 @@ class HomeFragment : Fragment() {
             binding.homeTextToday.setBackgroundResource(R.drawable.top_tab_view)
             binding.homeTextIndie.setBackgroundResource(R.drawable.top_tab_view_fill)
             binding.homeTextTitle.text = "오늘의 독립출판 서적"
-            val img_indie = ImageView(context)
-            //val layoutParams: ViewGroup.LayoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-            //img_indie.layoutParams = layoutParams
-            //img_indie.setImageResource(R.drawable.img_today_indie)
-            //rootView.rv_board.addView(img_indie)
+
+            // 독립출판 뷰
+            binding.homeImgIndieEvent.visibility = View.VISIBLE
+            binding.homeLinearIndieList.visibility = View.VISIBLE
 
         }
-
-        // 로컬에 저장된 토큰
-        val pref = this.activity?.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
-        val savedToken = pref?.getString("Token", null)
-
-        // 서버에서 게시글 데이터 받아오기
-        RetrofitBuilder.api.getBoardList(savedToken, tabType).enqueue(object: Callback<ArrayList<Post>> {
-            override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
-                dataArray = response.body()
-                Log.d("BoardList Get Test", "data : " + dataArray?.size)
-                Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
-
-                recyclerView = binding.rvBoard
-                recyclerView.layoutManager = LinearLayoutManager(requireContext())
-                if(dataArray?.size != 0 )
-                    recyclerView.adapter = BoardListAdapter(dataArray);
-            }
-            override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
-                Log.d("Approach Fail", "wrong server approach")
-                Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
-            }
-        })
-
-        return binding.root
     }
 }

@@ -9,4 +9,13 @@
         <item name="android:background">?android:attr/colorBackground</item>
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
+
+    <style name="SpinnerDivideStyle" parent="android:style/Widget.ListView.DropDown">
+        <item name="android:divider">@color/grey_200</item> <!-- divider 색 -->
+        <item name="android:dividerHeight">0.5dp</item> <!-- divider 높이 -->
+    </style>
+
+    <style name="SpinnerTheme" parent="android:Widget">
+        <item name="android:dropDownListViewStyle">@style/SpinnerDivideStyle</item>
+    </style>
 </resources>

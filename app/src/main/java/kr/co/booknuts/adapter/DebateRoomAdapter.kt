@@ -42,7 +42,7 @@ class DebateRoomAdapter() : RecyclerView.Adapter<DebateRoomAdapter.DebateRoomHol
             binding.textTitle.text = "${debate.topic}"
             binding.textBookTitle.text = "${debate.bookTitle}"
             binding.textParticipant.text = "${debate.owner}님 외 ${debate.participants - 1}명"
-            binding.textTime.text = "${debate.time}전"
+            binding.textTime.text = "${debate.time}"
             (binding.lineCons.layoutParams as LinearLayout.LayoutParams).weight = debate.cons.toFloat()
             (binding.linePros.layoutParams as LinearLayout.LayoutParams).weight = debate.pros.toFloat()
             Log.d("ROOMLIST_PROCEED", debate.toString())

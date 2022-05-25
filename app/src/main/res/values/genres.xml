@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="genres">
+        <item>매거진</item>
+        <item>현대문학</item>
+        <item>자기계발</item>
+        <item>라이프스타일</item>
+        <item>자녀교육</item>
+        <item>어린이/청소년</item>
+        <item>인문사회</item>
+        <item>과학기술</item>
+        <item>판타지/무협</item>
+        <item>로맨스/BL</item>
+        <item>독립서적</item>
+    </string-array>
+</resources>

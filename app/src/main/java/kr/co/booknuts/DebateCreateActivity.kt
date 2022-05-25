@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase
 import kr.co.booknuts.data.Chat
 import kr.co.booknuts.data.DebateCreateDTO
 import kr.co.booknuts.data.DebateRoom
+import kr.co.booknuts.data.UserInfo
 import kr.co.booknuts.databinding.ActivityDebateCreateBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
 import retrofit2.Call
@@ -29,7 +30,6 @@ class DebateCreateActivity : AppCompatActivity() {
     // 파이어베이스 데이터베이스 인스턴스 연결
     private val firebaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val databaseReference: DatabaseReference = firebaseDatabase.getReference()
-    // databaseReference.setValue("")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -126,12 +126,21 @@ class DebateCreateActivity : AppCompatActivity() {
                         override fun onResponse(call: Call<DebateRoom>, response: Response<DebateRoom>) {
                             Log.d("CREATE_DEBATE", response.body().toString())
 
-                            // 유저 정보 조회해서 닉네임 가져오기
-                            val ownerNickname = "test"
+
+                            var ownerNickname = "test"
                             val roomId = response.body()?.roomId.toString()
                             var ownerOpinion: String = ""
                             if (userOpinion) ownerOpinion = "pros"
                             else ownerOpinion = "cons"
+
+                            // 유저 정보 조회해서 닉네임 가져오기
+                            RetrofitBuilder.api.getUserInfo(token).enqueue(object : Callback<UserInfo> {
+                                override fun onResponse(call: Call<UserInfo>, response: Response<UserInfo>) {
+                                    ownerNickname = response.body()?.nickname.toString()
+                                }
+
+                                override fun onFailure(call: Call<UserInfo>, t: Throwable) { }
+                            })
 
                             // 파이어베이스에도 토론장 정보 추가 후 토론장 액티비티로 이동
                             databaseReference.child(roomId).child("state").setValue(false)
