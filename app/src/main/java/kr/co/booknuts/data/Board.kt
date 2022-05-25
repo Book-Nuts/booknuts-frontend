@@ -120,11 +120,11 @@ data class PostRequestDTO(
     @SerializedName("content")
     val content: String?,
     @SerializedName("bookTitle")
-    val bookTitle: String?,
+    var bookTitle: String?,
     @SerializedName("bookAuthor")
-    val bookAuthor: String?,
+    var bookAuthor: String?,
     @SerializedName("bookImgUrl")
-    val bookImgUrl: String?,
+    var bookImgUrl: String?,
     @SerializedName("bookGenre")
     val bookGenre: String?,
 )   : Serializable {}

@@ -15,13 +15,16 @@
         android:theme="@style/Theme.BookNuts"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".WriteActivity"
+            android:name=".SeriesPopUpActivity"
             android:exported="true" />
+        <activity
+            android:name=".WriteActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".PostDetailActivity"
             android:exported="true" />
         <activity
-            android:name=".fragment.MySeriesDetailFragment"
+            android:name=".BookSearchActivity"
             android:exported="true" />
 
         <meta-data

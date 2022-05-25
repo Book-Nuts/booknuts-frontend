@@ -39,6 +39,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="book title"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/grey_200"
                     android:textSize="12sp" />
 
@@ -49,6 +51,8 @@
                     android:layout_marginBottom="11dp"
                     android:lineSpacingExtra="2sp"
                     android:text="post title"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/dark_grey_700"
                     android:textSize="16sp" />
 
