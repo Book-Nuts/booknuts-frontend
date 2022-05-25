@@ -61,12 +61,27 @@ interface UserService {
         @Header("X-AUTH-TOKEN") token: String?,
     ): Call<ArrayList<MySeries>>
 
+    // 나의 아카이브 조회
+    // request body - token
+    @GET("/archive/list")
+    fun getMyArchiveList(
+        @Header("X-AUTH-TOKEN") token: String?,
+    ): Call<ArrayList<MyArchive>>
+
     // 나의 시리즈 세부 조회
     // request body - token
     @GET("/series/{seriesId}")
     fun getMySeriesDetailPost(
         @Header("X-AUTH-TOKEN") token: String?,
         @Path("seriesId") seriesId: Int?
+    ): Call<ArrayList<PostDetail>>
+
+    // 나의 아카이브 세부 조회
+    // request body - token
+    @GET("/archive/{archiveId}")
+    fun getMyArchiveDetail(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Path("archiveId") archiveId: Int?
     ): Call<ArrayList<PostDetail>>
 
     // 게시글 상세 가져오기

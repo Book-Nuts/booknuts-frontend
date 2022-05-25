@@ -1,38 +1,38 @@
 package kr.co.booknuts.adapter
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.R
-import kr.co.booknuts.data.MyArchive
-import kr.co.booknuts.databinding.MyRecyclerviewArchiveItemBinding
+import kr.co.booknuts.data.PostDetail
+import kr.co.booknuts.databinding.MyArchiveDetailItemBinding
 
-class MyArchiveListAdapter(private val dataList: ArrayList<MyArchive>?) : RecyclerView.Adapter<MyArchiveListAdapter.ViewHolder>() {
+class MyArchivePostListAdapter(private val dataList: ArrayList<PostDetail>?) : RecyclerView.Adapter<MyArchivePostListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = MyRecyclerviewArchiveItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = MyArchiveDetailItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    // 아카이브 게시글 개수
+    // 게시글 개수
     override fun getItemCount(): Int {
         if (dataList != null) {
-            Log.d("Adapter", "ArchiveDataListSize " + dataList.size)
+            Log.d("Adapter", "dataListSize " + dataList.size)
             return dataList.size
         }
-        Log.d("Adapter", "ArchiveDataListSize zero")
+        Log.d("Adapter", "dataListSize zero")
         return 0
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         dataList?.get(position)?.let { holder?.bind(it) }
-        holder.binding.linearArchive.setOnClickListener{
+        holder.binding.linearPost.setOnClickListener{
             itemClickListener.onClick(it, position)
         }
     }
@@ -47,21 +47,17 @@ class MyArchiveListAdapter(private val dataList: ArrayList<MyArchive>?) : Recycl
 
     private lateinit var itemClickListener: OnItemClickListener
 
-    inner class ViewHolder(val binding: MyRecyclerviewArchiveItemBinding): RecyclerView.ViewHolder(binding.root) {
-        private val title: TextView = binding.myTextArchiveTitle
-        private val date: TextView = binding.myTextArchiveDate
-        private val cnt: TextView = binding.myTextArchiveCnt
-        private val img: ImageView = binding.imgArchive
-        fun bind(item: MyArchive) {
-            title.text = item.title
-            date.text = item.createdAt
-            cnt.text = item.archiveCnt.toString() + "개"
-            Glide.with(img.context)
-                .load(item.imgUrl)
+inner class ViewHolder(val binding: MyArchiveDetailItemBinding): RecyclerView.ViewHolder(binding.root) {
+        private val bookImg: ImageView = binding.imgBook
+        fun bind(item: PostDetail) {
+            Glide.with(bookImg.context)
+                .load(item.bookImgUrl)
+                .placeholder(R.drawable.icon_search)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .error(R.drawable.img_user3)
+                .fallback(R.drawable.img_user2)
                 .fitCenter()
-                .into(img)
+                .into(bookImg)
         }
     }
 }

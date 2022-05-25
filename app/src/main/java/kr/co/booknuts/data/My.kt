@@ -28,4 +28,8 @@ data class MyArchive (
     val content: String?,
     @SerializedName("imgUrl")
     val imgUrl: String?,
+    @SerializedName("archiveCnt")
+    val archiveCnt: Int?,
+    @SerializedName("createdAt")
+    val createdAt: String?,
 )   :Serializable {}

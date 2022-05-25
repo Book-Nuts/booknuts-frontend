@@ -26,6 +26,7 @@ import kr.co.booknuts.data.MyArchive
 import kr.co.booknuts.data.MySeries
 import kr.co.booknuts.data.Post
 import kr.co.booknuts.data.UserInfo
+import kr.co.booknuts.databinding.FragmentArchiveDetailBinding
 import kr.co.booknuts.databinding.FragmentMyBinding
 import kr.co.booknuts.databinding.FragmentMySeriesDetailBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
@@ -49,6 +50,7 @@ class MyFragment : Fragment() {
     private var archiveDataArray: ArrayList<MyArchive>? = null
 
     private val fragmentMySeriesDetail by lazy {MySeriesDetailFragment()}
+    private val fragmentArchiveDetail by lazy {ArchiveDetailFragment()}
 
     lateinit var recyclerView: RecyclerView
 
@@ -81,12 +83,19 @@ class MyFragment : Fragment() {
         })
 
         binding.imgMenu.setOnClickListener{
-            val intent = Intent(activity, SeriesPopUpActivity::class.java)
-            startActivity(intent)
+            if(tab == 1){
+                val intent = Intent(activity, SeriesPopUpActivity::class.java)
+                startActivity(intent)
+            } else if(tab == 2){
+                val intent = Intent(activity, SeriesPopUpActivity::class.java)
+                startActivity(intent)
+            }
+
         }
 
         getPostData()
         getSeriesData()
+        getArchiveData()
         postTab()
         tabListener()
         return binding.root
@@ -157,7 +166,7 @@ class MyFragment : Fragment() {
     }
 
     fun getSeriesData() {
-        // 서버에서 나의 아카이브 데이터 받아오기
+        // 서버에서 나의 시리즈 데이터 받아오기
         RetrofitBuilder.api.getMySeriesList(savedToken).enqueue(object:
             Callback<ArrayList<MySeries>> {
             override fun onResponse(call: Call<ArrayList<MySeries>>, response: Response<ArrayList<MySeries>>) {
@@ -174,7 +183,20 @@ class MyFragment : Fragment() {
     }
 
     fun getArchiveData() {
-
+        // 서버에서 나의 아카이브 데이터 받아오기
+        RetrofitBuilder.api.getMyArchiveList(savedToken).enqueue(object:
+            Callback<ArrayList<MyArchive>> {
+            override fun onResponse(call: Call<ArrayList<MyArchive>>, response: Response<ArrayList<MyArchive>>) {
+                archiveDataArray = response.body()
+                Log.d("Archive List Get Test", "data : " + archiveDataArray?.get(0)?.archiveId)
+                Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
+                archiveCnt = archiveDataArray?.size!!
+            }
+            override fun onFailure(call: Call<ArrayList<MyArchive>>, t: Throwable) {
+                Log.d("Approach Fail", "wrong server approach")
+                Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     fun postTab() {
@@ -206,14 +228,20 @@ class MyFragment : Fragment() {
     }
 
     fun archiveTab() {
-        archiveDataArray = arrayListOf<MyArchive>(MyArchive(0, "Archive Sample", "Content???", ""))
+        //archiveDataArray = arrayListOf<MyArchive>(MyArchive(0, "Archive Sample", "Content???", ""))
 
-        binding.myTextArchive.text = "아카이브 " + archiveDataArray?.size.toString()
+        binding.myTextArchive.text = "아카이브 " + archiveCnt
 
         recyclerView = binding.myRv
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        if(archiveDataArray?.size != 0 )
-            Log.d("DataArray size is not 0", "" + archiveDataArray?.size)
-        recyclerView.adapter = MyArchiveListAdapter(archiveDataArray);
+        val adapter: MyArchiveListAdapter = MyArchiveListAdapter(archiveDataArray)
+        if(archiveCnt != 0 )
+            Log.d("DataArray size is not 0", "" + archiveCnt)
+        recyclerView.adapter = adapter
+        adapter.setItemClickListener(object: MyArchiveListAdapter.OnItemClickListener{
+            override fun onClick(v: View, position: Int) {
+                (activity as MainActivity).changeFragmentWithData(fragmentArchiveDetail, archiveDataArray?.get(position)?.archiveId!!.toInt());
+            }
+        })
     }
 }

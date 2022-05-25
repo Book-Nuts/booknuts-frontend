@@ -4,60 +4,57 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="11dp"
+    android:layout_marginTop="5dp"
     android:background="@color/white"
-    android:id="@+id/linear_post_item"
-    android:orientation="vertical">
+    android:id="@+id/linear_item"
+    android:paddingRight="24dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:paddingRight="30dp"
+        android:layout_gravity="center_vertical"
         android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/text_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="17dp"
-            android:paddingVertical="25dp">
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:paddingBottom="4dp"
+            android:textSize="14dp"
+            android:lineHeight="25dp"
+            android:text="감정과 감각에"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_gravity="center_vertical"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/book_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="11dp"
-                    android:ellipsize="end"
-                    android:textColor="@color/dark_grey_700"
-                    android:textSize="16sp"
-                    android:text=""/>
-
-                <TextView
-                    android:id="@+id/book_author"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:textColor="@color/dark_grey_700"
-                    android:ellipsize="end"
-                    android:textSize="12sp"
-                    android:text=""/>
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/img_book"
-                android:layout_width="61dp"
-                android:layout_height="95dp"
-                android:scaleType="centerCrop"/>
-
-        </LinearLayout>
-
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/grey_200"
+            android:ellipsize="end"
+            android:textSize="12dp"
+            android:lineHeight="15dp"
+            android:text="2022.05.03"/>
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/img_book"
+        android:layout_width="56dp"
+        android:layout_height="81dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="centerCrop"/>
 
 </LinearLayout>

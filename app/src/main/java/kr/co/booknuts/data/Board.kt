@@ -128,3 +128,8 @@ data class PostRequestDTO(
     @SerializedName("bookGenre")
     val bookGenre: String?,
 )   : Serializable {}
+
+data class UserCheckStatus(
+    val position: Int,
+    var isChecked: Boolean
+)
