@@ -15,11 +15,18 @@
         android:theme="@style/Theme.BookNuts"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".SeriesPopUpActivity"
+            android:name=".MakeSeriesSecondActivity"
             android:exported="true" />
         <activity
+            android:name=".MakeSeriesFirstActivity"
+            android:exported="true" />
+        <activity
+            android:name=".SeriesPopUpActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
+        <activity
             android:name=".WriteActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".PostDetailActivity"
             android:exported="true" />

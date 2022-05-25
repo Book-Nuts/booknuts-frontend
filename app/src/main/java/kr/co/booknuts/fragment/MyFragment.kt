@@ -1,5 +1,6 @@
 package kr.co.booknuts.fragment
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.Typeface
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.booknuts.MainActivity
+import kr.co.booknuts.SeriesPopUpActivity
 import kr.co.booknuts.adapter.BoardListAdapter
 import kr.co.booknuts.adapter.MyArchiveListAdapter
 import kr.co.booknuts.adapter.MyPostListAdapter
@@ -78,19 +80,15 @@ class MyFragment : Fragment() {
             }
         })
 
+        binding.imgMenu.setOnClickListener{
+            val intent = Intent(activity, SeriesPopUpActivity::class.java)
+            startActivity(intent)
+        }
+
         getPostData()
         getSeriesData()
-
         postTab()
-
-        //seriesDataArray?.add(MySeries(0, "Sample", "Content???", "", 0, 0))
         tabListener()
-
-        /*binding.myTextEditProfile.setOnClickListener{
-            (activity as MainActivity).changeFragmentWithData(fragmentMySeriesDetail, 1);
-        }*/
-
-        // Inflate the layout for this fragment
         return binding.root
     }
 

@@ -64,6 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:paddingRight="30dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -84,7 +85,9 @@
                     android:lineSpacingExtra="2sp"
                     android:maxLines="1"
                     android:ellipsize="end"
+                    android:textStyle="bold"
                     android:text="post title"
+                    android:lineHeight="25dp"
                     android:textColor="@color/dark_grey_700"
                     android:textSize="16sp" />
 
