@@ -14,6 +14,7 @@
 
     <color name="green">#FF10C179</color>
 
+    <color name="coral_200">#FFFFEEEA</color>
     <color name="coral_500">#FFFF8265</color>
     <color name="coral_600">#FFFE6C4A</color>
 
@@ -21,6 +22,7 @@
     <color name="grey_700">#FF707070</color>
     <color name="dark_grey_700">#FF3A3A3A</color>
 
+    <color name="light_blue_10">#FFEAEFFC</color>
     <color name="light_blue_50">#FFE1F5FE</color>
     <color name="light_blue_200">#FF81D4FA</color>
     <color name="light_blue_600">#FF039BE5</color>

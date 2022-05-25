@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DebateChatActivity">
+
+    <TextView
+        android:id="@+id/text_topic"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="16dp"
+        android:text="선한목적을 위해 악한 수단을 사용하는  것이 정당화될 수 있는가"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/text_scroll_background"
+        app:layout_constraintEnd_toEndOf="@+id/img_debate_cover"
+        app:layout_constraintStart_toStartOf="@+id/img_debate_cover"
+        app:layout_constraintTop_toTopOf="@id/img_debate_cover" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/style_navigation_bottom"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/icon_exit"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+        <TextView
+            android:id="@+id/text_toolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="'죄와 벌' 토론장"
+            android:textColor="#3A3A3A"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="177dp"
+            tools:layout_editor_absoluteY="20dp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/text_instruction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="상대를 존중하며 좋은 말만 사용해요. \n발언의 순서는 정확히! 아시죠?"
+        android:textColor="#191919"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/text_scroll_background"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#F5F5F5"
+        app:layout_constraintBottom_toBottomOf="@+id/scroll_chat"
+        app:layout_constraintEnd_toEndOf="@+id/scroll_chat"
+        app:layout_constraintStart_toStartOf="@+id/scroll_chat"
+        app:layout_constraintTop_toBottomOf="@+id/img_debate_cover" />
+
+    <ScrollView
+        android:id="@+id/scroll_chat"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/img_edit_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_black"
+        tools:ignore="SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:id="@+id/linear_chat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#F5F5F5"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_msg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                tools:listitem="@layout/listitem_debate_chat" />
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/img_debate_cover"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/style_debate_img_corner"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_instruction"
+        app:srcCompat="@drawable/img_bread" />
+
+    <TextView
+        android:id="@+id/text_black"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#73000000"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/img_debate_cover"
+        app:layout_constraintEnd_toEndOf="@+id/img_debate_cover"
+        app:layout_constraintStart_toStartOf="@+id/img_debate_cover"
+        app:layout_constraintTop_toTopOf="@+id/img_debate_cover" />
+
+    <ImageView
+        android:id="@+id/img_character"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6.5dp"
+        android:layout_marginRight="-8dp"
+        android:scaleX="0.6"
+        android:scaleY="0.6"
+        app:layout_constraintEnd_toEndOf="@+id/text_black"
+        app:layout_constraintTop_toTopOf="@+id/text_black"
+        app:srcCompat="@drawable/img_character_chat" />
+
+    <ImageView
+        android:id="@+id/img_edit_background"
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:scaleType="matrix"
+        android:scaleX="1.6"
+        android:scaleY="1.4"
+        app:layout_constraintBottom_toBottomOf="@+id/layout_edit_chat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/img_debate_back" />
+
+    <LinearLayout
+        android:id="@+id/layout_edit_chat"
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <EditText
+            android:id="@+id/edit_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="247"
+            android:background="@drawable/style_search_bar"
+            android:ems="10"
+            android:hint="의견을 자유롭게 나눠주세요!"
+            android:inputType="textPersonName"
+            android:paddingLeft="13dp"
+            android:textColorHint="#C4C4C4"
+            android:textSize="16sp"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="70"
+            android:backgroundTint="@color/coral_600"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="전송"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
