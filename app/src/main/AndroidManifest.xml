@@ -28,6 +28,10 @@
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
         <activity
+            android:name=".ArchivePopUpActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
+        <activity
             android:name=".WriteActivity"
             android:exported="true" />
         <activity

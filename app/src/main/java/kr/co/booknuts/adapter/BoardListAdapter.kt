@@ -48,6 +48,16 @@ class BoardListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.Ad
 
     private lateinit var itemClickListener: OnItemClickListener
 
+    /*interface OnItemClickListenerArchive {
+        fun onClick(v: View, position: Int)
+    }
+
+    fun setItemClickListenerArchive(onItemClickListenerArchive: OnItemClickListener){
+        this.itemClickListenerArchive = onItemClickListenerArchive
+    }
+
+    private lateinit var itemClickListenerArchive: OnItemClickListener*/
+
     inner class ViewHolder(val binding: HomeRecyclerviewItemBinding): RecyclerView.ViewHolder(binding.root) {
         private val title: TextView = binding.boardTextTitle
         private val writer: TextView = binding.boardTextWriter

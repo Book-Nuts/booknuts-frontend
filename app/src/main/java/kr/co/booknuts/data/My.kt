@@ -42,5 +42,5 @@ data class SeriesRequestDTO (
     @SerializedName("imgUrl")
     val imgUrl: String?,
     @SerializedName("boardIdList")
-    val boardIdList: Array<Int>,
+    val boardIdList: List<Int>,
 )   :Serializable {}
