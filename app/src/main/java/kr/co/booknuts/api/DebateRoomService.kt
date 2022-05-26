@@ -28,7 +28,7 @@ interface DebateRoomService {
     ) : Call<DebateJoinableDTO>
 
     // 토론장 참여
-    @GET("/debate/join/{roomId}?opinion={opinion}")
+    @GET("/debate/join/{roomId}")
     fun join(
         @Header("X-AUTH-TOKEN") token: String,
         @Path("roomId") roomId: Long,

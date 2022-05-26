@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.DatabaseReference
@@ -30,14 +31,16 @@ class DebateDetail2Fragment : Fragment() {
         val firebaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
         val databaseReference: DatabaseReference = firebaseDatabase.getReference()
 
-        val roomId = arguments?.getLong("roomId", -1)
-        val opinion = arguments?.getBoolean("opinion", false)
+        // 토론장 ID와 의견 넘겨받음
+        val roomId = arguments?.getLong("roomId")
+        val opinion = arguments?.getBoolean("opinion")
+        Log.d("DEBATE_JOIN", "Bundle1 : ${roomId}, ${opinion}")
 
         binding.checkBox2.setOnCheckedChangeListener { button, isChecked ->
             if (isChecked) {
                 val pref = this.getActivity()?.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
                 val token = pref?.getString("Token", "")
-                Log.d("DEBATE_JOIN", "Bundle : ${token}, ${roomId}, ${opinion}")
+                Log.d("DEBATE_JOIN", "Bundle2 : ${token}, ${roomId}, ${opinion}")
 
                 // 토론장 참여하기
                 if (token != null && roomId != null && opinion != null) {
@@ -49,30 +52,33 @@ class DebateDetail2Fragment : Fragment() {
                             if (opinion) userOpinion = "pros"
                             else userOpinion = "cons"
                             var nickname = ""
+                            val curNoUser = response.body()?.curNoUser
+                            val curYesUser = response.body()?.curYesUser
                             // 유저 정보 조회해서 닉네임 가져오기
                             RetrofitBuilder.api.getUserInfo(token).enqueue(object : Callback<UserInfo> {
                                 override fun onResponse(call: Call<UserInfo>, response: Response<UserInfo>) {
                                     nickname = response.body()?.nickname.toString()
                                     Log.d("DEBATE_JOIN", "닉네임 : ${nickname}")
+
+                                    var participants = curNoUser
+                                    participants = curYesUser
+                                    if (participants != null) {
+                                        participants = participants + 1
+                                    }
+
+                                    databaseReference.child(roomId.toString()).child("user").child(userOpinion).setValue(nickname)
+                                    databaseReference.child(roomId.toString()).child("participants").setValue(participants)
+
+                                    var intent = Intent(this@DebateDetail2Fragment.activity, DebateChatActivity::class.java)
+                                    intent.putExtra("roomId", roomId.toString())
+                                    startActivity(intent)
+                                    this@DebateDetail2Fragment.activity?.finish()
                                 }
 
                                 override fun onFailure(call: Call<UserInfo>, t: Throwable) {
                                     Toast.makeText(this@DebateDetail2Fragment.activity, "오류가 발생하였습니다.", Toast.LENGTH_SHORT).show()
                                 }
                             })
-                            var participants = response.body()?.curNoUser
-                            participants = participants?.plus(response.body()?.curYesUser!!)
-                            if (participants != null) {
-                                participants = participants + 1
-                            }
-
-                            databaseReference.child(roomId.toString()).child("user").child(userOpinion).setValue(nickname)
-                            databaseReference.child(roomId.toString()).child("participants").setValue(participants)
-
-                            var intent = Intent(this@DebateDetail2Fragment.activity, DebateChatActivity::class.java)
-                            intent.putExtra("roomId", roomId)
-                            startActivity(intent)
-                            this@DebateDetail2Fragment.activity?.finish()
                         }
 
                         override fun onFailure(call: Call<DebateJoinDTO>, t: Throwable) {

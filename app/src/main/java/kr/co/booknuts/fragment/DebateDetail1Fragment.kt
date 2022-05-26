@@ -68,11 +68,8 @@ class DebateDetail1Fragment : Fragment() {
                     if (result) {
                         // 다음 프래그먼트로 이동
                         // 토론장 id 넘겨주기
-                        val bundle = Bundle(2) // 파라미터의 숫자는 전달하려는 값의 갯수
-                        bundle.putLong("roomId", roomId)
-                        bundle.putBoolean("opinion", opinion)
-                        fragmentDetail2.arguments = bundle
-                        (activity as ChatDetailActivity)!!.changeFragment(2)
+
+                        (activity as ChatDetailActivity).changeFragmentWithData(fragmentDetail2, roomId, opinion);
                     } else {
                         Toast.makeText(this@DebateDetail1Fragment.activity, "인원이 초과되었습니다.", Toast.LENGTH_SHORT).show()
                     }

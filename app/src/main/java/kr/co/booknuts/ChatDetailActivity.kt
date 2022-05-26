@@ -1,6 +1,9 @@
 package kr.co.booknuts
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import kr.co.booknuts.databinding.ActivityChatDetailBinding
@@ -18,6 +21,9 @@ class ChatDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window.setTitle("")
         setContentView(binding.root)
 
         // 토론장 id 넘겨받기
@@ -63,15 +69,16 @@ class ChatDetailActivity : AppCompatActivity() {
         }
     }
 
-    fun changeFragmentWithData(fragment: Fragment, id: Int) {
-        val bundle = Bundle()
-        bundle.putInt("id", id);
+    fun changeFragmentWithData(fragment: Fragment, roomId: Long, opinion: Boolean) {
+        val bundle = Bundle(2)
+        bundle.putLong("roomId", roomId);
+        bundle.putBoolean("opinion", opinion)
 
         fragment.arguments = bundle
 
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fl_container, fragment)
+            .replace(R.id.frame, fragment)
             .commit()
     }
 }

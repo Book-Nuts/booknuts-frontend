@@ -137,21 +137,24 @@ class DebateCreateActivity : AppCompatActivity() {
                             RetrofitBuilder.api.getUserInfo(token).enqueue(object : Callback<UserInfo> {
                                 override fun onResponse(call: Call<UserInfo>, response: Response<UserInfo>) {
                                     ownerNickname = response.body()?.nickname.toString()
+
+                                    // 파이어베이스에도 토론장 정보 추가 후 토론장 액티비티로 이동
+                                    databaseReference.child(roomId).child("state").setValue(false)
+                                    databaseReference.child(roomId).child("speaker").setValue(ownerNickname)
+                                    databaseReference.child(roomId).child("participants").setValue(1)
+                                    databaseReference.child(roomId).child("user").child(ownerOpinion).setValue(ownerNickname)
+
+                                    var intent = Intent(this@DebateCreateActivity, DebateChatActivity::class.java)
+                                    intent.putExtra("roomId", roomId)
+                                    intent.putExtra("opinion", userOpinion)
+                                    startActivity(intent)
+                                    finish()
                                 }
 
-                                override fun onFailure(call: Call<UserInfo>, t: Throwable) { }
+                                override fun onFailure(call: Call<UserInfo>, t: Throwable) {
+                                    Toast.makeText(this@DebateCreateActivity, "오류가 발생하였습니다.", Toast.LENGTH_SHORT).show()
+                                }
                             })
-
-                            // 파이어베이스에도 토론장 정보 추가 후 토론장 액티비티로 이동
-                            databaseReference.child(roomId).child("state").setValue(false)
-                            databaseReference.child(roomId).child("speaker").setValue(ownerNickname)
-                            databaseReference.child(roomId).child("participants").setValue(1)
-                            databaseReference.child(roomId).child("user").child(ownerOpinion).setValue(ownerNickname)
-
-                            var intent = Intent(this@DebateCreateActivity, DebateChatActivity::class.java)
-                            intent.putExtra("roomId", roomId)
-                            startActivity(intent)
-                            finish()
                         }
 
                         override fun onFailure(call: Call<DebateRoom>, t: Throwable) {

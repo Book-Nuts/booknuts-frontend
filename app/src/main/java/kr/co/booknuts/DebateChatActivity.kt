@@ -3,6 +3,7 @@ package kr.co.booknuts
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +34,8 @@ class DebateChatActivity : AppCompatActivity() {
 
         // 토론장 ID 받아오기
         val roomId = intent.getStringExtra("roomId")
+        val opinion = intent.getBooleanExtra("opinion", false)
+        Log.d("DEBATE_CHAT", "토론장ID : ${roomId}")
 
         // background 적용 및 컴포넌트 앞으로 가져오기
         binding.imgDebateCover.clipToOutline = true
@@ -62,7 +65,7 @@ class DebateChatActivity : AppCompatActivity() {
                 Toast.makeText(this, "메시지를 입력하세요.", Toast.LENGTH_SHORT).show()
             } else {
                 var username = ""
-                val state = true // 일단 되는 걸로 해놨음
+                val state = opinion
                 val message = binding.editChat.text.toString()
 
                 // ★★★ 파이어베이스에서 토론장 상태 가져오기 !!!
@@ -74,18 +77,18 @@ class DebateChatActivity : AppCompatActivity() {
                 RetrofitBuilder.api.getUserInfo(token).enqueue(object : Callback<UserInfo> {
                     override fun onResponse(call: Call<UserInfo>, response: Response<UserInfo>) {
                         username = response.body()?.nickname.toString()
+
+                        val chat = Chat(username, message, state)
+
+                        // 파이어베이스에 메시지 저장
+                        if (roomId != null) {
+                            databaseReference.child(roomId).child("message").push().setValue(chat)
+                        }
+
+                        binding.editChat.setText("")
                     }
                     override fun onFailure(call: Call<UserInfo>, t: Throwable) { }
                 })
-
-                val chat = Chat(username, message, state)
-
-                // 파이어베이스에 메시지 저장
-                if (roomId != null) {
-                    databaseReference.child(roomId).child("message").push().setValue(chat)
-                }
-
-                binding.editChat.setText("")
             }
         }
     }
@@ -96,6 +99,8 @@ class DebateChatActivity : AppCompatActivity() {
                 val chat = snapshot.getValue(Chat::class.java)
                 if (chat != null) {
                     adapter.listData.add(chat)
+                    binding.recyclerMsg.adapter = adapter
+                    binding.recyclerMsg.layoutManager = LinearLayoutManager(this@DebateChatActivity)
                 }
             }
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) { }
