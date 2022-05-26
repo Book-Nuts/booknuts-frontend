@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -45,10 +46,11 @@ class PostDetailActivity : AppCompatActivity() {
             override fun onResponse(call: Call<PostDetail>, response: Response<PostDetail>) {
                 data = response.body()
                 Log.d("Board Detail Get Test", "" + data.toString())
-                Toast.makeText(this@PostDetailActivity, "통신 성공", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@PostDetailActivity, "통신 성공", Toast.LENGTH_SHORT).show()
 
                 binding.textWriter.text = data?.writer + " 님의 게시글"
                 binding.textTitle.text = data?.title
+                binding.textNickname.text = data?.writer
                 binding.textContent.text = data?.content
                 binding.textDate.text = data?.createdDate
                 binding.textBookTitle.text = data?.bookTitle
@@ -58,6 +60,15 @@ class PostDetailActivity : AppCompatActivity() {
                 binding.textHeartCnt.text = data?.heartCnt.toString()
                 binding.textArchiveCnt.text = data?.archiveCnt.toString()
                 binding.textGenre.text = data?.bookGenre
+                val imgUser: ImageView = binding.imgUser
+                var profileId = data?.writer?.length?.rem(5)
+                when (profileId) {
+                    0 -> imgUser.setImageResource(R.drawable.img_user1)
+                    1 -> imgUser.setImageResource(R.drawable.img_user2)
+                    2 -> imgUser.setImageResource(R.drawable.img_user3)
+                    3 -> imgUser.setImageResource(R.drawable.img_user4)
+                    4 -> imgUser.setImageResource(R.drawable.img_user5)
+                }
                 Glide.with(this@PostDetailActivity)
                     .load(data?.bookImgUrl)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
@@ -66,7 +77,7 @@ class PostDetailActivity : AppCompatActivity() {
             }
             override fun onFailure(call: Call<PostDetail>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
-                Toast.makeText(this@PostDetailActivity, "통신 실패", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@PostDetailActivity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
     }

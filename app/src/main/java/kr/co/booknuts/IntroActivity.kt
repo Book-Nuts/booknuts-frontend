@@ -18,7 +18,7 @@ class IntroActivity : AppCompatActivity() {
         // 로그인(토큰) 확인
         val isLogin: Boolean = savedToken != null
 
-        Toast.makeText(this@IntroActivity, "authToken: " + savedToken, Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this@IntroActivity, "authToken: " + savedToken, Toast.LENGTH_SHORT).show()
 
         val intentLogin = Intent(this, LoginActivity::class.java)
         val intentMain = Intent(this, MainActivity::class.java)

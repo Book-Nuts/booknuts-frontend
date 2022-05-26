@@ -70,7 +70,7 @@ class ArchiveDetailFragment : Fragment() {
             override fun onResponse(call: Call<ArrayList<PostDetail>>, response: Response<ArrayList<PostDetail>>) {
                 archivePostDataArray = response.body()
                 //Log.d("Archive Post List", "data : " + archivePostDataArray?.get(0)?.boardId)
-                Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
                 binding.textArchiveTitle.text = data?.get(1)
                 binding.textArchiveContent.text = data?.get(2)
                 Glide.with(binding.imgArchiveBg.context)
@@ -103,7 +103,7 @@ class ArchiveDetailFragment : Fragment() {
             }
             override fun onFailure(call: Call<ArrayList<PostDetail>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
-                Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
         return binding.root

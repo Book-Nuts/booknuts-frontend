@@ -29,10 +29,10 @@
             android:textStyle="bold"
             android:textColor="@color/white"
             android:translationX="10dp"
-            android:text="시리즈 설정" />
+            android:text="아카이브 설정" />
 
         <ImageView
-            android:id="@+id/imageView15"
+            android:id="@+id/img_close"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:background="@drawable/icon_close"

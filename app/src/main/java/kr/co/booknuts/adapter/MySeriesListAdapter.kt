@@ -64,10 +64,9 @@ class MySeriesListAdapter(private val dataList: ArrayList<MySeries>?) : Recycler
             totalNuts.text = item.totalNuts.toString()
             Glide.with(bookImg.context)
                 .load(item.imgUrl)
-                .placeholder(R.drawable.icon_search)
+                .placeholder(R.drawable.img_book_cover_default)
+                .error(R.drawable.img_book_cover_default)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .error(R.drawable.img_user3)
-                .fallback(R.drawable.img_user2)
                 .fitCenter()
                 .into(bookImg)
         }

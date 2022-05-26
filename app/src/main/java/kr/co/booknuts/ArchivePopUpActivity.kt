@@ -21,12 +21,17 @@ class ArchivePopUpActivity : AppCompatActivity() {
 
         var boardId = intent.getIntExtra("id", -1)?.toInt()
 
+        binding.imgClose.setOnClickListener {
+            finish()
+        }
+
         binding.textCreateArchive.setOnClickListener {
             val intent = Intent(this@ArchivePopUpActivity, MakeArchiveActivity::class.java)
             intent.putExtra("boardId", boardId)
             startActivity(intent)
             finish()
         }
+
         binding.textAddToArchive.setOnClickListener {
             val intent = Intent(this@ArchivePopUpActivity, ArchiveAddActivity::class.java)
             intent.putExtra("boardId", boardId)
