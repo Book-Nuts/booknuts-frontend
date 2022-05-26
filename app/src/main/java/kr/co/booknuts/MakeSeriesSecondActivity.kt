@@ -31,7 +31,7 @@ class MakeSeriesSecondActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         var intentG = intent
-        var postClickedList: List<Int> = intentG.getIntegerArrayListExtra("postClickedList") as List<Int>
+        var postClickedList: List<Long> = intentG.getIntegerArrayListExtra("postClickedList") as List<Long>
         Log.d("Get Post List", postClickedList.toString())
 
         binding.imgClose.setOnClickListener {

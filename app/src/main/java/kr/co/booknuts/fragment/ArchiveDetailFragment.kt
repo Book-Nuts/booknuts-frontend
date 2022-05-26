@@ -69,7 +69,7 @@ class ArchiveDetailFragment : Fragment() {
             Callback<ArrayList<PostDetail>> {
             override fun onResponse(call: Call<ArrayList<PostDetail>>, response: Response<ArrayList<PostDetail>>) {
                 archivePostDataArray = response.body()
-                Log.d("Archive Post List", "data : " + archivePostDataArray?.get(0)?.boardId)
+                //Log.d("Archive Post List", "data : " + archivePostDataArray?.get(0)?.boardId)
                 Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
                 binding.textArchiveTitle.text = data?.get(1)
                 binding.textArchiveContent.text = data?.get(2)

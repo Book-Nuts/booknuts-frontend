@@ -14,16 +14,18 @@ class ArchivePopUpActivity : AppCompatActivity() {
     val binding by lazy { ActivityArchivePopUpBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        /*binding.textCreateSeries.setOnClickListener {
-            val intent = Intent(this@ArchivePopUpActivity, MakeSeriesFirstActivity::class.java)
+        var boardId = intent.getIntExtra("id", -1)?.toInt()
+
+        binding.textCreateArchive.setOnClickListener {
+            val intent = Intent(this@ArchivePopUpActivity, MakeArchiveActivity::class.java)
+            intent.putExtra("boardId", boardId)
             startActivity(intent)
             finish()
-        }*/
-
+        }
     }
 }

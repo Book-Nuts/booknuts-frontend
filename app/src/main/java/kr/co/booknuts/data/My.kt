@@ -41,6 +41,22 @@ data class SeriesRequestDTO (
     val content: String?,
     @SerializedName("imgUrl")
     val imgUrl: String?,
-    @SerializedName("boardIdList")
-    val boardIdList: List<Int>,
+    @SerializedName("boardIdlist")
+    val boardIdlist: List<Long>,
 )   :Serializable {}
+
+data class ArchiveRequestDTO (
+    @SerializedName("title")
+    val title: String?,
+    @SerializedName("content")
+    val content: String?,
+    @SerializedName("imgUrl")
+    val imgUrl: String?,
+)   :Serializable {}
+
+data class Result (
+    @SerializedName("result")
+    val result: String?,
+)   :Serializable {}
+
+
