@@ -151,9 +151,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"
-        android:layout_marginLeft="7dp"
         android:layout_marginTop="11dp"
-        android:paddingLeft="17dp"
+        android:background="@drawable/style_debate_info"
+        android:paddingLeft="18dp"
         android:paddingTop="3dp"
         android:paddingRight="7dp"
         android:paddingBottom="3dp"
@@ -162,17 +162,13 @@
         android:textSize="12sp"
         android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/text_time"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/style_debate_info" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:scaleX="2.5"
-        android:scaleY="2.5"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="6dp"
         app:layout_constraintBottom_toBottomOf="@+id/text_participant"
         app:layout_constraintStart_toStartOf="@+id/text_participant"
         app:layout_constraintTop_toTopOf="@+id/text_participant"

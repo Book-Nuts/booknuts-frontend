@@ -80,17 +80,17 @@
                 android:id="@+id/linear_add_book"
                 android:layout_width="160dp"
                 android:layout_height="226dp"
+                android:layout_marginBottom="17dp"
                 android:background="#e6e6e6"
                 android:gravity="center"
-                android:layout_marginBottom="17dp"
                 android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/img_book"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="gone"
                     android:scaleType="centerCrop"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/img_book_sample1" />
 
                 <ImageView
@@ -104,10 +104,10 @@
                     android:id="@+id/text_add_book"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="16dp"
                     android:lineHeight="23.17dp"
-                    android:text="책 추가하기" />
+                    android:text="책 추가하기"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
             </LinearLayout>
 
             <TextView

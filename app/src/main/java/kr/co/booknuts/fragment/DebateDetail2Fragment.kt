@@ -54,6 +54,8 @@ class DebateDetail2Fragment : Fragment() {
                             var nickname = ""
                             val curNoUser = response.body()?.curNoUser
                             val curYesUser = response.body()?.curYesUser
+                            val topic = response.body()?.topic
+                            val title = response.body()?.bookTitle
                             // 유저 정보 조회해서 닉네임 가져오기
                             RetrofitBuilder.api.getUserInfo(token).enqueue(object : Callback<UserInfo> {
                                 override fun onResponse(call: Call<UserInfo>, response: Response<UserInfo>) {
@@ -71,6 +73,8 @@ class DebateDetail2Fragment : Fragment() {
 
                                     var intent = Intent(this@DebateDetail2Fragment.activity, DebateChatActivity::class.java)
                                     intent.putExtra("roomId", roomId.toString())
+                                    intent.putExtra("title", title)
+                                    intent.putExtra("topic", topic)
                                     startActivity(intent)
                                     this@DebateDetail2Fragment.activity?.finish()
                                 }

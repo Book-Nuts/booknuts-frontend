@@ -68,99 +68,38 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/linear_img"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:id="@+id/linear_add_book"
+                android:layout_width="160dp"
+                android:layout_height="226dp"
+                android:layout_gravity="center"
                 android:layout_marginTop="27dp"
-                android:gravity="center_horizontal"
-                android:orientation="horizontal"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp">
+                android:background="#e6e6e6"
+                android:gravity="center"
+                android:orientation="vertical">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/layout_addBook"
-                    android:layout_width="0dp"
-                    android:layout_height="226dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="4dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_weight="1"
-                    android:background="#E6E6E6">
+                <ImageView
+                    android:id="@+id/img_book"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/img_book_sample1" />
 
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/layout_addBookInstruction"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                <ImageView
+                    android:id="@+id/img_plus"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/icon_add" />
 
-                        <ImageView
-                            android:id="@+id/img_addBook"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            app:layout_constraintBottom_toTopOf="@+id/text_addBook"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:srcCompat="@drawable/icon_add" />
-
-                        <TextView
-                            android:id="@+id/text_addBook"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="책 추가하기"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/layout_addImage"
-                    android:layout_width="0dp"
-                    android:layout_height="226dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:background="#E6E6E6">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/layout_addImageInstruction"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:id="@+id/img_addImg"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            app:layout_constraintBottom_toTopOf="@+id/text_addImg"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/icon_add" />
-
-                        <TextView
-                            android:id="@+id/text_addImg"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="이미지 추가하기"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/text_add_book"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:lineHeight="23.17dp"
+                    android:text="책 추가하기"
+                    android:textColor="@color/black"
+                    android:textSize="16dp" />
             </LinearLayout>
 
             <TextView
