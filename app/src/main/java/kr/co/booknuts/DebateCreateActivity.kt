@@ -5,15 +5,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kr.co.booknuts.data.Chat
-import kr.co.booknuts.data.DebateCreateDTO
-import kr.co.booknuts.data.DebateRoom
-import kr.co.booknuts.data.UserInfo
+import kr.co.booknuts.data.*
 import kr.co.booknuts.databinding.ActivityDebateCreateBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
 import retrofit2.Call
@@ -27,6 +27,11 @@ class DebateCreateActivity : AppCompatActivity() {
     var userOpinion = false
     val binding by lazy { ActivityDebateCreateBinding.inflate(layoutInflater) }
 
+    var bookTitle = ""
+    var author = ""
+    var bookImgUrl = ""
+    var topic = ""
+
     // 파이어베이스 데이터베이스 인스턴스 연결
     private val firebaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val databaseReference: DatabaseReference = firebaseDatabase.getReference()
@@ -38,7 +43,6 @@ class DebateCreateActivity : AppCompatActivity() {
         // EditText 입력 중 외부 터치 시 키보드 숨기기
         binding.toolbar.setOnClickListener { hideKeyboard() }
         binding.linearDebateCreate.setOnClickListener { hideKeyboard() }
-        binding.linearImg.setOnClickListener { hideKeyboard() }
 
         // X 버튼 클릭 시 액티비티 종료
         binding.btnExit.setOnClickListener { finish() }
@@ -46,6 +50,12 @@ class DebateCreateActivity : AppCompatActivity() {
         // 음성 채팅 비활성화
         binding.btnToggleVoicechat.setOnClickListener {
             Toast.makeText(this, "데모 버전에서는 텍스트 채팅만 가능합니다.", Toast.LENGTH_SHORT).show()
+        }
+
+        // 책 선택 액티비티로 이동 및 데이터 요청
+        binding.linearAddBook.setOnClickListener{
+            var intent = Intent(this@DebateCreateActivity, BookSearchActivity::class.java)
+            startActivityForResult(intent, 1234)
         }
 
         // 토론 인원 선택
@@ -105,11 +115,8 @@ class DebateCreateActivity : AppCompatActivity() {
             } else if (!isOpinion) {
                 Toast.makeText(this, "찬반을 선택하세요.", Toast.LENGTH_SHORT).show()
             } else {
-                val bookTitle = "test" // 책 선택
-                val author = "test" // 책 선택
-                val bookImgUrl = "www.imglink.test" // 책 선택
                 val bookGenre = "test" // 책 선택
-                val topic = binding.editDebateName.text.toString()
+                topic = binding.editDebateName.text.toString()
                 val coverImgUrl = "www.testurl" // 갤러리
                 val type = 0 // 텍스트 채팅
                 val maxUser = toggleRatio
@@ -125,7 +132,6 @@ class DebateCreateActivity : AppCompatActivity() {
                     RetrofitBuilder.debateApi.debateCreate(token, debateInfo).enqueue(object : Callback<DebateRoom> {
                         override fun onResponse(call: Call<DebateRoom>, response: Response<DebateRoom>) {
                             Log.d("CREATE_DEBATE", response.body().toString())
-
 
                             var ownerNickname = "test"
                             val roomId = response.body()?.roomId.toString()
@@ -147,6 +153,8 @@ class DebateCreateActivity : AppCompatActivity() {
                                     var intent = Intent(this@DebateCreateActivity, DebateChatActivity::class.java)
                                     intent.putExtra("roomId", roomId)
                                     intent.putExtra("opinion", userOpinion)
+                                    intent.putExtra("topic", topic)
+                                    intent.putExtra("title", bookTitle)
                                     startActivity(intent)
                                     finish()
                                 }
@@ -166,6 +174,29 @@ class DebateCreateActivity : AppCompatActivity() {
                     })
                 }
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode === 1234 && resultCode === RESULT_OK) {
+            val bookInfo = data?.extras?.get("postInfo") as PostRequestDTO
+            Log.d("Book Info", bookInfo.toString())
+            bookTitle = bookInfo.bookTitle.toString()
+            author = bookInfo.bookAuthor.toString()
+            bookImgUrl = bookInfo.bookImgUrl.toString()
+            binding.imgBook.visibility = View.VISIBLE
+            binding.imgPlus.visibility = View.GONE
+            binding.textAddBook.visibility = View.GONE
+            Glide.with(binding.imgBook)
+                .load(bookInfo.bookImgUrl)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .error(R.drawable.img_user2)
+                .fitCenter()
+                .into(binding.imgBook)
+        } else {
+            Log.d("Book Info", "null")
         }
     }
 

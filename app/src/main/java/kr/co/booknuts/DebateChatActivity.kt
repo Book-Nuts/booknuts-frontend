@@ -35,7 +35,12 @@ class DebateChatActivity : AppCompatActivity() {
         // 토론장 ID 받아오기
         val roomId = intent.getStringExtra("roomId")
         val opinion = intent.getBooleanExtra("opinion", false)
+        val topic = intent.getStringExtra("topic")
+        val title = intent.getStringExtra("title")
         Log.d("DEBATE_CHAT", "토론장ID : ${roomId}")
+
+        binding.textToolbarTitle.text = "'${title}' 토론장"
+        binding.textTopic.text = topic
 
         // background 적용 및 컴포넌트 앞으로 가져오기
         binding.imgDebateCover.clipToOutline = true

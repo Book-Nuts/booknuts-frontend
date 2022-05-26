@@ -39,7 +39,6 @@ class BookSearchActivity : AppCompatActivity() {
 
             if(!bookTitle.isEmpty()) {
                 var searchResponse: List<BookItem>?
-                bookTitle = "하"
                 BookRetrofitBuilder.api.searchBook(bookTitle).enqueue(object: Callback<BookSearchInfo> {
                     override fun onResponse(call: Call<BookSearchInfo>, response: Response<BookSearchInfo>) {
                         Toast.makeText(this@BookSearchActivity, "통신 성공", Toast.LENGTH_SHORT).show()
