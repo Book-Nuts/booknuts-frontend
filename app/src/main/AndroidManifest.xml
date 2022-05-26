@@ -18,7 +18,7 @@
             android:name=".ChatDetailActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog"/>
-            android:name=".ArchiveAddActivity"
+        <activity android:name=".ArchiveAddActivity"
             android:exported="false" />
         <activity
             android:name=".MakeArchiveActivity"
