@@ -27,5 +27,11 @@ class ArchivePopUpActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+        binding.textAddToArchive.setOnClickListener {
+            val intent = Intent(this@ArchivePopUpActivity, ArchiveAddActivity::class.java)
+            intent.putExtra("boardId", boardId)
+            startActivity(intent)
+            finish()
+        }
     }
 }

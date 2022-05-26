@@ -7,11 +7,8 @@ import android.util.Log
 import android.widget.Toast
 import kr.co.booknuts.data.ArchiveRequestDTO
 import kr.co.booknuts.data.MyArchive
-import kr.co.booknuts.data.MySeries
-import kr.co.booknuts.data.SeriesRequestDTO
+import kr.co.booknuts.data.ResultData
 import kr.co.booknuts.databinding.ActivityMakeArchiveBinding
-import kr.co.booknuts.databinding.ActivityMakeSeriesSecondBinding
-import kr.co.booknuts.fragment.MyFragment
 import kr.co.booknuts.retrofit.RetrofitBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,13 +19,13 @@ class MakeArchiveActivity : AppCompatActivity() {
     val binding by lazy { ActivityMakeArchiveBinding.inflate(layoutInflater) }
 
     private var savedToken: String? = null
+    var boardId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        var boardId = intent.getIntExtra("boardId", -1)?.toInt()
-
+        boardId = intent.getIntExtra("boardId", -1)?.toInt()
         binding.imgClose.setOnClickListener {
             finish()
         }
@@ -54,26 +51,10 @@ class MakeArchiveActivity : AppCompatActivity() {
                         var responseData = response.body()
                         Log.d("Post Success", responseData?.archiveId.toString())
                         Toast.makeText(this@MakeArchiveActivity, "통신 성공", Toast.LENGTH_SHORT).show()
-                        /*RetrofitBuilder.api.addPostToArchive(savedToken, responseData?.archiveId, boardId).enqueue(object :
-                            Callback<Result> {
-                            override fun onResponse(
-                                call: Call<Result>,
-                                response: Response<Result>
-                            ) {
-                                Log.d("Post Info Sent", archiveInfo.toString())
-                                var responseData = response.body()
-                                Log.d("Post Success", responseData?.archiveId.toString())
-                                Toast.makeText(this@MakeArchiveActivity, "통신 성공", Toast.LENGTH_SHORT).show()
-                            }
+                        //setPostInArchive(responseData?.archiveId)
 
-                            override fun onFailure(call: Call<Result>, t: Throwable) {
-                                Log.d("Approach Fail", "wrong server approach")
-                                Toast.makeText(this@MakeArchiveActivity, "통신 실패", Toast.LENGTH_SHORT).show()
-                            }
-                        })*/
-
-                        //val intent = Intent(this@MakeArchiveActivity, MainActivity::class.java)
-                        //startActivity(intent)
+                        val intent = Intent(this@MakeArchiveActivity, MainActivity::class.java)
+                        startActivity(intent)
                     }
 
                     override fun onFailure(call: Call<MyArchive>, t: Throwable) {
@@ -83,7 +64,25 @@ class MakeArchiveActivity : AppCompatActivity() {
                 })
             }
         }
+    }
 
+    fun setPostInArchive(archiveId: Int?) {
+        RetrofitBuilder.api.addPostToArchive(savedToken, archiveId, boardId).enqueue(object :
+            Callback<ResultData> {
+            override fun onResponse(
+                call: Call<ResultData>,
+                response: Response<ResultData>
+            ) {
+                //Log.d("Post Info Sent", archiveInfo.toString())
+                var responseData = response.body()
+                Log.d("Post Success", archiveId.toString())
+                Toast.makeText(this@MakeArchiveActivity, "통신 성공", Toast.LENGTH_SHORT).show()
+            }
 
+            override fun onFailure(call: Call<ResultData>, t: Throwable) {
+                Log.d("Approach Fail", "wrong server approach")
+                Toast.makeText(this@MakeArchiveActivity, "통신 실패", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

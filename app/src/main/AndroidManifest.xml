@@ -15,6 +15,9 @@
         android:theme="@style/Theme.BookNuts"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ArchiveAddActivity"
+            android:exported="false" />
+        <activity
             android:name=".MakeArchiveActivity"
             android:exported="false" />
         <activity

@@ -102,12 +102,12 @@ interface UserService {
 
     // 아카이브에 게시글 추가하기
     // request body - 제목, 내용, 책표지
-    @GET("/archive/{archiveId}/{boardId}")
+    @GET("/archive/addarchive/{archiveId}/{boardId}")
     fun addPostToArchive(
         @Header("X-AUTH-TOKEN") token: String?,
         @Path("archiveId") archiveId: Int?,
-        @Path("boardId") boardId: Int,
-    ): Call<Result>
+        @Path("boardId") boardId: Int?,
+    ): Call<ResultData>
 
     // 게시글 상세 가져오기
     @GET("/board/{boardId}")

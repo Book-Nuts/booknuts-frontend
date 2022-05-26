@@ -54,7 +54,7 @@ data class ArchiveRequestDTO (
     val imgUrl: String?,
 )   :Serializable {}
 
-data class Result (
+data class ResultData (
     @SerializedName("result")
     val result: String?,
 )   :Serializable {}
