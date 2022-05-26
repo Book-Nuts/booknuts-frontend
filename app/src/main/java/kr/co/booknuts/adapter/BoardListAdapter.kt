@@ -36,6 +36,9 @@ class BoardListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.Ad
         holder.binding.homeLinearPostItem.setOnClickListener{
             itemClickListener.onClick(it, position)
         }
+        holder.binding.imgArchiveBox.setOnClickListener{
+            itemClickListenerArchive.onClick(it, position)
+        }
     }
 
     interface OnItemClickListener {
@@ -47,6 +50,16 @@ class BoardListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.Ad
     }
 
     private lateinit var itemClickListener: OnItemClickListener
+
+    interface OnItemClickListenerArchive {
+        fun onClick(v: View, position: Int)
+    }
+
+    fun setItemClickListenerArchive(onItemClickListenerArchive: OnItemClickListenerArchive){
+        this.itemClickListenerArchive = onItemClickListenerArchive
+    }
+
+    private lateinit var itemClickListenerArchive: OnItemClickListenerArchive
 
     inner class ViewHolder(val binding: HomeRecyclerviewItemBinding): RecyclerView.ViewHolder(binding.root) {
         private val title: TextView = binding.boardTextTitle

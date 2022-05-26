@@ -16,6 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.android.synthetic.main.activity_intro.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kr.co.booknuts.ArchivePopUpActivity
 import kr.co.booknuts.MainActivity
 import kr.co.booknuts.PostDetailActivity
 import kr.co.booknuts.adapter.BoardListAdapter
@@ -85,6 +86,14 @@ class HomeFragment : Fragment() {
                         startActivity(intent)
                     }
                 })
+                adapter.setItemClickListenerArchive(object: BoardListAdapter.OnItemClickListenerArchive{
+                    override fun onClick(v: View, position: Int) {
+                        var intent = Intent(activity, ArchivePopUpActivity::class.java)
+                        intent.putExtra("id", dataArray?.get(position)?.boardId)
+                        Log.d("Board ID", "" + dataArray?.get(position)?.boardId)
+                        startActivity(intent)
+                    }
+                })
 
             }
             override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
@@ -107,7 +116,7 @@ class HomeFragment : Fragment() {
 
             // 독립출판 뷰
             binding.homeImgIndieEvent.visibility = View.GONE
-            binding.homeLinearIndieList.visibility = View.GONE
+            binding.homeImgIndieSample.visibility = View.GONE
         }
 
         binding.homeTextToday.setOnClickListener{
@@ -122,7 +131,7 @@ class HomeFragment : Fragment() {
 
             // 독립출판 뷰
             binding.homeImgIndieEvent.visibility = View.GONE
-            binding.homeLinearIndieList.visibility = View.GONE
+            binding.homeImgIndieSample.visibility = View.GONE
         }
 
         binding.homeTextIndie.setOnClickListener{
@@ -137,7 +146,7 @@ class HomeFragment : Fragment() {
 
             // 독립출판 뷰
             binding.homeImgIndieEvent.visibility = View.VISIBLE
-            binding.homeLinearIndieList.visibility = View.VISIBLE
+            binding.homeImgIndieSample.visibility = View.VISIBLE
 
         }
     }

@@ -18,6 +18,11 @@
             android:name=".ChatDetailActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog"/>
+            android:name=".ArchiveAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MakeArchiveActivity"
+            android:exported="false" />
         <activity
             android:name=".MakeSeriesSecondActivity"
             android:exported="true" />
@@ -26,6 +31,10 @@
             android:exported="true" />
         <activity
             android:name=".SeriesPopUpActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
+        <activity
+            android:name=".ArchivePopUpActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
         <activity

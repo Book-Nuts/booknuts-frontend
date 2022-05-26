@@ -33,3 +33,30 @@ data class MyArchive (
     @SerializedName("createdAt")
     val createdAt: String?,
 )   :Serializable {}
+
+data class SeriesRequestDTO (
+    @SerializedName("title")
+    val title: String?,
+    @SerializedName("content")
+    val content: String?,
+    @SerializedName("imgUrl")
+    val imgUrl: String?,
+    @SerializedName("boardIdlist")
+    val boardIdlist: List<Long>,
+)   :Serializable {}
+
+data class ArchiveRequestDTO (
+    @SerializedName("title")
+    val title: String?,
+    @SerializedName("content")
+    val content: String?,
+    @SerializedName("imgUrl")
+    val imgUrl: String?,
+)   :Serializable {}
+
+data class ResultData (
+    @SerializedName("result")
+    val result: String?,
+)   :Serializable {}
+
+

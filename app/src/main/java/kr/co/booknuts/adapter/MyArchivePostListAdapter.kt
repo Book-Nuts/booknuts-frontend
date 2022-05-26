@@ -52,10 +52,8 @@ inner class ViewHolder(val binding: MyArchiveDetailItemBinding): RecyclerView.Vi
         fun bind(item: PostDetail) {
             Glide.with(bookImg.context)
                 .load(item.bookImgUrl)
-                .placeholder(R.drawable.icon_search)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .error(R.drawable.img_user3)
-                .fallback(R.drawable.img_user2)
                 .fitCenter()
                 .into(bookImg)
         }
