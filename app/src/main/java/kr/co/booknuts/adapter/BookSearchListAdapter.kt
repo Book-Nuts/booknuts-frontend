@@ -60,6 +60,8 @@ inner class ViewHolder(val binding: BookSearchItemBinding): RecyclerView.ViewHol
             bookAuthor.text = item.author
             Glide.with(bookImg.context)
                 .load(item.image)
+                .placeholder(R.drawable.img_book_cover_default)
+                .error(R.drawable.img_book_cover_default)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .fitCenter()
                 .into(bookImg)

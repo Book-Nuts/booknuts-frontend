@@ -13,6 +13,8 @@ import kr.co.booknuts.retrofit.RetrofitBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MakeArchiveActivity : AppCompatActivity() {
 
@@ -20,6 +22,14 @@ class MakeArchiveActivity : AppCompatActivity() {
 
     private var savedToken: String? = null
     var boardId: Int? = null
+
+    private var imageList: ArrayList<String> = arrayListOf("https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072821_960_720.jpg",
+        "https://cdn.pixabay.com/photo/2016/09/08/22/43/books-1655783_1280.jpg",
+        "https://cdn.pixabay.com/photo/2016/03/26/22/21/books-1281581_960_720.jpg",
+        "https://cdn.pixabay.com/photo/2017/02/26/21/39/rose-2101475_960_720.jpg",
+        "https://cdn.pixabay.com/photo/2018/10/05/14/39/sunset-3726030_960_720.jpg",
+        "https://cdn.pixabay.com/photo/2016/10/18/21/28/seljalandsfoss-1751463_960_720.jpg",
+        "https://cdn.pixabay.com/photo/2016/11/08/05/20/sunset-1807524__340.jpg")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +47,8 @@ class MakeArchiveActivity : AppCompatActivity() {
         binding.textGoNext.setOnClickListener{
             var title = binding.editTitle.text.toString()
             var content = binding.editContent.text.toString()
-            var imgUrl = "https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072821_960_720.jpg"
+            var random = Random().nextInt(imageList.size)
+            var imgUrl = imageList[random]
 
             if(!title.isEmpty() && !content.isEmpty()){
                 var archiveInfo = ArchiveRequestDTO(title, content, imgUrl)
@@ -51,7 +62,7 @@ class MakeArchiveActivity : AppCompatActivity() {
                         var responseData = response.body()
                         Log.d("Post Success", responseData?.archiveId.toString())
                         Toast.makeText(this@MakeArchiveActivity, "통신 성공", Toast.LENGTH_SHORT).show()
-                        //setPostInArchive(responseData?.archiveId)
+                        setPostInArchive(responseData?.archiveId)
 
                         val intent = Intent(this@MakeArchiveActivity, MainActivity::class.java)
                         startActivity(intent)

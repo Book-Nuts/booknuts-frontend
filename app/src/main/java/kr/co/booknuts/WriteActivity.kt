@@ -118,7 +118,8 @@ class WriteActivity : AppCompatActivity() {
                         responseData = response.body()
                         Log.d("Post Success", responseData.toString())
                         Toast.makeText(this@WriteActivity, "통신 성공", Toast.LENGTH_SHORT).show()
-                        finish()
+                        val intent = Intent(this@WriteActivity, MainActivity::class.java)
+                        startActivity(intent)
                     }
 
                     override fun onFailure(call: Call<PostDetail>, t: Throwable) {

@@ -70,7 +70,7 @@ class HomeFragment : Fragment() {
         RetrofitBuilder.api.getBoardList(savedToken, tabType).enqueue(object: Callback<ArrayList<Post>> {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
                 dataArray = response.body()
-                Log.d("BoardList Get Test", "data : " + dataArray.toString())
+                //Log.d("BoardList Get Test", "data : " + dataArray.toString())
                 Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
 
                 recyclerView = binding.rvBoard

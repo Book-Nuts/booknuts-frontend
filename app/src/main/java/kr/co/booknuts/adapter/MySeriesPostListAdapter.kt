@@ -62,10 +62,9 @@ inner class ViewHolder(val binding: MyRecyclerviewPostItemBinding): RecyclerView
             content.text = item.content
             Glide.with(bookImg.context)
                 .load(item.bookImgUrl)
-                .placeholder(R.drawable.icon_search)
+                .placeholder(R.drawable.img_book_cover_default)
+                .error(R.drawable.img_book_cover_default)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .error(R.drawable.img_user3)
-                .fallback(R.drawable.img_user2)
                 .fitCenter()
                 .into(bookImg)
         }
