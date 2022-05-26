@@ -61,7 +61,7 @@ class MakeArchiveActivity : AppCompatActivity() {
                         Log.d("Post Info Sent", archiveInfo.toString())
                         var responseData = response.body()
                         Log.d("Post Success", responseData?.archiveId.toString())
-                        Toast.makeText(this@MakeArchiveActivity, "통신 성공", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this@MakeArchiveActivity, "통신 성공", Toast.LENGTH_SHORT).show()
                         setPostInArchive(responseData?.archiveId)
 
                         val intent = Intent(this@MakeArchiveActivity, MainActivity::class.java)
@@ -70,7 +70,7 @@ class MakeArchiveActivity : AppCompatActivity() {
 
                     override fun onFailure(call: Call<MyArchive>, t: Throwable) {
                         Log.d("Approach Fail", "wrong server approach")
-                        Toast.makeText(this@MakeArchiveActivity, "통신 실패", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this@MakeArchiveActivity, "통신 실패", Toast.LENGTH_SHORT).show()
                     }
                 })
             }

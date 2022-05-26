@@ -49,7 +49,6 @@ class LoginActivity : AppCompatActivity() {
 
                 RetrofitBuilder.api.doLogin(loginInfo).enqueue(object: Callback<Token> {
                     override fun onResponse(call: Call<Token>, response: Response<Token>) {
-                        Toast.makeText(this@LoginActivity, "통신 성공", Toast.LENGTH_SHORT).show()
                         responseToken = response.body()
                         if(responseToken != null) {
                             Log.d("Login Success", responseToken.toString())
@@ -58,7 +57,6 @@ class LoginActivity : AppCompatActivity() {
                             //var authToken = pref.getString("Token", "Token 없음")?.chunked(15)
                             //(authToken?.get(authToken.size-1) ?: null)
                             //pref.getString("Token", "Token 없음")
-                            //Toast.makeText(this@LoginActivity, "Token: " + authToken, Toast.LENGTH_SHORT).show()
                             var intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)
                             finish()
@@ -71,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
 
                     override fun onFailure(call: Call<Token>, t: Throwable) {
                         Log.d("Approach Fail", "wrong server approach")
-                        Toast.makeText(this@LoginActivity, "통신 실패", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this@LoginActivity, "통신 실패", Toast.LENGTH_SHORT).show()
                     }
                 })
             } else {

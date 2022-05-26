@@ -8,8 +8,12 @@ import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import kr.co.booknuts.data.Chat
 import kr.co.booknuts.data.DebateCreateDTO
 import kr.co.booknuts.data.DebateRoom
+import kr.co.booknuts.data.UserInfo
 import kr.co.booknuts.databinding.ActivityDebateCreateBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
 import retrofit2.Call
@@ -22,6 +26,10 @@ class DebateCreateActivity : AppCompatActivity() {
     var isOpinion = false
     var userOpinion = false
     val binding by lazy { ActivityDebateCreateBinding.inflate(layoutInflater) }
+
+    // 파이어베이스 데이터베이스 인스턴스 연결
+    private val firebaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
+    private val databaseReference: DatabaseReference = firebaseDatabase.getReference()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,13 +121,40 @@ class DebateCreateActivity : AppCompatActivity() {
                 var debateInfo = DebateCreateDTO(bookTitle, author, bookImgUrl, bookGenre, topic, coverImgUrl, type, maxUser, opinion)
 
                 if (token != null) {
+                    // 토론장 개설
                     RetrofitBuilder.debateApi.debateCreate(token, debateInfo).enqueue(object : Callback<DebateRoom> {
                         override fun onResponse(call: Call<DebateRoom>, response: Response<DebateRoom>) {
                             Log.d("CREATE_DEBATE", response.body().toString())
-                            var intent = Intent(this@DebateCreateActivity, DebateChatActivity::class.java)
-                            intent.putExtra("roomId", response.body()?.roomId)
-                            startActivity(intent)
-                            finish()
+
+
+                            var ownerNickname = "test"
+                            val roomId = response.body()?.roomId.toString()
+                            var ownerOpinion: String = ""
+                            if (userOpinion) ownerOpinion = "pros"
+                            else ownerOpinion = "cons"
+
+                            // 유저 정보 조회해서 닉네임 가져오기
+                            RetrofitBuilder.api.getUserInfo(token).enqueue(object : Callback<UserInfo> {
+                                override fun onResponse(call: Call<UserInfo>, response: Response<UserInfo>) {
+                                    ownerNickname = response.body()?.nickname.toString()
+
+                                    // 파이어베이스에도 토론장 정보 추가 후 토론장 액티비티로 이동
+                                    databaseReference.child(roomId).child("state").setValue(false)
+                                    databaseReference.child(roomId).child("speaker").setValue(ownerNickname)
+                                    databaseReference.child(roomId).child("participants").setValue(1)
+                                    databaseReference.child(roomId).child("user").child(ownerOpinion).setValue(ownerNickname)
+
+                                    var intent = Intent(this@DebateCreateActivity, DebateChatActivity::class.java)
+                                    intent.putExtra("roomId", roomId)
+                                    intent.putExtra("opinion", userOpinion)
+                                    startActivity(intent)
+                                    finish()
+                                }
+
+                                override fun onFailure(call: Call<UserInfo>, t: Throwable) {
+                                    Toast.makeText(this@DebateCreateActivity, "오류가 발생하였습니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            })
                         }
 
                         override fun onFailure(call: Call<DebateRoom>, t: Throwable) {

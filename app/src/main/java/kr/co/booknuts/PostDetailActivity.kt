@@ -46,7 +46,7 @@ class PostDetailActivity : AppCompatActivity() {
             override fun onResponse(call: Call<PostDetail>, response: Response<PostDetail>) {
                 data = response.body()
                 Log.d("Board Detail Get Test", "" + data.toString())
-                Toast.makeText(this@PostDetailActivity, "통신 성공", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@PostDetailActivity, "통신 성공", Toast.LENGTH_SHORT).show()
 
                 binding.textWriter.text = data?.writer + " 님의 게시글"
                 binding.textTitle.text = data?.title
@@ -77,7 +77,7 @@ class PostDetailActivity : AppCompatActivity() {
             }
             override fun onFailure(call: Call<PostDetail>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
-                Toast.makeText(this@PostDetailActivity, "통신 실패", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@PostDetailActivity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
     }

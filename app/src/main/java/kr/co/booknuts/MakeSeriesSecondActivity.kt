@@ -69,14 +69,14 @@ class MakeSeriesSecondActivity : AppCompatActivity() {
                         Log.d("Post Info Sent", seriesInfo.toString())
                         var responseData = response.body()
                         Log.d("Post Success", responseData.toString())
-                        Toast.makeText(this@MakeSeriesSecondActivity, "통신 성공", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this@MakeSeriesSecondActivity, "통신 성공", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this@MakeSeriesSecondActivity, MainActivity::class.java)
                         startActivity(intent)
                     }
 
                     override fun onFailure(call: Call<MySeries>, t: Throwable) {
                         Log.d("Approach Fail", "wrong server approach")
-                        Toast.makeText(this@MakeSeriesSecondActivity, "통신 실패", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this@MakeSeriesSecondActivity, "통신 실패", Toast.LENGTH_SHORT).show()
                     }
                 })
             }

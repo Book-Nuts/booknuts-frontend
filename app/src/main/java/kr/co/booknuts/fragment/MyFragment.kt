@@ -108,13 +108,13 @@ class MyFragment : Fragment() {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
                 postDataArray = response.body()
                 //Log.d("Post List Get Test", "data : " + postDataArray?.get(0)?.boardId)
-                Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
                 postCnt = postDataArray?.size!!
                 postTab()
             }
             override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
-                Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -197,12 +197,12 @@ class MyFragment : Fragment() {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
                 postDataArray = response.body()
                 //Log.d("Post List Get Test", "data : " + postDataArray?.get(0)?.boardId)
-                Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
                 postCnt = postDataArray?.size!!
             }
             override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
-                Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -214,12 +214,12 @@ class MyFragment : Fragment() {
             override fun onResponse(call: Call<ArrayList<MySeries>>, response: Response<ArrayList<MySeries>>) {
                 seriesDataArray = response.body()
                 //Log.d("Series List Get Test", "data : " + seriesDataArray?.get(0)?.seriesId)
-                Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
                 seriesCnt = seriesDataArray?.size!!
             }
             override fun onFailure(call: Call<ArrayList<MySeries>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
-                Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -231,12 +231,13 @@ class MyFragment : Fragment() {
             override fun onResponse(call: Call<ArrayList<MyArchive>>, response: Response<ArrayList<MyArchive>>) {
                 archiveDataArray = response.body()
                 //Log.d("Archive List Get Test", "data : " + archiveDataArray?.get(0)?.archiveId)
-                Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
                 archiveCnt = archiveDataArray?.size!!
             }
             override fun onFailure(call: Call<ArrayList<MyArchive>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
-                Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
+                //
+            // Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
     }
