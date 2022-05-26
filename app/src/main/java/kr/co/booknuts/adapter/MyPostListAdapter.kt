@@ -34,7 +34,20 @@ class MyPostListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.A
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         dataList?.get(position)?.let { holder?.bind(it) }
+        holder.binding.linearPostItem.setOnClickListener{
+            itemClickListener.onClick(it, position)
+        }
     }
+
+    interface OnItemClickListener {
+        fun onClick(v: View, position: Int)
+    }
+
+    fun setItemClickListener(onItemClickListener: OnItemClickListener){
+        this.itemClickListener = onItemClickListener
+    }
+
+    private lateinit var itemClickListener: OnItemClickListener
 
     inner class ViewHolder(val binding: MyRecyclerviewPostItemBinding): RecyclerView.ViewHolder(binding.root) {
         private val title: TextView = binding.boardTextTitle
@@ -47,10 +60,9 @@ class MyPostListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.A
             content.text = item.content
             Glide.with(bookImg.context)
                 .load(item.bookImgUrl)
-                .placeholder(R.drawable.icon_search)
+                .placeholder(R.drawable.img_book_cover_default)
+                .error(R.drawable.img_book_cover_default)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .error(R.drawable.img_user3)
-                .fallback(R.drawable.img_user2)
                 .fitCenter()
                 .into(bookImg)
         }

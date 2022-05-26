@@ -52,7 +52,7 @@ class MakeSeriesFirstActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
                 postDataArray = response.body()
                 Log.d("Post List Get Test", "data : " + postDataArray?.get(0)?.boardId)
-                Toast.makeText(this@MakeSeriesFirstActivity, "통신 성공", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@MakeSeriesFirstActivity, "통신 성공", Toast.LENGTH_SHORT).show()
 
                 recyclerView = binding.rvPost
                 recyclerView.layoutManager = LinearLayoutManager(this@MakeSeriesFirstActivity)
@@ -70,7 +70,7 @@ class MakeSeriesFirstActivity : AppCompatActivity() {
             }
             override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
-                Toast.makeText(this@MakeSeriesFirstActivity, "통신 실패", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@MakeSeriesFirstActivity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
     }

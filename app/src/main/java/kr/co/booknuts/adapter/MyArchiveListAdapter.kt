@@ -58,8 +58,9 @@ class MyArchiveListAdapter(private val dataList: ArrayList<MyArchive>?) : Recycl
             cnt.text = item.archiveCnt.toString() + "개"
             Glide.with(img.context)
                 .load(item.imgUrl)
+                .placeholder(R.drawable.img_book_cover_default)
+                .error(R.drawable.img_book_cover_default)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .error(R.drawable.img_user3)
                 .fitCenter()
                 .into(img)
         }

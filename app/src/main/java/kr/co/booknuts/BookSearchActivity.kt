@@ -35,17 +35,17 @@ class BookSearchActivity : AppCompatActivity() {
 
         binding.imgSearch.setOnClickListener {
             var bookTitle = binding.editBookTitle.text.toString()
-            Toast.makeText(this@BookSearchActivity, "Title: " + bookTitle, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this@BookSearchActivity, "Title: " + bookTitle, Toast.LENGTH_SHORT).show()
 
             if(!bookTitle.isEmpty()) {
                 var searchResponse: List<BookItem>?
                 BookRetrofitBuilder.api.searchBook(bookTitle).enqueue(object: Callback<BookSearchInfo> {
                     override fun onResponse(call: Call<BookSearchInfo>, response: Response<BookSearchInfo>) {
-                        Toast.makeText(this@BookSearchActivity, "통신 성공", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this@BookSearchActivity, "통신 성공", Toast.LENGTH_SHORT).show()
                         searchResponse = response.body()?.item
                         if(searchResponse != null) {
                             //Log.d("Search Success", searchResponse.toString())
-                            Toast.makeText(this@BookSearchActivity, "Search Success", Toast.LENGTH_SHORT).show()
+                            //Toast.makeText(this@BookSearchActivity, "Search Success", Toast.LENGTH_SHORT).show()
                             recyclerView = binding.rvBook
                             recyclerView.layoutManager = LinearLayoutManager(this@BookSearchActivity)
                             val adapter: BookSearchListAdapter = BookSearchListAdapter(searchResponse)
@@ -70,7 +70,7 @@ class BookSearchActivity : AppCompatActivity() {
                     }
                     override fun onFailure(call: Call<BookSearchInfo>, t: Throwable) {
                         Log.d("Approach Fail", "wrong server approach")
-                        Toast.makeText(this@BookSearchActivity, "통신 실패", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this@BookSearchActivity, "통신 실패", Toast.LENGTH_SHORT).show()
                     }
                 })
             } else {

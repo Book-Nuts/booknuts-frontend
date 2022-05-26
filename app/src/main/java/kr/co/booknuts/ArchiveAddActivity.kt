@@ -49,7 +49,7 @@ class ArchiveAddActivity : AppCompatActivity() {
             override fun onResponse(call: Call<ArrayList<MyArchive>>, response: Response<ArrayList<MyArchive>>) {
                 archiveDataArray = response.body()
                 //Log.d("Archive List Get Test", "data : " + archiveDataArray?.get(0)?.archiveId)
-                Toast.makeText(this@ArchiveAddActivity, "통신 성공", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@ArchiveAddActivity, "통신 성공", Toast.LENGTH_SHORT).show()
 
                 recyclerView = binding.rvArchive
                 recyclerView.layoutManager = LinearLayoutManager(this@ArchiveAddActivity)
@@ -68,7 +68,7 @@ class ArchiveAddActivity : AppCompatActivity() {
             }
             override fun onFailure(call: Call<ArrayList<MyArchive>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
-                Toast.makeText(this@ArchiveAddActivity, "통신 실패", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@ArchiveAddActivity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -83,12 +83,12 @@ class ArchiveAddActivity : AppCompatActivity() {
                 Log.d("Add Archive", archiveId.toString() + " " + boardId)
                 var responseData = response.body()
                 Log.d("Post Success", responseData.toString())
-                Toast.makeText(this@ArchiveAddActivity, "통신 성공", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@ArchiveAddActivity, "통신 성공", Toast.LENGTH_SHORT).show()
             }
 
             override fun onFailure(call: Call<ResultData>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
-                Toast.makeText(this@ArchiveAddActivity, "통신 실패", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@ArchiveAddActivity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
     }

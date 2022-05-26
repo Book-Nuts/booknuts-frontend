@@ -70,8 +70,8 @@ class HomeFragment : Fragment() {
         RetrofitBuilder.api.getBoardList(savedToken, tabType).enqueue(object: Callback<ArrayList<Post>> {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
                 dataArray = response.body()
-                Log.d("BoardList Get Test", "data : " + dataArray.toString())
-                Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
+                //Log.d("BoardList Get Test", "data : " + dataArray.toString())
+                //Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
 
                 recyclerView = binding.rvBoard
                 recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -98,7 +98,7 @@ class HomeFragment : Fragment() {
             }
             override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
-                Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
     }

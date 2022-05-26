@@ -51,9 +51,10 @@ class LoginActivity : AppCompatActivity() {
                     override fun onResponse(call: Call<Token>, response: Response<Token>) {
                         responseToken = response.body()
                         if(responseToken != null) {
-                            Log.d("Login Success", "Token : " + responseToken?.token)
+                            Log.d("Login Success", responseToken.toString())
                             editor.putString("Token", responseToken?.token).apply()
-                            var authToken = pref.getString("Token", "Token 없음")?.chunked(15)
+                            editor.putString("nickname", responseToken?.nickname).apply()
+                            //var authToken = pref.getString("Token", "Token 없음")?.chunked(15)
                             //(authToken?.get(authToken.size-1) ?: null)
                             //pref.getString("Token", "Token 없음")
                             var intent = Intent(this@LoginActivity, MainActivity::class.java)
@@ -68,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
 
                     override fun onFailure(call: Call<Token>, t: Throwable) {
                         Log.d("Approach Fail", "wrong server approach")
-                        Toast.makeText(this@LoginActivity, "통신 실패", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this@LoginActivity, "통신 실패", Toast.LENGTH_SHORT).show()
                     }
                 })
             } else {

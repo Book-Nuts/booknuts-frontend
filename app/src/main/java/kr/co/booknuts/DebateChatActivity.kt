@@ -67,7 +67,7 @@ class DebateChatActivity : AppCompatActivity() {
         binding.btnSend.setOnClickListener {
             // ★★★ 토론장 상태가 대기중이면 메시지 전송 불가능 !!!
             if (binding.editChat.text.isEmpty()) {
-                Toast.makeText(this, "메시지를 입력하세요.", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, "메시지를 입력하세요.", Toast.LENGTH_SHORT).show()
             } else {
                 var username = ""
                 val state = opinion

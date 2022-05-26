@@ -36,8 +36,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.R
-
-
+import kr.co.booknuts.PostDetailActivity
 
 
 class MyFragment : Fragment() {
@@ -48,6 +47,7 @@ class MyFragment : Fragment() {
     var archiveCnt: Int = 0
 
     private var savedToken: String? = null
+    private var nickname: String? = null
     private var mBinding: FragmentMyBinding? = null
     private val binding get() = mBinding!!
 
@@ -76,15 +76,24 @@ class MyFragment : Fragment() {
         // 로컬에 저장된 토큰
         val pref = this.activity?.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
         savedToken = pref?.getString("Token", null).toString()
+        nickname = pref?.getString("nickname", null).toString()
+        binding.myTextNickname.text = nickname
 
         // 서버에서 유저 데이터 받아오기
-        RetrofitBuilder.api.getUserInfo(savedToken).enqueue(object:
+        /*RetrofitBuilder.api.getUserInfo(savedToken).enqueue(object:
             Callback<UserInfo> {
             override fun onResponse(call: Call<UserInfo>, response: Response<UserInfo>) {
                 var userInfo = response.body()
                 Log.d("UserInfo Get Test", "data : " + userInfo?.accessToken)
                 Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
                 binding.myTextNickname.text = userInfo?.loginId
+                //binding.myImgProfile.setImageDrawable(resources.getIdentifier("img_user.png", "drawble", "kr.co.fragment"))
+                //var nameLength: Int? = (userInfo?.nickname?.length)?.rem(5)
+                /*when(nameLength) {
+                    0 -> binding.myImgProfile.changeI
+                }*/
+
+
 
                 refreshFragment(this@MyFragment, parentFragmentManager)
             }
@@ -92,9 +101,23 @@ class MyFragment : Fragment() {
                 Log.d("Approach Fail", "wrong server approach")
                 Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
+        })*/
+
+        RetrofitBuilder.api.getMyPostList(savedToken).enqueue(object:
+            Callback<ArrayList<Post>> {
+            override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
+                postDataArray = response.body()
+                //Log.d("Post List Get Test", "data : " + postDataArray?.get(0)?.boardId)
+                //Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
+                postCnt = postDataArray?.size!!
+                postTab()
+            }
+            override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
+                Log.d("Approach Fail", "wrong server approach")
+                //Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
+            }
         })
 
-        getPostData()
         getSeriesData()
         getArchiveData()
 
@@ -102,10 +125,10 @@ class MyFragment : Fragment() {
             if(tab == 1){
                 val intent = Intent(activity, SeriesPopUpActivity::class.java)
                 startActivity(intent)
-            } else if(tab == 2){
+            } /*else if(tab == 2){
                 val intent = Intent(activity, SeriesPopUpActivity::class.java)
                 startActivity(intent)
-            }
+            }*/
         }
         return binding.root
     }
@@ -173,13 +196,13 @@ class MyFragment : Fragment() {
             Callback<ArrayList<Post>> {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
                 postDataArray = response.body()
-                Log.d("Post List Get Test", "data : " + postDataArray?.get(0)?.boardId)
-                Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
+                //Log.d("Post List Get Test", "data : " + postDataArray?.get(0)?.boardId)
+                //Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
                 postCnt = postDataArray?.size!!
             }
             override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
-                Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -190,13 +213,13 @@ class MyFragment : Fragment() {
             Callback<ArrayList<MySeries>> {
             override fun onResponse(call: Call<ArrayList<MySeries>>, response: Response<ArrayList<MySeries>>) {
                 seriesDataArray = response.body()
-                Log.d("Series List Get Test", "data : " + seriesDataArray?.get(0)?.seriesId)
-                Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
+                //Log.d("Series List Get Test", "data : " + seriesDataArray?.get(0)?.seriesId)
+                //Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
                 seriesCnt = seriesDataArray?.size!!
             }
             override fun onFailure(call: Call<ArrayList<MySeries>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
-                Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -207,25 +230,35 @@ class MyFragment : Fragment() {
             Callback<ArrayList<MyArchive>> {
             override fun onResponse(call: Call<ArrayList<MyArchive>>, response: Response<ArrayList<MyArchive>>) {
                 archiveDataArray = response.body()
-                Log.d("Archive List Get Test", "data : " + archiveDataArray?.get(0)?.archiveId)
-                Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
+                //Log.d("Archive List Get Test", "data : " + archiveDataArray?.get(0)?.archiveId)
+                //Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
                 archiveCnt = archiveDataArray?.size!!
             }
             override fun onFailure(call: Call<ArrayList<MyArchive>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
-                Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
+                //
+            // Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
     fun postTab() {
         binding.myTextPost.text = "포스트 " + postCnt
+
         recyclerView = binding.myRv
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         val adapter: MyPostListAdapter = MyPostListAdapter(postDataArray)
         if(postCnt != 0 )
             Log.d("DataArray size is not 0", "" + postCnt)
         recyclerView.adapter = adapter
+        adapter.setItemClickListener(object: MyPostListAdapter.OnItemClickListener{
+            override fun onClick(v: View, position: Int) {
+                var intent = Intent(activity, PostDetailActivity::class.java)
+                intent.putExtra("id", postDataArray?.get(position)?.boardId)
+                Log.d("Board ID", "" + postDataArray?.get(position)?.boardId)
+                startActivity(intent)
+            }
+        })
     }
 
     fun seriesTab() {

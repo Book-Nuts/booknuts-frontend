@@ -65,8 +65,9 @@ class MakeSeriesListAdapter(private val dataList: ArrayList<Post>?) : RecyclerVi
             date.text = item.bookTitle
             Glide.with(bookImg.context)
                 .load(item.bookImgUrl)
+                .placeholder(R.drawable.img_book_cover_default)
+                .error(R.drawable.img_book_cover_default)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .error(R.drawable.img_user3)
                 .fitCenter()
                 .into(bookImg)
         }

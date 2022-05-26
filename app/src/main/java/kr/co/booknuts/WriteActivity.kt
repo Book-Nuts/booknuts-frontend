@@ -117,17 +117,18 @@ class WriteActivity : AppCompatActivity() {
                         Log.d("Post Info Sent", postInfo.toString())
                         responseData = response.body()
                         Log.d("Post Success", responseData.toString())
-                        Toast.makeText(this@WriteActivity, "통신 성공", Toast.LENGTH_SHORT).show()
-                        finish()
+                        //Toast.makeText(this@WriteActivity, "통신 성공", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@WriteActivity, MainActivity::class.java)
+                        startActivity(intent)
                     }
 
                     override fun onFailure(call: Call<PostDetail>, t: Throwable) {
                         Log.d("Approach Fail", "wrong server approach")
-                        Toast.makeText(this@WriteActivity, "통신 실패", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(this@WriteActivity, "통신 실패", Toast.LENGTH_SHORT).show()
                     }
                 })
             } else {
-                Toast.makeText(this@WriteActivity, "게시글 정보를 모두 입력해주세요.", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this@WriteActivity, "게시글 정보를 모두 입력해주세요.", Toast.LENGTH_SHORT).show()
                 Log.d("Post Info", postInfo.toString())
             }
         }

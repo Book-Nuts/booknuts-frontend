@@ -1,6 +1,7 @@
 package kr.co.booknuts.adapter
 
 import android.content.Context
+import android.media.Image
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -67,17 +68,25 @@ class BoardListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.Ad
         private val bookImg: ImageView = binding.boardImgBookImg
         private val bookTitle: TextView = binding.boardTextBookTitle
         private val content: TextView = binding.boardTextContent
+        private val imgUser: ImageView = binding.imgUser
+        var profileId = writer.text.length.rem(5)
         fun bind(item: Post) {
             title.text = item.title
             bookTitle.text = item.bookTitle
             writer.text = item.writer
             content.text = item.content
+            when (profileId) {
+                0 -> imgUser.setImageResource(R.drawable.img_user1)
+                1 -> imgUser.setImageResource(R.drawable.img_user2)
+                2 -> imgUser.setImageResource(R.drawable.img_user3)
+                3 -> imgUser.setImageResource(R.drawable.img_user4)
+                4 -> imgUser.setImageResource(R.drawable.img_user5)
+            }
             Glide.with(bookImg.context)
                 .load(item.bookImgUrl)
-                .placeholder(R.drawable.icon_search)
+                .placeholder(R.drawable.img_book_cover_default)
+                .error(R.drawable.img_book_cover_default)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .error(R.drawable.img_user3)
-                .fallback(R.drawable.img_user2)
                 .fitCenter()
                 .into(bookImg)
         }
