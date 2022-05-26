@@ -75,6 +75,18 @@ class MainActivity : AppCompatActivity() {
             .commit()
     }
 
+    fun changeFragmentWithArrayData(fragment: Fragment, data: Array<String?>) {
+        val bundle = Bundle()
+        bundle.putStringArray("data", data);
+
+        fragment.arguments = bundle
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fl_container, fragment)
+            .commit()
+    }
+
     /*fun replaceFragment(fragment: Fragment){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()

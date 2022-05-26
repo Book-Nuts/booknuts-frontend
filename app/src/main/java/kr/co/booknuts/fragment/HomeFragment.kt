@@ -107,7 +107,7 @@ class HomeFragment : Fragment() {
 
             // 독립출판 뷰
             binding.homeImgIndieEvent.visibility = View.GONE
-            binding.homeLinearIndieList.visibility = View.GONE
+            binding.homeImgIndieSample.visibility = View.GONE
         }
 
         binding.homeTextToday.setOnClickListener{
@@ -122,7 +122,7 @@ class HomeFragment : Fragment() {
 
             // 독립출판 뷰
             binding.homeImgIndieEvent.visibility = View.GONE
-            binding.homeLinearIndieList.visibility = View.GONE
+            binding.homeImgIndieSample.visibility = View.GONE
         }
 
         binding.homeTextIndie.setOnClickListener{
@@ -137,7 +137,7 @@ class HomeFragment : Fragment() {
 
             // 독립출판 뷰
             binding.homeImgIndieEvent.visibility = View.VISIBLE
-            binding.homeLinearIndieList.visibility = View.VISIBLE
+            binding.homeImgIndieSample.visibility = View.VISIBLE
 
         }
     }

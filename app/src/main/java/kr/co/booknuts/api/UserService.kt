@@ -84,6 +84,14 @@ interface UserService {
         @Path("archiveId") archiveId: Int?
     ): Call<ArrayList<PostDetail>>
 
+    // 시리즈 생성
+    // request body - 제목, 내용, 책표지, 게시글 리스트
+    @POST("/series/grouping")
+    fun postSeries(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Body seriesInfo : SeriesRequestDTO
+    ): Call<MySeries>
+
     // 게시글 상세 가져오기
     @GET("/board/{boardId}")
     fun getPostDetail(

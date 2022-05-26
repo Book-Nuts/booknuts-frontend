@@ -13,6 +13,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.MainActivity
 import kr.co.booknuts.PostDetailActivity
 import kr.co.booknuts.R
@@ -34,7 +36,8 @@ class MySeriesDetailFragment : Fragment() {
     private val binding get() = mBinding!!
     private val fragmentMy by lazy {MyFragment()}
 
-    private var id: Int? = null
+    //private var id: Int? = null
+    private var data: Array<String?>? = null
     var postCnt: Int = 0
 
     private var savedToken: String? = null
@@ -49,9 +52,14 @@ class MySeriesDetailFragment : Fragment() {
         mBinding = FragmentMySeriesDetailBinding.inflate(inflater, container, false)
 
         // 시리지 아이디 가져오기
-        if(arguments != null) {
+        /*if(arguments != null) {
             id = arguments!!.getInt("id")
             Log.d("Arguments id", ""+id)
+        }*/
+
+        if(arguments != null) {
+            data = arguments?.getStringArray("data") as Array<String?>
+            Log.d("Arguments", data.toString())
         }
 
         val pref = this.activity?.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
@@ -65,12 +73,20 @@ class MySeriesDetailFragment : Fragment() {
         }
 
         // 서버에서 시리즈 세부 데이터 받아오기
-        RetrofitBuilder.api.getMySeriesDetailPost(savedToken, id).enqueue(object:
+        RetrofitBuilder.api.getMySeriesDetailPost(savedToken, data?.get(0)?.toInt()).enqueue(object:
             Callback<ArrayList<PostDetail>> {
             override fun onResponse(call: Call<ArrayList<PostDetail>>, response: Response<ArrayList<PostDetail>>) {
                 seriesPostDataArray = response.body()
-                Log.d("Series Detail Post List", "data : " + seriesPostDataArray?.get(0)?.boardId)
+                //Log.d("Series Detail Post List", "data : " + seriesPostDataArray?.get(0)?.boardId)
                 Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
+                binding.textSeriesTitle.text = data?.get(1)
+                binding.textSeriesContent.text = data?.get(2)
+                Glide.with(binding.myImgSeriesDetail.context)
+                    .load(data?.get(3))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .error(R.drawable.img_user3)
+                    .fitCenter()
+                    .into(binding.myImgSeriesDetail)
 
                 if(seriesPostDataArray?.size != null) {
                     postCnt = seriesPostDataArray?.size!!

@@ -15,6 +15,9 @@
         android:theme="@style/Theme.BookNuts"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".MakeArchiveActivity"
+            android:exported="false" />
+        <activity
             android:name=".MakeSeriesSecondActivity"
             android:exported="true" />
         <activity
@@ -33,7 +36,6 @@
         <activity
             android:name=".BookSearchActivity"
             android:exported="true" />
-
         <activity
             android:name=".DebateChatActivity"
             android:exported="true" />
