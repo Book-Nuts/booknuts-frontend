@@ -144,7 +144,7 @@
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@drawable/style_debate_info" />
+        android:background="@drawable/style_debate_info" />
 
     <TextView
         android:id="@+id/text_participant"
@@ -163,7 +163,7 @@
         android:visibility="visible"
         app:layout_constraintStart_toEndOf="@+id/text_time"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@drawable/style_debate_info" />
+        android:background="@drawable/style_debate_info" />
 
     <ImageView
         android:id="@+id/imageView2"

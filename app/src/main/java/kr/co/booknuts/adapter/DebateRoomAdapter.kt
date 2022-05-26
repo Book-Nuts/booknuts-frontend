@@ -1,5 +1,6 @@
 package kr.co.booknuts.adapter
 
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import kr.co.booknuts.data.DebateSearchInfo
 import kr.co.booknuts.databinding.ListitemDebateRoomBinding
 import android.widget.LinearLayout
+import androidx.core.content.ContextCompat.startActivity
+import kr.co.booknuts.ChatDetailActivity
+import kr.co.booknuts.DebateCreateActivity
 
 class DebateRoomAdapter() : RecyclerView.Adapter<DebateRoomAdapter.DebateRoomHolder>() {
     var listData = mutableListOf<DebateSearchInfo>()
@@ -46,6 +50,14 @@ class DebateRoomAdapter() : RecyclerView.Adapter<DebateRoomAdapter.DebateRoomHol
             (binding.lineCons.layoutParams as LinearLayout.LayoutParams).weight = debate.cons.toFloat()
             (binding.linePros.layoutParams as LinearLayout.LayoutParams).weight = debate.pros.toFloat()
             Log.d("ROOMLIST_PROCEED", debate.toString())
+            binding.root.setOnClickListener {
+                val intent = Intent(binding.root.context, ChatDetailActivity::class.java)
+                intent.putExtra("roomId", debate.id)
+                intent.putExtra("topic", debate.topic)
+                intent.putExtra("title", debate.bookTitle)
+                intent.putExtra("author", debate.author)
+                startActivity(binding.root.context, intent, null)
+            }
         }
     }
 }

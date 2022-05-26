@@ -43,10 +43,7 @@ class DebateFragment : Fragment() {
     val proceedingAdapter = DebateRoomAdapter()
     val waitAdapter = DebateRoomAdapter()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val binding = FragmentDebateBinding.inflate(inflater, container, false)
 
@@ -70,18 +67,18 @@ class DebateFragment : Fragment() {
         // 토글 버튼 선택
         binding.btnToggleAll.setOnClickListener {
             debateType = 2
-            // binding.btnToggleAll.setTextColor(Color.parseColor("#FFFFFFFF"))
-            // binding.btnToggleAll.setBackgroundColor(Color.parseColor("#FF707070"))
-            // binding.btnToggleText.setTextColor(Color.parseColor("FF707070"))
-            // binding.btnToggleText.setBackgroundColor(Color.parseColor("#FFFFFFFF"))
+            binding.btnToggleAll.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.white))
+            binding.btnToggleAll.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.grey_700))
+            binding.btnToggleText.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.grey_700))
+            binding.btnToggleText.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.white))
             loadData(debateType)
         }
         binding.btnToggleText.setOnClickListener {
             debateType = 0
-            //binding.btnToggleText.setTextColor(Color.parseColor("#FFFFFFFF"))
-            //binding.btnToggleText.setBackgroundColor(Color.parseColor("#FF707070"))
-            //binding.btnToggleAll.setTextColor(Color.parseColor("FF707070"))
-            //binding.btnToggleAll.setBackgroundColor(Color.parseColor("#FFFFFFFF"))
+            binding.btnToggleText.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.white))
+            binding.btnToggleText.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.grey_700))
+            binding.btnToggleAll.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.grey_700))
+            binding.btnToggleAll.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.white))
             loadData(debateType)
         }
         binding.btnToggleVoice.setOnClickListener {
@@ -108,7 +105,7 @@ class DebateFragment : Fragment() {
                 if (debateData != null && personalizedAdapter.listData.isEmpty()) {
                     for (d in debateData) {
                         // ★★★ 파이어베이스에서 참여인원 가져오기 !!! 일단 2로 초기화
-                        var debateRoom = DebateSearchInfo(d.roomId, d.topic, d.bookTitle, d.coverImgUrl, d.curYesUser, d.curNoUser, d.time, d.owner, 2)
+                        var debateRoom = DebateSearchInfo(d.roomId, d.topic, d.bookTitle, d.bookAuthor, d.coverImgUrl, d.curYesUser, d.curNoUser, d.time, d.owner, 2)
                         personalizedAdapter.listData.add(debateRoom)
                     }
                 }
@@ -119,7 +116,7 @@ class DebateFragment : Fragment() {
                 if (debateData != null) {
                     for (d in debateData) {
                         // ★★★ 파이어베이스에서 참여인원 가져오기 !!! 일단 2로 초기화
-                        var debateRoom = DebateSearchInfo(d.roomId, d.topic, d.bookTitle, d.coverImgUrl, d.curYesUser, d.curNoUser, d.time, d.owner, 2)
+                        var debateRoom = DebateSearchInfo(d.roomId, d.topic, d.bookTitle, d.bookAuthor, d.coverImgUrl, d.curYesUser, d.curNoUser, d.time, d.owner, 2)
                         proceedingAdapter.listData.add(debateRoom)
                     }
                 }
@@ -130,7 +127,7 @@ class DebateFragment : Fragment() {
                 if (debateData != null) {
                     for (d in debateData) {
                         // ★★★ 파이어베이스에서 참여인원 가져오기 !!! 일단 2로 초기화
-                        var debateRoom = DebateSearchInfo(d.roomId, d.topic, d.bookTitle, d.coverImgUrl, d.curYesUser, d.curNoUser, d.time, d.owner, 2)
+                        var debateRoom = DebateSearchInfo(d.roomId, d.topic, d.bookTitle, d.bookAuthor, d.coverImgUrl, d.curYesUser, d.curNoUser, d.time, d.owner, d.maxUser)
                         waitAdapter.listData.add(debateRoom)
                     }
                 }

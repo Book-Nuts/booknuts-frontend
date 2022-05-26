@@ -1,9 +1,7 @@
 package kr.co.booknuts.api
 
 import android.text.Editable
-import kr.co.booknuts.data.DebateCreateDTO
-import kr.co.booknuts.data.DebateListRequestDTO
-import kr.co.booknuts.data.DebateRoom
+import kr.co.booknuts.data.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -21,4 +19,19 @@ interface DebateRoomService {
         @Header("X-AUTH-TOKEN") token: String,
         @Body debateInfo: DebateCreateDTO,
     ): Call<DebateRoom>
+
+    // 찬반 참여 가능 여부
+    @GET("/debate/canjoin/{roomId}")
+    fun joinable(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("roomId") roomId: Long,
+    ) : Call<DebateJoinableDTO>
+
+    // 토론장 참여
+    @GET("/debate/join/{roomId}?opinion={opinion}")
+    fun join(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("roomId") roomId: Long,
+        @Query("opinion") opinion: Boolean,
+    ) : Call<DebateJoinDTO>
 }
