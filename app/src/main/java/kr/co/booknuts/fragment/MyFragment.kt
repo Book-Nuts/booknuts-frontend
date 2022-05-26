@@ -14,6 +14,8 @@ import android.view.ViewGroup
 import android.widget.ListAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.booknuts.MainActivity
@@ -33,6 +35,10 @@ import kr.co.booknuts.retrofit.RetrofitBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import android.R
+
+
+
 
 class MyFragment : Fragment() {
 
@@ -53,6 +59,10 @@ class MyFragment : Fragment() {
     private val fragmentArchiveDetail by lazy {ArchiveDetailFragment()}
 
     lateinit var recyclerView: RecyclerView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,12 +85,18 @@ class MyFragment : Fragment() {
                 Log.d("UserInfo Get Test", "data : " + userInfo?.accessToken)
                 Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
                 binding.myTextNickname.text = userInfo?.loginId
+
+                refreshFragment(this@MyFragment, parentFragmentManager)
             }
             override fun onFailure(call: Call<UserInfo>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
                 Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
+
+        getPostData()
+        getSeriesData()
+        getArchiveData()
 
         binding.imgMenu.setOnClickListener{
             if(tab == 1){
@@ -90,15 +106,13 @@ class MyFragment : Fragment() {
                 val intent = Intent(activity, SeriesPopUpActivity::class.java)
                 startActivity(intent)
             }
-
         }
-
-        getPostData()
-        getSeriesData()
-        getArchiveData()
-        postTab()
-        tabListener()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        tabListener()
     }
 
     fun tabListener() {
@@ -146,6 +160,11 @@ class MyFragment : Fragment() {
 
             archiveTab()
         }
+    }
+
+    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
+        var ft: FragmentTransaction = fragmentManager.beginTransaction()
+        ft.detach(fragment).attach(fragment).commit()
     }
 
     fun getPostData() {
@@ -222,7 +241,12 @@ class MyFragment : Fragment() {
         recyclerView.adapter = adapter
         adapter.setItemClickListener(object: MySeriesListAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
-                (activity as MainActivity).changeFragmentWithData(fragmentMySeriesDetail, seriesDataArray?.get(position)?.seriesId!!.toInt());
+                Log.d("SeriesDataArrayposition", position.toString())
+                var series: MySeries? = seriesDataArray?.get(position)
+                Log.d("SeriesDataArray", seriesDataArray.toString())
+                var seriesInfo: Array<String?> = arrayOf(series?.seriesId?.toString(), series?.title, series?.content, series?.imgUrl)
+                Log.d("SeriesDataArray", seriesInfo.toString())
+                (activity as MainActivity).changeFragmentWithArrayData(fragmentMySeriesDetail, seriesInfo)
             }
         })
     }
@@ -240,7 +264,12 @@ class MyFragment : Fragment() {
         recyclerView.adapter = adapter
         adapter.setItemClickListener(object: MyArchiveListAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
-                (activity as MainActivity).changeFragmentWithData(fragmentArchiveDetail, archiveDataArray?.get(position)?.archiveId!!.toInt());
+                Log.d("DataArray position", position.toString())
+                var archive: MyArchive? = archiveDataArray?.get(position)
+                Log.d("DataArray", archiveDataArray.toString())
+                var archiveInfo: Array<String?> = arrayOf(archive?.archiveId?.toString(), archive?.title, archive?.content, archive?.imgUrl)
+                Log.d("DataArray", archiveInfo.toString())
+                (activity as MainActivity).changeFragmentWithArrayData(fragmentArchiveDetail, archiveInfo);
             }
         })
     }

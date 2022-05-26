@@ -26,6 +26,8 @@ class MakeSeriesFirstActivity : AppCompatActivity() {
     private var savedToken: String? = null
     private var postDataArray: ArrayList<Post>? = null
 
+    var postClickedList = ArrayList<Int?>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -36,7 +38,12 @@ class MakeSeriesFirstActivity : AppCompatActivity() {
 
         binding.textGoNext.setOnClickListener {
             val intent = Intent(this@MakeSeriesFirstActivity, MakeSeriesSecondActivity::class.java)
+            intent.putIntegerArrayListExtra("postClickedList", postClickedList)
             startActivity(intent)
+        }
+
+        binding.imgClose.setOnClickListener {
+            finish()
         }
 
         // 서버에서 내가 쓴 게시글 데이터 받아오기
@@ -56,7 +63,8 @@ class MakeSeriesFirstActivity : AppCompatActivity() {
                 }
                 adapter.setItemClickListener(object: MakeSeriesListAdapter.OnItemClickListener{
                     override fun onClick(v: View, position: Int) {
-                        Log.d("Board ID", "" + postDataArray?.get(position)?.boardId)
+                        postClickedList.add(postDataArray?.get(position)?.boardId)
+                        Log.d("Board ID", postClickedList.toString())
                     }
                 })
             }

@@ -29,7 +29,7 @@
             android:gravity="center"
             android:lineHeight="29dp"
             android:paddingVertical="11dp"
-            android:text="시리즈 만들기 2/2"
+            android:text="아카이브 만들기"
             android:textColor="#191919"
             android:textSize="20dp"
             android:textStyle="bold"
@@ -62,7 +62,7 @@
             android:textSize="18dp"
             android:lineHeight="25dp"
             android:textColor="#191919"
-            android:text="제목" />
+            android:text="이름" />
 
         <EditText
             android:id="@+id/edit_title"
@@ -76,7 +76,7 @@
             android:paddingTop="8dp"
             android:paddingBottom="10dp"
             android:paddingLeft="14dp"
-            android:hint="시리즈 제목" />
+            android:hint="아카이브 이름" />
 
         <TextView
             android:id="@+id/textView27"
@@ -85,8 +85,7 @@
             android:textSize="12dp"
             android:textColor="@color/grey_200"
             android:lineHeight="17dp"
-            android:text="최대 40까지 입력할 수 있습니다. 시리즈 제목을 작성할 때는 독자
-에게 도움이 될 수 있도록 직관적인 이름으로 작성해주세요.  " />
+            android:text="최대 40까지 입력할 수 있습니다. " />
 
     </LinearLayout>
 
@@ -121,7 +120,7 @@
             android:paddingTop="8dp"
             android:paddingBottom="10dp"
             android:paddingLeft="14dp"
-            android:hint="시리즈 설명" />
+            android:hint="아카이브 설명" />
 
         <TextView
             android:id="@+id/textView28"
@@ -130,9 +129,7 @@
             android:textSize="12dp"
             android:textColor="@color/grey_200"
             android:lineHeight="17dp"
-            android:text="최대 100자까지 입력할 수 있습니다. 독자가 작가님의  스토리를
-확인할 때 가장 먼저 참고하는 정보 중 하나입니다. 매력적으로 소
-개해보세요. " />
+            android:text="최대 100자까지 입력할 수 있습니다." />
     </LinearLayout>
 
     <TextView

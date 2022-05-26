@@ -11,8 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.MainActivity
 import kr.co.booknuts.PostDetailActivity
 import kr.co.booknuts.R
@@ -22,7 +25,6 @@ import kr.co.booknuts.adapter.MySeriesPostListAdapter
 import kr.co.booknuts.data.MyArchive
 import kr.co.booknuts.data.PostDetail
 import kr.co.booknuts.databinding.FragmentArchiveDetailBinding
-import kr.co.booknuts.databinding.FragmentMySeriesDetailBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,7 +38,7 @@ class ArchiveDetailFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
     private var savedToken: String? = null
-    private var id: Int? = null
+    private var data: Array<String?>? = null
     var postCnt: Int = 0
 
     private var archivePostDataArray: ArrayList<PostDetail>? = null
@@ -49,8 +51,8 @@ class ArchiveDetailFragment : Fragment() {
 
         // 아카이브 아이디 가져오기
         if(arguments != null) {
-            id = arguments!!.getInt("id")
-            Log.d("Arguments id", ""+id)
+            data = arguments?.getStringArray("data") as Array<String?>
+            Log.d("Arguments", data.toString())
         }
 
         binding.imgArchiveBg.setColorFilter(Color.parseColor("#aaaaaa"), PorterDuff.Mode.MULTIPLY);
@@ -63,20 +65,29 @@ class ArchiveDetailFragment : Fragment() {
         val pref = this.activity?.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
         savedToken = pref?.getString("Token", null).toString()
 
-        RetrofitBuilder.api.getMyArchiveDetail(savedToken, id).enqueue(object:
+        RetrofitBuilder.api.getMyArchiveDetail(savedToken, data?.get(0)?.toInt()).enqueue(object:
             Callback<ArrayList<PostDetail>> {
             override fun onResponse(call: Call<ArrayList<PostDetail>>, response: Response<ArrayList<PostDetail>>) {
                 archivePostDataArray = response.body()
-                Log.d("Archive Post List", "data : " + archivePostDataArray?.get(0)?.boardId)
+                //Log.d("Archive Post List", "data : " + archivePostDataArray?.get(0)?.boardId)
                 Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
+                binding.textArchiveTitle.text = data?.get(1)
+                binding.textArchiveContent.text = data?.get(2)
+                Glide.with(binding.imgArchiveBg.context)
+                    .load(data?.get(3))
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .error(R.drawable.img_user3)
+                    .fitCenter()
+                    .into(binding.imgArchiveBg)
 
                 if(archivePostDataArray?.size != null) {
                     postCnt = archivePostDataArray?.size!!
                     recyclerView = binding.rvPost
-                    recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                    recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
                     val adapter: MyArchivePostListAdapter = MyArchivePostListAdapter(archivePostDataArray)
                     if (postCnt != 0)
                         Log.d("DataArray size is not 0", "" + postCnt)
+
                     recyclerView.adapter = adapter
                     adapter.setItemClickListener(object: MyArchivePostListAdapter.OnItemClickListener{
                         override fun onClick(v: View, position: Int) {

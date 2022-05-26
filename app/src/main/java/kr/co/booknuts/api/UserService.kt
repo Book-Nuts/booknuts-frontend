@@ -84,6 +84,31 @@ interface UserService {
         @Path("archiveId") archiveId: Int?
     ): Call<ArrayList<PostDetail>>
 
+    // 시리즈 생성
+    // request body - 제목, 내용, 책표지, 게시글 리스트
+    @POST("/series/grouping")
+    fun postSeries(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Body seriesInfo : SeriesRequestDTO
+    ): Call<MySeries>
+
+    // 아카이브 생성
+    // request body - 제목, 내용, 책표지
+    @POST("/archive/createarchive")
+    fun postArchive(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Body seriesInfo : ArchiveRequestDTO
+    ): Call<MyArchive>
+
+    // 아카이브에 게시글 추가하기
+    // request body - 제목, 내용, 책표지
+    @GET("/archive/addarchive/{archiveId}/{boardId}")
+    fun addPostToArchive(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Path("archiveId") archiveId: Int?,
+        @Path("boardId") boardId: Int?,
+    ): Call<ResultData>
+
     // 게시글 상세 가져오기
     @GET("/board/{boardId}")
     fun getPostDetail(
