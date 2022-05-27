@@ -129,7 +129,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_instruction"
-        app:srcCompat="@drawable/img_bread" />
+        app:srcCompat="@drawable/img_debate1" />
 
     <TextView
         android:id="@+id/text_black"
