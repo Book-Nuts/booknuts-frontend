@@ -296,7 +296,7 @@
                     android:id="@+id/linear_menu"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginVertical="8dp"
+
                     android:orientation="horizontal">
 
                     <ImageView
@@ -305,6 +305,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:paddingRight="32dp"
+                        android:paddingBottom="15dp"
                         android:src="@drawable/icon_dots_b" />
                 </LinearLayout>
 
