@@ -121,7 +121,7 @@ class MyFragment : Fragment() {
         getSeriesData()
         getArchiveData()
 
-        binding.imgMenu.setOnClickListener{
+        binding.linearMenu.setOnClickListener{
             if(tab == 1){
                 val intent = Intent(activity, SeriesPopUpActivity::class.java)
                 startActivity(intent)

@@ -69,12 +69,14 @@ class BoardListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.Ad
         private val bookTitle: TextView = binding.boardTextBookTitle
         private val content: TextView = binding.boardTextContent
         private val imgUser: ImageView = binding.imgUser
+        private val archiveCnt: TextView = binding.textArchiveCnt
         var profileId = writer.text.length.rem(5)
         fun bind(item: Post) {
             title.text = item.title
             bookTitle.text = item.bookTitle
             writer.text = item.writer
             content.text = item.content
+            archiveCnt.text = item.archiveCnt.toString()
             when (profileId) {
                 0 -> imgUser.setImageResource(R.drawable.img_user1)
                 1 -> imgUser.setImageResource(R.drawable.img_user2)

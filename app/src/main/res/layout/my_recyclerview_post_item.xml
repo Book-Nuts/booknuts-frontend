@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="10" />
+                android:text="0" />
         </LinearLayout>
 
         <LinearLayout
@@ -129,7 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="100" />
+                android:text="0" />
         </LinearLayout>
 
         <View
@@ -153,11 +153,11 @@
                 app:srcCompat="@drawable/icon_box" />
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/text_archive_cnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="10" />
+                android:text="0" />
         </LinearLayout>
 
     </LinearLayout>
