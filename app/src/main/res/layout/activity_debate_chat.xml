@@ -129,7 +129,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_instruction"
-        app:srcCompat="@drawable/img_bread" />
+        app:srcCompat="@drawable/img_debate1" />
 
     <TextView
         android:id="@+id/text_black"
@@ -137,6 +137,7 @@
         android:layout_height="0dp"
         android:background="#73000000"
         android:text="TextView"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/img_debate_cover"
         app:layout_constraintEnd_toEndOf="@+id/img_debate_cover"
         app:layout_constraintStart_toStartOf="@+id/img_debate_cover"

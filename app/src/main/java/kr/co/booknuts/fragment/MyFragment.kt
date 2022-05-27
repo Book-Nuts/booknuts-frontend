@@ -79,6 +79,15 @@ class MyFragment : Fragment() {
         nickname = pref?.getString("nickname", null).toString()
         binding.myTextNickname.text = nickname
 
+        val idx = nickname!!.length.rem(5)
+        when (idx) {
+            0 -> binding.myImgProfile.setImageResource(kr.co.booknuts.R.drawable.img_user1)
+            1 -> binding.myImgProfile.setImageResource(kr.co.booknuts.R.drawable.img_user2)
+            2 -> binding.myImgProfile.setImageResource(kr.co.booknuts.R.drawable.img_user3)
+            3 -> binding.myImgProfile.setImageResource(kr.co.booknuts.R.drawable.img_user4)
+            4 -> binding.myImgProfile.setImageResource(kr.co.booknuts.R.drawable.img_user5)
+        }
+
         // 서버에서 유저 데이터 받아오기
         /*RetrofitBuilder.api.getUserInfo(savedToken).enqueue(object:
             Callback<UserInfo> {

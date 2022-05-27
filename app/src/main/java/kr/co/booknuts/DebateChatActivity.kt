@@ -47,6 +47,12 @@ class DebateChatActivity : AppCompatActivity() {
         isActive = intent.getBooleanExtra("active", true)
         Log.d("DEBATE_CHAT", "토론장 상태 : ${isActive}")
 
+        val idx = roomId?.toInt()?.rem(2)
+        when (idx) {
+            0 -> binding.imgDebateCover.setImageResource(R.drawable.img_debate1)
+            1 -> binding.imgDebateCover.setImageResource(R.drawable.img_debate2)
+        }
+        binding.imgDebateCover.clipToOutline = true
         binding.textTopic.text = topic
         binding.textToolbarTitle.text = "'${title}' 토론장"
 

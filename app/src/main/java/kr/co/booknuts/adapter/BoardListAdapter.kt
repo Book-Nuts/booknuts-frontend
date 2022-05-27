@@ -70,11 +70,11 @@ class BoardListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.Ad
         private val content: TextView = binding.boardTextContent
         private val imgUser: ImageView = binding.imgUser
         private val archiveCnt: TextView = binding.textArchiveCnt
-        var profileId = writer.text.length.rem(5)
         fun bind(item: Post) {
             title.text = item.title
             bookTitle.text = item.bookTitle
             writer.text = item.writer
+            var profileId = writer.text.length.rem(5)
             content.text = item.content
             archiveCnt.text = item.archiveCnt.toString()
             when (profileId) {
