@@ -56,7 +56,10 @@ inner class ViewHolder(val binding: BookSearchItemBinding): RecyclerView.ViewHol
         private val bookTitle: TextView = binding.bookTitle
         private val bookAuthor: TextView = binding.bookAuthor
         fun bind(item: BookItem) {
-            bookTitle.text = item.title
+            var title = item.title
+            title = title?.replace("<b>", "")
+            title = title?.replace("</b>", "")
+            bookTitle.text = title
             bookAuthor.text = item.author
             Glide.with(bookImg.context)
                 .load(item.image)

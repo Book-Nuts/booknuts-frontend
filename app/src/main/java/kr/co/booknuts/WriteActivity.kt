@@ -42,7 +42,10 @@ class WriteActivity : AppCompatActivity() {
         if (requestCode === 1234 && resultCode === RESULT_OK) {
             val bookInfo = data?.extras?.get("postInfo") as PostRequestDTO
             Log.d("Book Info", bookInfo.toString())
-            bookTitle = bookInfo.bookTitle
+            var title = bookInfo.bookTitle
+            title = title?.replace("<b>", "")
+            title = title?.replace("</b>", "")
+            bookTitle = title
             bookAuthor = bookInfo.bookAuthor
             bookImgUrl = bookInfo.bookImgUrl
             binding.imgBook.visibility = View.VISIBLE

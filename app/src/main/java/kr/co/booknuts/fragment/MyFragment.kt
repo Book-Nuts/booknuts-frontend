@@ -244,6 +244,8 @@ class MyFragment : Fragment() {
 
     fun postTab() {
         binding.myTextPost.text = "포스트 " + postCnt
+        binding.myTextSeries.text = "시리즈"
+        binding.myTextArchive.text = "아카이브"
 
         recyclerView = binding.myRv
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -263,8 +265,9 @@ class MyFragment : Fragment() {
 
     fun seriesTab() {
         //seriesDataArray = arrayListOf<MySeries>(MySeries(0, "Series Sample", "Content???", "", 0, 0))
-
+        binding.myTextPost.text = "포스트"
         binding.myTextSeries.text = "시리즈 " + seriesCnt
+        binding.myTextArchive.text = "아카이브"
 
         recyclerView = binding.myRv
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -287,6 +290,8 @@ class MyFragment : Fragment() {
     fun archiveTab() {
         //archiveDataArray = arrayListOf<MyArchive>(MyArchive(0, "Archive Sample", "Content???", ""))
 
+        binding.myTextPost.text = "포스트"
+        binding.myTextSeries.text = "시리즈"
         binding.myTextArchive.text = "아카이브 " + archiveCnt
 
         recyclerView = binding.myRv
