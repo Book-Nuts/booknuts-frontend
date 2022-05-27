@@ -2,60 +2,61 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".PostDetailActivity">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="60dp"
+        android:background="@drawable/style_navigation_bottom"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-
-        <ImageView
+        <ImageButton
             android:id="@+id/img_close"
-            android:layout_width="18dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:translationX="23dp"
-            android:layout_marginTop="6dp"
-            app:srcCompat="@drawable/icon_close" />
+            android:layout_gravity="left"
+            android:layout_marginLeft="20dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/icon_exit"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <TextView
-            android:id="@+id/textView50"
-            android:layout_width="match_parent"
+            android:id="@+id/text_toolbarTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:lineHeight="29dp"
-            android:paddingVertical="11dp"
             android:text="게시글 작성"
-            android:textColor="#191919"
-            android:textSize="20dp"
+            android:textColor="#3A3A3A"
+            android:textSize="20sp"
             android:textStyle="bold"
-            android:translationX="-10dp" />
+            tools:layout_editor_absoluteX="177dp"
+            tools:layout_editor_absoluteY="20dp" />
 
         <ImageView
             android:id="@+id/img_posting"
             android:layout_width="23dp"
             android:layout_height="wrap_content"
-            android:translationX="-40dp"
-            android:layout_marginTop="2dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp"
             app:srcCompat="@drawable/icon_posting" />
-    </LinearLayout>
-
-    <View
-        android:id="@+id/view4"
-        android:layout_width="wrap_content"
-        android:layout_height="0.5dp"
-        android:background="@color/grey_200" />
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
@@ -65,17 +66,20 @@
                 android:id="@+id/edit_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
                 android:layout_marginHorizontal="19.5dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="17dp"
-                android:layout_marginTop="5dp"
-                android:paddingHorizontal="20.5dp"
+                android:background="@drawable/style_info_form"
+                android:ems="10"
+                android:hint="제목"
                 android:inputType="textPersonName"
-                android:textSize="22dp"
                 android:lineHeight="32dp"
+                android:paddingHorizontal="20.5dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:textColorHint="@color/grey_200"
-                android:backgroundTint="@color/grey_200"
-                android:hint="제목" />
+                android:textSize="19dp"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <LinearLayout
                 android:id="@+id/linear_add_book"
@@ -115,12 +119,12 @@
                 android:id="@+id/textView18"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="18dp"
                 android:lineHeight="25dp"
-                android:textColor="#191919"
                 android:paddingHorizontal="20dp"
-                android:text="장르 선택" />
+                android:text="장르 선택"
+                android:textColor="#191919"
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/spinner_genre"
@@ -128,23 +132,25 @@
                 android:layout_height="43dp"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="25dp"
+                android:layout_marginBottom="15dp"
                 android:background="@drawable/bg_spinner_genre"
-                android:theme="@style/SpinnerTheme"
                 android:paddingHorizontal="12dp"
-                />
+                android:theme="@style/SpinnerTheme"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
             <EditText
                 android:id="@+id/edit_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
-                android:ems="10"
-                android:padding="21dp"
-                android:gravity="start"
-                android:inputType="textPersonName"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/bg_textview_rect"
-                android:hint="내용을 입력하세요"  />
+                android:ems="10"
+                android:gravity="start"
+                android:hint="내용을 입력하세요"
+                android:inputType="textPersonName"
+                android:padding="21dp"
+                tools:inputType="textMultiLine" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

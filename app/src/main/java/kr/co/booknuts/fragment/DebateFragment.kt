@@ -58,6 +58,19 @@ class DebateFragment : Fragment() {
         // debateType : 0 = 텍스트, 1 = 음성, 2 = 전체
         loadData(debateType) // 전체 맞춤 토론
 
+        // refresh 실행
+        binding.swipe.setOnRefreshListener{
+            // 리사이클러뷰 어댑터, 레이아웃 매니저 초기화
+            binding.recyclePersonalized.adapter = personalizedAdapter
+            binding.recyclePersonalized.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            binding.recycleProceeding.adapter = proceedingAdapter
+            binding.recycleProceeding.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            binding.recycleWait.adapter = waitAdapter
+            binding.recycleWait.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            loadData(debateType)
+            binding.swipe.isRefreshing = false
+        }
+
         // 토론장 개설 버튼 클릭
         binding.btnAddDebate.setOnClickListener {
             var intent = Intent(this.activity, DebateCreateActivity::class.java)
@@ -68,17 +81,17 @@ class DebateFragment : Fragment() {
         binding.btnToggleAll.setOnClickListener {
             debateType = 2
             binding.btnToggleAll.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.white))
-            binding.btnToggleAll.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.grey_700))
+            binding.btnToggleAll.setBackgroundResource(R.drawable.top_tab_view_fill)
             binding.btnToggleText.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.grey_700))
-            binding.btnToggleText.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.white))
+            binding.btnToggleText.setBackgroundResource(R.drawable.top_tab_view)
             loadData(debateType)
         }
         binding.btnToggleText.setOnClickListener {
             debateType = 0
             binding.btnToggleText.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.white))
-            binding.btnToggleText.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.grey_700))
+            binding.btnToggleText.setBackgroundResource(R.drawable.top_tab_view_fill)
             binding.btnToggleAll.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.grey_700))
-            binding.btnToggleAll.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.white))
+            binding.btnToggleAll.setBackgroundResource(R.drawable.top_tab_view)
             loadData(debateType)
         }
         binding.btnToggleVoice.setOnClickListener {

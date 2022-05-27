@@ -31,20 +31,17 @@
             tools:layout_editor_absoluteX="177dp"
             tools:layout_editor_absoluteY="20dp" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/btn_alarm"
-            android:layout_width="wrap_content"
+            android:layout_width="22dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:background="#00FFFFFF"
-            android:src="@drawable/icon_alarm"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+            android:src="@drawable/icon_alarm_b"
+            android:layout_marginRight="20dp" />
     </androidx.appcompat.widget.Toolbar>
 
-    <ScrollView
-        android:id="@+id/scroll_debate"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -52,362 +49,331 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <LinearLayout
-            android:id="@+id/linear_debate"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
+        <ScrollView
+            android:id="@+id/scroll_debate"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-            <TextView
-                android:id="@+id/text_debate_instruction"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginLeft="21dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="21dp"
-                android:layout_marginRight="21dp"
-                android:text="열정 토론자 피넛츠님!\n찬성과 반대로 나뉘어 마음껏 대화하세요!"
-                android:textColor="@color/dark_grey_700"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_searchBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp">
-
-                <EditText
-                    android:id="@+id/edit_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@drawable/style_search_bar"
-                    android:ems="10"
-                    android:hint="원하는 주제, 책을 검색해주세요!"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="21dp"
-                    android:textColorHint="#C4C4C4"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TouchTargetSizeCheck" />
-
-                <ImageButton
-                    android:id="@+id/btn_search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="#00FFFFFF"
-                    android:src="@drawable/icon_search_debate"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/edit_search"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
             <LinearLayout
-                android:id="@+id/layout_toggle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginLeft="21dp"
-                android:layout_marginTop="11dp"
-                android:layout_marginEnd="21dp"
-                android:layout_marginRight="21dp"
-                android:orientation="horizontal">
+                android:id="@+id/linear_debate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-                <Button
-                    android:id="@+id/btn_toggle_all"
+                <TextView
+                    android:id="@+id/text_debate_instruction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center"
-                    android:insetLeft="0dp"
-                    android:insetTop="0dp"
-                    android:insetRight="0dp"
-                    android:insetBottom="0dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="4dp"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="4dp"
-                    android:text="전체"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    app:backgroundTint="@color/dark_grey_700"
-                    app:elevation="0dp"
-                    app:strokeColor="@color/dark_grey_700"
-                    app:strokeWidth="2dp"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    android:layout_marginStart="21dp"
+                    android:layout_marginLeft="21dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginRight="21dp"
+                    android:text="열정 토론자 피넛츠님!\n찬성과 반대로 나뉘어 마음껏 대화하세요!"
+                    android:textColor="@color/dark_grey_700"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/btn_toggle_text"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_searchBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <EditText
+                        android:id="@+id/edit_search"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/style_search_bar"
+                        android:ems="10"
+                        android:hint="원하는 주제, 책을 검색해주세요!"
+                        android:inputType="textPersonName"
+                        android:paddingLeft="21dp"
+                        android:textColorHint="#C4C4C4"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="TouchTargetSizeCheck" />
+
+                    <ImageButton
+                        android:id="@+id/btn_search"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="#00FFFFFF"
+                        android:src="@drawable/icon_search_debate"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/edit_search"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_toggle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center"
-                    android:insetLeft="0dp"
-                    android:insetTop="0dp"
-                    android:insetRight="0dp"
-                    android:insetBottom="0dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="4dp"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="4dp"
-                    android:text="텍스트"
-                    android:textColor="@color/grey_200"
-                    android:textSize="14sp"
-                    app:backgroundTint="#FFFFFF"
-                    app:elevation="0dp"
-                    app:strokeColor="@color/grey_200"
-                    app:strokeWidth="2dp"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    android:layout_marginStart="21dp"
+                    android:layout_marginLeft="21dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginRight="21dp"
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btn_toggle_voice"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/btn_toggle_all"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/top_tab_view_fill"
+                        android:clipToOutline="true"
+                        android:gravity="center"
+                        android:minWidth="59dp"
+                        android:text="전체"
+                        android:textColor="#ffffff" />
+
+                    <TextView
+                        android:id="@+id/btn_toggle_text"
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/top_tab_view"
+                        android:clipToOutline="true"
+                        android:gravity="center"
+                        android:minWidth="59dp"
+                        android:text="텍스트"
+                        android:textColor="@color/grey_200" />
+
+                    <TextView
+                        android:id="@+id/btn_toggle_voice"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/top_tab_view"
+                        android:clipToOutline="true"
+                        android:gravity="center"
+                        android:minWidth="59dp"
+                        android:text="음성"
+                        android:textColor="@color/grey_200" />
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_personalized"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:gravity="center"
-                    android:insetLeft="0dp"
-                    android:insetTop="0dp"
-                    android:insetRight="0dp"
-                    android:insetBottom="0dp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:paddingLeft="15dp"
-                    android:paddingTop="4dp"
-                    android:paddingRight="15dp"
-                    android:paddingBottom="4dp"
-                    android:text="음성"
-                    android:textColor="@color/grey_200"
-                    android:textSize="14sp"
-                    app:backgroundTint="#FFFFFF"
-                    app:elevation="0dp"
-                    app:strokeColor="@color/grey_200"
-                    app:strokeWidth="2dp"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    android:layout_marginStart="21dp"
+                    android:layout_marginLeft="21dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginRight="21dp">
+
+                    <TextView
+                        android:id="@+id/text_personalized"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="넛츠님을 위한 맞춤 토론"
+                        android:textColor="@color/dark_grey_700"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_personalized_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="right"
+                        android:text="더보기"
+                        android:textColor="#C4C4C4"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/btn_personalized_view"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/btn_personalized_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginRight="1dp"
+                        android:background="#00FFFFFF"
+                        android:src="@drawable/icon_view"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycle_personalized"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/listitem_debate_room" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_proceeding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="21dp"
+                    android:layout_marginLeft="21dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginRight="21dp">
+
+                    <TextView
+                        android:id="@+id/text_proceeding"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="현재 진행 중인 토론"
+                        android:textColor="@color/dark_grey_700"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_proceeding_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="right"
+                        android:text="더보기"
+                        android:textColor="#C4C4C4"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/btn_proceeding_view"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/btn_proceeding_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginRight="1dp"
+                        android:background="#00FFFFFF"
+                        android:src="@drawable/icon_view"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycle_proceeding"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="15dp"
+                    android:background="#00FFFFFF"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/listitem_debate_room" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_wait"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="21dp"
+                    android:layout_marginLeft="21dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginEnd="21dp"
+                    android:layout_marginRight="21dp">
+
+                    <TextView
+                        android:id="@+id/text_wait"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="현재 대기 중인 토론"
+                        android:textColor="@color/dark_grey_700"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_wait_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="right"
+                        android:text="더보기"
+                        android:textColor="#C4C4C4"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/btn_wait_view"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/btn_wait_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginRight="1dp"
+                        android:background="#00FFFFFF"
+                        android:src="@drawable/icon_view"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycle_wait"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="30dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/listitem_debate_room">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
             </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_personalized"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginLeft="21dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="21dp"
-                android:layout_marginRight="21dp">
 
-                <TextView
-                    android:id="@+id/text_personalized"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="넛츠님을 위한 맞춤 토론"
-                    android:textColor="@color/dark_grey_700"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+        </ScrollView>
 
-                <TextView
-                    android:id="@+id/text_personalized_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginRight="5dp"
-                    android:gravity="right"
-                    android:text="더보기"
-                    android:textColor="#C4C4C4"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/btn_personalized_view"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/btn_personalized_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="1dp"
-                    android:layout_marginRight="1dp"
-                    android:background="#00FFFFFF"
-                    android:src="@drawable/icon_view"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycle_personalized"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/listitem_debate_room" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_proceeding"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginLeft="21dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="21dp"
-                android:layout_marginRight="21dp">
-
-                <TextView
-                    android:id="@+id/text_proceeding"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="현재 진행 중인 토론"
-                    android:textColor="@color/dark_grey_700"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/text_proceeding_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginRight="5dp"
-                    android:gravity="right"
-                    android:text="더보기"
-                    android:textColor="#C4C4C4"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/btn_proceeding_view"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/btn_proceeding_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="1dp"
-                    android:layout_marginRight="1dp"
-                    android:background="#00FFFFFF"
-                    android:src="@drawable/icon_view"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycle_proceeding"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginTop="15dp"
-                android:background="#00FFFFFF"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/listitem_debate_room" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_wait"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
-                android:layout_marginLeft="21dp"
-                android:layout_marginTop="18dp"
-                android:layout_marginEnd="21dp"
-                android:layout_marginRight="21dp">
-
-                <TextView
-                    android:id="@+id/text_wait"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="현재 대기 중인 토론"
-                    android:textColor="@color/dark_grey_700"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/text_wait_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginRight="5dp"
-                    android:gravity="right"
-                    android:text="더보기"
-                    android:textColor="#C4C4C4"
-                    android:textSize="12sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/btn_wait_view"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageButton
-                    android:id="@+id/btn_wait_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="1dp"
-                    android:layout_marginRight="1dp"
-                    android:background="#00FFFFFF"
-                    android:src="@drawable/icon_view"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycle_wait"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginLeft="6dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="30dp"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/listitem_debate_room">
-
-            </androidx.recyclerview.widget.RecyclerView>
-
-        </LinearLayout>
-
-
-    </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <ImageButton
         android:id="@+id/btn_addDebate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
         android:layout_marginBottom="18dp"
         android:background="#00FFFFFF"
         android:src="@drawable/btn_add"

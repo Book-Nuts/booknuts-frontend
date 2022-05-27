@@ -11,32 +11,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black"
         android:layout_gravity="center_vertical"
+        android:background="@drawable/style_debate_detail_top"
         android:gravity="center_vertical"
-        android:paddingHorizontal="20dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp">
 
         <TextView
             android:id="@+id/textView23"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:lineHeight="29dp"
-            android:textSize="20dp"
             android:gravity="center"
+            android:lineHeight="29dp"
             android:paddingVertical="11dp"
-            android:textStyle="bold"
+            android:text="아카이브 설정"
             android:textColor="@color/white"
-            android:translationX="10dp"
-            android:text="아카이브 설정" />
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:translationX="10dp" />
 
         <ImageView
             android:id="@+id/img_close"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:background="@drawable/icon_close"
-            android:backgroundTint="@color/grey_200"/>
+            android:backgroundTint="@color/grey_200" />
     </LinearLayout>
 
     <TextView

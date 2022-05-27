@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
+import kotlinx.coroutines.NonCancellable.isActive
 import kr.co.booknuts.adapter.ChatAdapter
 import kr.co.booknuts.data.Chat
+import kr.co.booknuts.data.DebateJoinDTO
 import kr.co.booknuts.data.UserInfo
 import kr.co.booknuts.databinding.ActivityDebateChatBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
@@ -20,6 +23,10 @@ import retrofit2.Response
 class DebateChatActivity : AppCompatActivity() {
 
     val binding by lazy { ActivityDebateChatBinding.inflate(layoutInflater) }
+
+    // 토론 상태 변수
+    var isActive = false
+    var count = 0
 
     // 어댑터 변수
     val adapter = ChatAdapter()
@@ -36,11 +43,12 @@ class DebateChatActivity : AppCompatActivity() {
         val roomId = intent.getStringExtra("roomId")
         val opinion = intent.getBooleanExtra("opinion", false)
         val topic = intent.getStringExtra("topic")
-        val title = intent.getStringExtra("title")
-        Log.d("DEBATE_CHAT", "토론장ID : ${roomId}")
+        var title = intent.getStringExtra("title")
+        isActive = intent.getBooleanExtra("active", true)
+        Log.d("DEBATE_CHAT", "토론장 상태 : ${isActive}")
 
-        binding.textToolbarTitle.text = "'${title}' 토론장"
         binding.textTopic.text = topic
+        binding.textToolbarTitle.text = "'${title}' 토론장"
 
         // background 적용 및 컴포넌트 앞으로 가져오기
         binding.imgDebateCover.clipToOutline = true
@@ -65,14 +73,18 @@ class DebateChatActivity : AppCompatActivity() {
 
         // 전송 버튼 클릭 시 메시지 저장
         binding.btnSend.setOnClickListener {
+            Log.d("DEBATE_CHAT", "토론장 상태 : ${isActive}")
+            hideKeyboard()
             // ★★★ 토론장 상태가 대기중이면 메시지 전송 불가능 !!!
             if (binding.editChat.text.isEmpty()) {
-                //Toast.makeText(this, "메시지를 입력하세요.", Toast.LENGTH_SHORT).show()
-            } else {
+//                Toast.makeText(this, "메시지를 입력하세요.", Toast.LENGTH_SHORT).show()
+            } else if (!isActive) {
+                Toast.makeText(this, "토론장이 대기 중입니다.", Toast.LENGTH_SHORT).show()
+            }
+            else {
                 var username = ""
                 val state = opinion
                 val message = binding.editChat.text.toString()
-
                 // ★★★ 파이어베이스에서 토론장 상태 가져오기 !!!
 
                 val pref = this.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
@@ -106,6 +118,7 @@ class DebateChatActivity : AppCompatActivity() {
                     adapter.listData.add(chat)
                     binding.recyclerMsg.adapter = adapter
                     binding.recyclerMsg.layoutManager = LinearLayoutManager(this@DebateChatActivity)
+                    binding.scrollChat.fullScroll(ScrollView.FOCUS_DOWN)
                 }
             }
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) { }
@@ -115,9 +128,27 @@ class DebateChatActivity : AppCompatActivity() {
         })
 
         // 토론장 인원이 증가할 때마다 토론장 상태 검사 : 대기 중 -> 진행 중
-        databaseReference.child(roomId).child("participants").addChildEventListener(object : ChildEventListener {
+        databaseReference.child(roomId).child("user").addChildEventListener(object : ChildEventListener {
             // Add or Changed?
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {  }
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val pref = this@DebateChatActivity.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
+                val token = pref?.getString("Token", "")
+                count++
+
+                if (token != null && count > 1 && !isActive) {
+                    RetrofitBuilder.debateApi.activate(token, roomId.toLong(), 1).enqueue(object: Callback<DebateJoinDTO> {
+                        override fun onResponse(call: Call<DebateJoinDTO>, response: Response<DebateJoinDTO>) {
+                            databaseReference.child(roomId.toString()).child("state").setValue(true)
+                            isActive = true
+                            Toast.makeText(this@DebateChatActivity, "토론이 시작되었습니다.", Toast.LENGTH_SHORT).show();
+                        }
+
+                        override fun onFailure(call: Call<DebateJoinDTO>, t: Throwable) {
+                            Toast.makeText(this@DebateChatActivity, "진행 오류가 발생하였습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                }
+            }
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {  }
             override fun onChildRemoved(snapshot: DataSnapshot) {  }
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {  }

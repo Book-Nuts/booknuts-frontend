@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        changeFragment(fragmentDebate)
         initNavigationBar()
 
         val pref = getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                         changeFragment(fragmentSearch)
                     }
                     R.id.write -> {
-                        //changeFragment(fragmentWrite)
+                        changeFragment(fragmentHome)
                         var intent = Intent(this@MainActivity, WriteActivity::class.java)
                         startActivity(intent)
                     }

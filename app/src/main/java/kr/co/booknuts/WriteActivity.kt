@@ -17,6 +17,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import android.R.attr.data
 import android.app.Activity
+import android.content.Context
+import android.view.inputmethod.InputMethodManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 
@@ -65,6 +67,11 @@ class WriteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        // 키보드 내리기
+        binding.layout.setOnClickListener { hideKeyboard() }
+        binding.toolbar.setOnClickListener { hideKeyboard() }
+        binding.linear.setOnClickListener { hideKeyboard() }
 
         val spinnerAdapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, genres)
         binding.spinnerGenre.adapter = spinnerAdapter
@@ -139,5 +146,12 @@ class WriteActivity : AppCompatActivity() {
         binding.imgClose.setOnClickListener {
             finish()
         }
+    }
+
+    // 키보드 비활성화 함수
+    fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.editContent.windowToken, 0)
+        imm.hideSoftInputFromWindow(binding.editTitle.windowToken, 0)
     }
 }
