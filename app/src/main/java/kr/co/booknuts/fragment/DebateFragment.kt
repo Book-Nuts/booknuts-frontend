@@ -81,17 +81,17 @@ class DebateFragment : Fragment() {
         binding.btnToggleAll.setOnClickListener {
             debateType = 2
             binding.btnToggleAll.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.white))
-            binding.btnToggleAll.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.dark_grey_700))
+            binding.btnToggleAll.setBackgroundResource(R.drawable.top_tab_view_fill)
             binding.btnToggleText.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.grey_700))
-            binding.btnToggleText.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.white))
+            binding.btnToggleText.setBackgroundResource(R.drawable.top_tab_view)
             loadData(debateType)
         }
         binding.btnToggleText.setOnClickListener {
             debateType = 0
             binding.btnToggleText.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.white))
-            binding.btnToggleText.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.dark_grey_700))
+            binding.btnToggleText.setBackgroundResource(R.drawable.top_tab_view_fill)
             binding.btnToggleAll.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.grey_700))
-            binding.btnToggleAll.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.white))
+            binding.btnToggleAll.setBackgroundResource(R.drawable.top_tab_view)
             loadData(debateType)
         }
         binding.btnToggleVoice.setOnClickListener {

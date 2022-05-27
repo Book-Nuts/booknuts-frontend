@@ -134,83 +134,42 @@
                     android:layout_marginRight="21dp"
                     android:orientation="horizontal">
 
-                    <Button
+                    <TextView
                         android:id="@+id/btn_toggle_all"
-                        android:layout_width="wrap_content"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
+                        android:background="@drawable/top_tab_view_fill"
+                        android:clipToOutline="true"
                         android:gravity="center"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:paddingLeft="15dp"
-                        android:paddingTop="4dp"
-                        android:paddingRight="15dp"
-                        android:paddingBottom="4dp"
+                        android:minWidth="59dp"
                         android:text="전체"
-                        android:textColor="@color/white"
-                        android:textSize="14sp"
-                        app:backgroundTint="@color/dark_grey_700"
-                        app:elevation="0dp"
-                        app:strokeColor="@color/dark_grey_700"
-                        app:strokeWidth="2dp"
-                        tools:ignore="TouchTargetSizeCheck" />
+                        android:textColor="#ffffff" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/btn_toggle_text"
-                        android:layout_width="wrap_content"
+                        android:layout_width="70dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
+                        android:background="@drawable/top_tab_view"
+                        android:clipToOutline="true"
                         android:gravity="center"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:paddingLeft="15dp"
-                        android:paddingTop="4dp"
-                        android:paddingRight="15dp"
-                        android:paddingBottom="4dp"
+                        android:minWidth="59dp"
                         android:text="텍스트"
-                        android:textColor="@color/grey_200"
-                        android:textSize="14sp"
-                        app:backgroundTint="#FFFFFF"
-                        app:elevation="0dp"
-                        app:strokeColor="@color/grey_200"
-                        app:strokeWidth="2dp"
-                        tools:ignore="TouchTargetSizeCheck" />
+                        android:textColor="@color/grey_200" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/btn_toggle_voice"
-                        android:layout_width="wrap_content"
+                        android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
                         android:layout_marginRight="10dp"
+                        android:background="@drawable/top_tab_view"
+                        android:clipToOutline="true"
                         android:gravity="center"
-                        android:insetLeft="0dp"
-                        android:insetTop="0dp"
-                        android:insetRight="0dp"
-                        android:insetBottom="0dp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:paddingLeft="15dp"
-                        android:paddingTop="4dp"
-                        android:paddingRight="15dp"
-                        android:paddingBottom="4dp"
+                        android:minWidth="59dp"
                         android:text="음성"
-                        android:textColor="@color/grey_200"
-                        android:textSize="14sp"
-                        app:backgroundTint="#FFFFFF"
-                        app:elevation="0dp"
-                        app:strokeColor="@color/grey_200"
-                        app:strokeWidth="2dp"
-                        tools:ignore="TouchTargetSizeCheck" />
+                        android:textColor="@color/grey_200" />
+
                 </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout

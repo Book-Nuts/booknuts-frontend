@@ -42,6 +42,7 @@ class BookSearchActivity : AppCompatActivity() {
 
         binding.imgSearch.setOnClickListener {
             var bookTitle = binding.editBookTitle.text.toString()
+            hideKeyboard()
             //Toast.makeText(this@BookSearchActivity, "Title: " + bookTitle, Toast.LENGTH_SHORT).show()
 
             if(!bookTitle.isEmpty()) {

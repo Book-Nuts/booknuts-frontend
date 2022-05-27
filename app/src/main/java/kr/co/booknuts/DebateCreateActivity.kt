@@ -190,6 +190,7 @@ class DebateCreateActivity : AppCompatActivity() {
                                     intent.putExtra("opinion", userOpinion)
                                     intent.putExtra("topic", topic)
                                     intent.putExtra("title", bookTitle)
+                                    intent.putExtra("active", false)
                                     startActivity(intent)
                                     finish()
                                 }

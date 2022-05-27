@@ -16,23 +16,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="33dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="33dp">
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
 
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/img_logo_s" />
+                android:src="@drawable/img_logo_x5" />
 
             <View
                 android:id="@+id/view"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                 />
+                android:layout_weight="1" />
 
             <ImageView
                 android:id="@+id/btn_alarm"
