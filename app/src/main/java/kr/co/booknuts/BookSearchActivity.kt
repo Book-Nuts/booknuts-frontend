@@ -1,10 +1,12 @@
 package kr.co.booknuts
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
@@ -29,12 +31,18 @@ class BookSearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 키보드 내리기
+        binding.toolbar.setOnClickListener { hideKeyboard() }
+        binding.rvBook.setOnClickListener { hideKeyboard() }
+        binding.linear.setOnClickListener { hideKeyboard() }
+
         binding.imgClose.setOnClickListener{
             finish()
         }
 
         binding.imgSearch.setOnClickListener {
             var bookTitle = binding.editBookTitle.text.toString()
+            hideKeyboard()
             //Toast.makeText(this@BookSearchActivity, "Title: " + bookTitle, Toast.LENGTH_SHORT).show()
 
             if(!bookTitle.isEmpty()) {
@@ -78,5 +86,11 @@ class BookSearchActivity : AppCompatActivity() {
                 Toast.makeText(this@BookSearchActivity, "도서 제목을 입력하세요.", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    // 키보드 비활성화 함수
+    fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.editBookTitle.windowToken, 0)
     }
 }

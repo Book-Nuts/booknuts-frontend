@@ -232,7 +232,7 @@
 
                     <TextView
                         android:id="@+id/btn_oneVersesOne"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/style_toggle_debate_ratio"
@@ -243,7 +243,7 @@
 
                     <TextView
                         android:id="@+id/btn_twoVersesTwo"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/style_toggle_debate_ratio"
@@ -254,7 +254,7 @@
 
                     <TextView
                         android:id="@+id/btn_threeVersesThree"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:background="@drawable/style_toggle_debate_ratio"
@@ -265,7 +265,7 @@
 
                     <TextView
                         android:id="@+id/btn_fourVersesFour"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
@@ -338,6 +338,7 @@
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="@color/grey_200"
+        android:clickable="true"
         android:gravity="center"
         android:paddingBottom="8dp"
         android:text="만들기"

@@ -34,4 +34,12 @@ interface DebateRoomService {
         @Path("roomId") roomId: Long,
         @Query("opinion") opinion: Boolean,
     ) : Call<DebateJoinDTO>
+
+    // 토론장 상태 변경
+    @PATCH("/debate/update/{roomId}")
+    fun activate(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("roomId") roomId: Long,
+        @Query("status") status: Int,
+    ) : Call<DebateJoinDTO>
 }

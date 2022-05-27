@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                         changeFragment(fragmentSearch)
                     }
                     R.id.write -> {
-                        //changeFragment(fragmentWrite)
+                        changeFragment(fragmentHome)
                         var intent = Intent(this@MainActivity, WriteActivity::class.java)
                         startActivity(intent)
                     }

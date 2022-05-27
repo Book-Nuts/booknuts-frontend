@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -67,7 +68,8 @@
                     android:ems="15"
                     android:hint="필터에 맞춰 검색해주세요!"
                     android:inputType="textPersonName"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <ImageView
                     android:id="@+id/img_search"
@@ -95,7 +97,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/img_search_bg"></LinearLayout>
+        android:background="#F5F5F5"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/img_search_bg" />
+    </LinearLayout>
 
 </LinearLayout>
