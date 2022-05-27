@@ -77,8 +77,6 @@ class MySeriesDetailFragment : Fragment() {
             Callback<ArrayList<PostDetail>> {
             override fun onResponse(call: Call<ArrayList<PostDetail>>, response: Response<ArrayList<PostDetail>>) {
                 seriesPostDataArray = response.body()
-                //Log.d("Series Detail Post List", "data : " + seriesPostDataArray?.get(0)?.boardId)
-                //Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
                 binding.textSeriesTitle.text = data?.get(1)
                 binding.textSeriesContent.text = data?.get(2)
                 Glide.with(binding.myImgSeriesDetail.context)
@@ -90,6 +88,7 @@ class MySeriesDetailFragment : Fragment() {
 
                 if(seriesPostDataArray?.size != null) {
                     postCnt = seriesPostDataArray?.size!!
+                    binding.textArchivePostCnt.text = "총 " + seriesPostDataArray?.size?.toString() + "화"
                     recyclerView = binding.mySeriesDetailRvPost
                     recyclerView.layoutManager = LinearLayoutManager(requireContext())
                     val adapter: MySeriesPostListAdapter = MySeriesPostListAdapter(seriesPostDataArray)
