@@ -52,6 +52,7 @@ class DebateChatActivity : AppCompatActivity() {
             0 -> binding.imgDebateCover.setImageResource(R.drawable.img_debate1)
             1 -> binding.imgDebateCover.setImageResource(R.drawable.img_debate2)
         }
+        binding.imgDebateCover.clipToOutline = true
         binding.textTopic.text = topic
         binding.textToolbarTitle.text = "'${title}' 토론장"
 
