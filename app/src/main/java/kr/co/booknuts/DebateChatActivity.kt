@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
@@ -106,6 +107,7 @@ class DebateChatActivity : AppCompatActivity() {
                     adapter.listData.add(chat)
                     binding.recyclerMsg.adapter = adapter
                     binding.recyclerMsg.layoutManager = LinearLayoutManager(this@DebateChatActivity)
+                    binding.scrollChat.fullScroll(ScrollView.FOCUS_DOWN)
                 }
             }
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) { }

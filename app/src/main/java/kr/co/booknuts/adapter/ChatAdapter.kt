@@ -33,6 +33,7 @@ class ChatHolder(val binding: ListitemDebateChatBinding): RecyclerView.ViewHolde
             binding.imgProfileBackground.setImageResource(R.drawable.img_chat_corner_pros)
             binding.imgPointer.setImageResource(R.drawable.img_chat_pointer_pros)
             binding.textMsg.setBackgroundColor(Color.parseColor("#FFEAEFFC"))
+            binding.imgProfile.setImageResource(R.drawable.img_user3)
         }
         binding.textUserID.text = "${chat.username}"
         binding.textMsg.text = "${chat.message}"

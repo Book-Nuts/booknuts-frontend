@@ -41,27 +41,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:background="@drawable/input_box"
                 android:ems="10"
                 android:hint="아이디 (이메일)"
                 android:inputType="textEmailAddress"
                 android:paddingHorizontal="21dp"
                 android:paddingVertical="15dp"
-                android:textColor="@color/grey_200"
-                android:textSize="14sp"
-                android:background="@drawable/input_box"/>
+                android:textColor="@color/grey_700"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/edit_pw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/input_box"
                 android:ems="10"
                 android:hint="비밀번호"
                 android:inputType="textPassword"
                 android:paddingHorizontal="21dp"
                 android:paddingVertical="15dp"
-                android:textColor="@color/grey_200"
-                android:textSize="14sp"
-                android:background="@drawable/input_box"/>
+                android:textColor="@color/grey_700"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <Button
@@ -96,12 +96,13 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:gravity="right"
                 android:clickable="true"
-                android:textStyle="normal"
+                android:gravity="right"
                 android:text="회원가입"
                 android:textColor="@color/grey_700"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:textStyle="normal"
+                tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
 
     </LinearLayout>
@@ -132,33 +133,36 @@
                 android:id="@+id/imgBtn_kakao"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:scaleType="fitCenter"
                 android:layout_marginRight="30dp"
-                android:padding="7dp"
+                android:background="@drawable/icon_circle"
                 android:backgroundTint="#FAE301"
+                android:padding="7dp"
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/img_kakao"
-                android:background="@drawable/icon_circle"/>
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
             <ImageButton
                 android:id="@+id/imgBtn_naver"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:scaleType="fitCenter"
-                android:padding="5dp"
+                android:background="@drawable/icon_circle"
                 android:backgroundTint="#00BF18"
+                android:padding="5dp"
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/img_naver"
-                android:background="@drawable/icon_circle"/>
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
             <ImageButton
                 android:id="@+id/imgBtn_google"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:scaleType="fitCenter"
-                android:padding="8dp"
                 android:layout_marginLeft="30dp"
+                android:background="@drawable/icon_circle"
                 android:backgroundTint="#F6F6F6"
+                android:padding="8dp"
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/img_google"
-                android:background="@drawable/icon_circle"/>
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
         </LinearLayout>
     </LinearLayout>
 
@@ -173,11 +177,12 @@
             android:id="@+id/text_findId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
             android:background="@android:color/transparent"
+            android:clickable="true"
             android:gravity="center_horizontal"
             android:text="아이디 찾기"
-            android:textColor="@color/grey_700" />
+            android:textColor="@color/grey_700"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/textView4"
@@ -192,11 +197,12 @@
             android:id="@+id/text_findPw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
             android:background="@android:color/transparent"
-            android:text="비밀번호 찾기"
+            android:clickable="true"
             android:gravity="center_horizontal"
-            android:textColor="@color/grey_700" />
+            android:text="비밀번호 찾기"
+            android:textColor="@color/grey_700"
+            tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
 </LinearLayout>

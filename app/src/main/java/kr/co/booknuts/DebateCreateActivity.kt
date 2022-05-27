@@ -200,6 +200,11 @@ class DebateCreateActivity : AppCompatActivity() {
         }
     }
 
+    // 토론장 만들기 버튼 활성화 여부 확인
+    fun check() {
+        if (true) {}
+    }
+
     // 키보드 비활성화 함수
     fun hideKeyboard() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

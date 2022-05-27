@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        changeFragment(fragmentDebate)
         initNavigationBar()
 
         val pref = getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
