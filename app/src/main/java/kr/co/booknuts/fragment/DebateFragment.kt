@@ -58,6 +58,19 @@ class DebateFragment : Fragment() {
         // debateType : 0 = 텍스트, 1 = 음성, 2 = 전체
         loadData(debateType) // 전체 맞춤 토론
 
+        // refresh 실행
+        binding.swipe.setOnRefreshListener{
+            // 리사이클러뷰 어댑터, 레이아웃 매니저 초기화
+            binding.recyclePersonalized.adapter = personalizedAdapter
+            binding.recyclePersonalized.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            binding.recycleProceeding.adapter = proceedingAdapter
+            binding.recycleProceeding.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            binding.recycleWait.adapter = waitAdapter
+            binding.recycleWait.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            loadData(debateType)
+            binding.swipe.isRefreshing = false
+        }
+
         // 토론장 개설 버튼 클릭
         binding.btnAddDebate.setOnClickListener {
             var intent = Intent(this.activity, DebateCreateActivity::class.java)

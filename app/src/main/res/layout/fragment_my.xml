@@ -300,7 +300,8 @@
                     android:inputType="textPersonName"
                     android:paddingLeft="17dp"
                     android:textColor="#C4C4C4"
-                    android:textSize="14dp" />
+                    android:textSize="14dp"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <ImageView
                     android:id="@+id/img_menu"

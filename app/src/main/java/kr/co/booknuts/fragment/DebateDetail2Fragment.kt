@@ -75,6 +75,7 @@ class DebateDetail2Fragment : Fragment() {
                                     intent.putExtra("roomId", roomId.toString())
                                     intent.putExtra("title", title)
                                     intent.putExtra("topic", topic)
+                                    intent.putExtra("opinion", opinion)
                                     startActivity(intent)
                                     this@DebateDetail2Fragment.activity?.finish()
                                 }

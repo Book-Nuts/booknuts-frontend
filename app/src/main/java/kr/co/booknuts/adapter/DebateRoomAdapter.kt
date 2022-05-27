@@ -43,7 +43,7 @@ class DebateRoomAdapter() : RecyclerView.Adapter<DebateRoomAdapter.DebateRoomHol
         fun setDebate(debate: DebateSearchInfo) {
             Log.d("ROOMLIST_PROCEED", "setDebate 실행")
             // ★★★ 토론장 사진 바꿀수 있게 설정하기
-            binding.imgBlack.clipToOutline = true
+            binding.imgDebate.clipToOutline = true
             binding.textTitle.text = "${debate.topic}"
             binding.textBookTitle.text = "${debate.bookTitle}"
             binding.textParticipant.text = "${debate.owner}님 외 ${debate.cons + debate.pros - 1}명"

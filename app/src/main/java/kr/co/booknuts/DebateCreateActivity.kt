@@ -2,6 +2,7 @@ package kr.co.booknuts
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.firebase.database.DatabaseReference
@@ -32,6 +34,10 @@ class DebateCreateActivity : AppCompatActivity() {
     var bookImgUrl = ""
     var topic = ""
 
+    // 선택 여부
+    var isType = true // 토론 형식 선택 여부 (텍스트로 자동 설정)
+    var isRatio = false // 토론 인원 선택 여부
+
     // 파이어베이스 데이터베이스 인스턴스 연결
     private val firebaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
     private val databaseReference: DatabaseReference = firebaseDatabase.getReference()
@@ -52,6 +58,9 @@ class DebateCreateActivity : AppCompatActivity() {
             Toast.makeText(this, "데모 버전에서는 텍스트 채팅만 가능합니다.", Toast.LENGTH_SHORT).show()
         }
 
+        // 토론 주제 입력할 때마다 만들기 활성화 여부 검사
+        binding.editDebateName.addTextChangedListener { check() }
+
         // 책 선택 액티비티로 이동 및 데이터 요청
         binding.linearAddBook.setOnClickListener{
             var intent = Intent(this@DebateCreateActivity, BookSearchActivity::class.java)
@@ -60,32 +69,56 @@ class DebateCreateActivity : AppCompatActivity() {
 
         // 토론 인원 선택
         binding.btnOneVersesOne.setOnClickListener {
+            isRatio = true
             toggleRatio = 2
             binding.btnOneVersesOne.setTextColor(ContextCompat.getColor(this, R.color.coral_600))
             binding.btnTwoVersesTwo.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
             binding.btnThreeVersesThree.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
             binding.btnFourVersesFour.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+            binding.btnOneVersesOne.setTypeface(null, Typeface.BOLD)
+            binding.btnTwoVersesTwo.setTypeface(null, Typeface.NORMAL)
+            binding.btnThreeVersesThree.setTypeface(null, Typeface.NORMAL)
+            binding.btnFourVersesFour.setTypeface(null, Typeface.NORMAL)
+            check()
         }
         binding.btnTwoVersesTwo.setOnClickListener {
+            isRatio = true
             toggleRatio = 4
             binding.btnOneVersesOne.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
             binding.btnTwoVersesTwo.setTextColor(ContextCompat.getColor(this, R.color.coral_600))
             binding.btnThreeVersesThree.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
             binding.btnFourVersesFour.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+            binding.btnOneVersesOne.setTypeface(null, Typeface.NORMAL)
+            binding.btnTwoVersesTwo.setTypeface(null, Typeface.BOLD)
+            binding.btnThreeVersesThree.setTypeface(null, Typeface.NORMAL)
+            binding.btnFourVersesFour.setTypeface(null, Typeface.NORMAL)
+            check()
         }
         binding.btnThreeVersesThree.setOnClickListener {
+            isRatio = true
             binding.btnOneVersesOne.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
             binding.btnTwoVersesTwo.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
             binding.btnThreeVersesThree.setTextColor(ContextCompat.getColor(this, R.color.coral_600))
             binding.btnFourVersesFour.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
+            binding.btnOneVersesOne.setTypeface(null, Typeface.NORMAL)
+            binding.btnTwoVersesTwo.setTypeface(null, Typeface.NORMAL)
+            binding.btnThreeVersesThree.setTypeface(null, Typeface.BOLD)
+            binding.btnFourVersesFour.setTypeface(null, Typeface.NORMAL)
             toggleRatio = 6
+            check()
         }
         binding.btnFourVersesFour.setOnClickListener {
+            isRatio = true
             binding.btnOneVersesOne.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
             binding.btnTwoVersesTwo.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
             binding.btnThreeVersesThree.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
             binding.btnFourVersesFour.setTextColor(ContextCompat.getColor(this, R.color.coral_600))
+            binding.btnOneVersesOne.setTypeface(null, Typeface.NORMAL)
+            binding.btnTwoVersesTwo.setTypeface(null, Typeface.NORMAL)
+            binding.btnThreeVersesThree.setTypeface(null, Typeface.NORMAL)
+            binding.btnFourVersesFour.setTypeface(null, Typeface.BOLD)
             toggleRatio = 8
+            check()
         }
 
         // 유저 의견 선택
@@ -96,6 +129,7 @@ class DebateCreateActivity : AppCompatActivity() {
             binding.btnToggleCons.setBackgroundColor(ContextCompat.getColor(this, R.color.coral_600))
             binding.btnTogglePros.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
             binding.btnTogglePros.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+            check()
         }
         binding.btnTogglePros.setOnClickListener {
             isOpinion = true
@@ -104,6 +138,7 @@ class DebateCreateActivity : AppCompatActivity() {
             binding.btnTogglePros.setBackgroundColor(ContextCompat.getColor(this, R.color.coral_600))
             binding.btnToggleCons.setTextColor(ContextCompat.getColor(this, R.color.grey_200))
             binding.btnToggleCons.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+            check()
         }
 
         // 만들기 버튼 클릭
@@ -195,6 +230,7 @@ class DebateCreateActivity : AppCompatActivity() {
                 .error(R.drawable.img_user2)
                 .fitCenter()
                 .into(binding.imgBook)
+            check()
         } else {
             Log.d("Book Info", "null")
         }
@@ -202,7 +238,15 @@ class DebateCreateActivity : AppCompatActivity() {
 
     // 토론장 만들기 버튼 활성화 여부 확인
     fun check() {
-        if (true) {}
+        if (bookTitle == "" || binding.editDebateName.text.isEmpty() || !isType || !isRatio || !isOpinion) {
+            // 만들기 버튼 비활성화
+            binding.btnCreate.isClickable = false
+            binding.btnCreate.setBackgroundColor(ContextCompat.getColor(this, R.color.grey_200))
+        } else {
+            // 만들기 버튼 활성화
+            binding.btnCreate.isClickable = true
+            binding.btnCreate.setBackgroundColor(ContextCompat.getColor(this, R.color.coral_600))
+        }
     }
 
     // 키보드 비활성화 함수

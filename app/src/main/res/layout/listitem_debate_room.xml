@@ -18,7 +18,7 @@
 
     <ImageView
         android:id="@+id/img_debate"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/style_debate_img_corner"
         android:visibility="visible"
@@ -32,6 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/style_debate_img_corner"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -154,7 +155,7 @@
         android:layout_marginStart="7dp"
         android:layout_marginTop="11dp"
         android:background="@drawable/style_debate_info"
-        android:paddingLeft="18dp"
+        android:paddingLeft="20dp"
         android:paddingTop="3dp"
         android:paddingRight="7dp"
         android:paddingBottom="3dp"
