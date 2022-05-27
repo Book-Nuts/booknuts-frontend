@@ -54,10 +54,12 @@ class MyPostListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.A
         private val bookImg: ImageView = binding.boardImgBookImg
         private val bookTitle: TextView = binding.boardTextBookTitle
         private val content: TextView = binding.boardTextContent
+        private val archiveCnt: TextView = binding.textArchiveCnt
         fun bind(item: Post) {
             title.text = item.title
             bookTitle.text = item.bookTitle
             content.text = item.content
+            archiveCnt.text = item.archiveCnt.toString()
             Glide.with(bookImg.context)
                 .load(item.bookImgUrl)
                 .placeholder(R.drawable.img_book_cover_default)

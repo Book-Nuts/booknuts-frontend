@@ -3,7 +3,9 @@ package kr.co.booknuts
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.main.fragment_my.*
 import kr.co.booknuts.databinding.ActivityMainBinding
 import kr.co.booknuts.databinding.ActivitySignUpBinding
 import kr.co.booknuts.fragment.*

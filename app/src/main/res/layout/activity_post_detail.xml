@@ -230,68 +230,69 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@color/black"
-        android:paddingBottom="26dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="22dp"
         android:paddingTop="16dp"
         android:paddingRight="26dp"
-        android:paddingLeft="22dp"
-        android:layout_alignParentBottom="true"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:paddingBottom="26dp">
 
         <ImageView
             android:id="@+id/imageView27"
-            android:layout_width="wrap_content"
+            android:layout_width="36dp"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/icon_nut"
             android:layout_marginRight="4dp"
+            app:srcCompat="@drawable/icon_nuts_b"
             app:tint="@color/white" />
 
         <TextView
             android:id="@+id/text_nuts_cnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="0" />
+            android:text="0"
+            android:textColor="@color/white" />
 
         <ImageView
             android:id="@+id/imageView28"
-            android:layout_width="24dp"
+            android:layout_width="17dp"
             android:layout_height="21dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="5dp"
-            app:srcCompat="@drawable/icon_heart_pink" />
+            app:srcCompat="@drawable/icon_heart"
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/text_heart_cnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="0" />
+            android:text="0"
+            android:textColor="@color/white" />
 
         <ImageView
-            android:id="@+id/imageView29"
-            android:layout_width="wrap_content"
+            android:id="@+id/img_archive_box"
+            android:layout_width="22dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="21dp"
             android:layout_marginRight="5dp"
-            app:tint="@color/white"
-            app:srcCompat="@drawable/icon_box" />
+            app:srcCompat="@drawable/icon_box"
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/text_archive_cnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             android:layout_weight="1"
-            android:text="0" />
+            android:text="0"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/textView30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="댓글(0)" />
+            android:text="댓글(0)"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </RelativeLayout>

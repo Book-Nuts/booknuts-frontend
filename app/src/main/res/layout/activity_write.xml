@@ -147,10 +147,11 @@
                 android:background="@drawable/bg_textview_rect"
                 android:ems="10"
                 android:gravity="start"
+                android:scrollHorizontally="false"
+                android:maxLines="50"
+                android:inputType="textMultiLine"
                 android:hint="내용을 입력하세요"
-                android:inputType="textPersonName"
-                android:padding="21dp"
-                tools:inputType="textMultiLine" />
+                android:padding="21dp"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -44,7 +44,10 @@ class WriteActivity : AppCompatActivity() {
         if (requestCode === 1234 && resultCode === RESULT_OK) {
             val bookInfo = data?.extras?.get("postInfo") as PostRequestDTO
             Log.d("Book Info", bookInfo.toString())
-            bookTitle = bookInfo.bookTitle
+            var title = bookInfo.bookTitle
+            title = title?.replace("<b>", "")
+            title = title?.replace("</b>", "")
+            bookTitle = title
             bookAuthor = bookInfo.bookAuthor
             bookImgUrl = bookInfo.bookImgUrl
             binding.imgBook.visibility = View.VISIBLE
@@ -75,25 +78,11 @@ class WriteActivity : AppCompatActivity() {
 
         binding.spinnerGenre.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(p0: AdapterView<*>?) {
-
             }
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 bookGenre = genres[position]
             }
         }
-
-        /*var intentGet = intent
-        if(intentGet.extras?.get("postInfo") != null) {
-            var postInfo = intentGet.extras?.get("postInfo") as PostRequestDTO
-            Log.d("Book Info", postInfo.toString())
-            bookImgUrl = postInfo?.bookImgUrl
-            bookTitle = postInfo?.bookTitle
-            bookAuthor = postInfo?.bookAuthor
-        } else {
-            Log.d("Book Info", "null")
-            Log.d("Book Info Null", intentGet.extras?.get("postInfo").toString())
-        }*/
-
 
         binding.linearAddBook.setOnClickListener{
             title = binding.editTitle.text.toString()
@@ -135,13 +124,14 @@ class WriteActivity : AppCompatActivity() {
                     }
                 })
             } else {
-                //Toast.makeText(this@WriteActivity, "게시글 정보를 모두 입력해주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@WriteActivity, "게시글 정보를 모두 입력해주세요.", Toast.LENGTH_SHORT).show()
                 Log.d("Post Info", postInfo.toString())
             }
         }
 
         binding.imgClose.setOnClickListener {
-            finish()
+            val intent = Intent(this@WriteActivity, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 

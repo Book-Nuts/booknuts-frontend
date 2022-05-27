@@ -37,9 +37,13 @@ class MakeSeriesFirstActivity : AppCompatActivity() {
         savedToken = pref?.getString("Token", null).toString()
 
         binding.textGoNext.setOnClickListener {
-            val intent = Intent(this@MakeSeriesFirstActivity, MakeSeriesSecondActivity::class.java)
-            intent.putIntegerArrayListExtra("postClickedList", postClickedList)
-            startActivity(intent)
+            if(postClickedList.size < 2)
+                Toast.makeText(this@MakeSeriesFirstActivity, "게시글을 두 개 이상 선택해주세요.", Toast.LENGTH_SHORT).show()
+            else {
+                val intent = Intent(this@MakeSeriesFirstActivity, MakeSeriesSecondActivity::class.java)
+                intent.putIntegerArrayListExtra("postClickedList", postClickedList)
+                startActivity(intent)
+            }
         }
 
         binding.imgClose.setOnClickListener {
@@ -65,6 +69,7 @@ class MakeSeriesFirstActivity : AppCompatActivity() {
                     override fun onClick(v: View, position: Int) {
                         postClickedList.add(postDataArray?.get(position)?.boardId)
                         Log.d("Board ID", postClickedList.toString())
+                        binding.textSelectedPost.text = binding.textSelectedPost.text.toString() + " " + postDataArray?.get(position)?.boardId + "번"
                     }
                 })
             }

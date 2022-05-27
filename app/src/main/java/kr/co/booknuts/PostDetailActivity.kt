@@ -74,6 +74,13 @@ class PostDetailActivity : AppCompatActivity() {
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .fitCenter()
                     .into(binding.imgBook)
+
+                binding.imgArchiveBox.setOnClickListener {
+                    var intent = Intent(this@PostDetailActivity, ArchivePopUpActivity::class.java)
+                    intent.putExtra("id", data?.boardId)
+                    Log.d("Board ID", "" + data?.boardId)
+                    startActivity(intent)
+                }
             }
             override fun onFailure(call: Call<PostDetail>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")

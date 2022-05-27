@@ -60,9 +60,11 @@ class MakeSeriesListAdapter(private val dataList: ArrayList<Post>?) : RecyclerVi
         private val title: TextView = binding.textTitle
         private val date: TextView = binding.textDate
         private val bookImg: ImageView = binding.imgBook
+        private val postNum: TextView = binding.textPostNum
         fun bind(item: Post) {
             title.text = item.title
             date.text = item.bookTitle
+            postNum.text = item.boardId.toString()
             Glide.with(bookImg.context)
                 .load(item.bookImgUrl)
                 .placeholder(R.drawable.img_book_cover_default)
