@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import androidx.core.content.ContextCompat.startActivity
 import kr.co.booknuts.ChatDetailActivity
 import kr.co.booknuts.DebateCreateActivity
+import kr.co.booknuts.R
 
 class DebateRoomAdapter() : RecyclerView.Adapter<DebateRoomAdapter.DebateRoomHolder>() {
     var listData = mutableListOf<DebateSearchInfo>()
@@ -43,6 +44,11 @@ class DebateRoomAdapter() : RecyclerView.Adapter<DebateRoomAdapter.DebateRoomHol
         fun setDebate(debate: DebateSearchInfo) {
             Log.d("ROOMLIST_PROCEED", "setDebate 실행")
             // ★★★ 토론장 사진 바꿀수 있게 설정하기
+            val idx = debate.id.rem(2)
+            when (idx) {
+                0 -> binding.imgDebate.setImageResource(R.drawable.img_debate1)
+                1 -> binding.imgDebate.setImageResource(R.drawable.img_debate2)
+            }
             binding.imgDebate.clipToOutline = true
             binding.textTitle.text = "${debate.topic}"
             binding.textBookTitle.text = "${debate.bookTitle}"
