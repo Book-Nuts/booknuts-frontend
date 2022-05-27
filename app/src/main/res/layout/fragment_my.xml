@@ -37,7 +37,7 @@
             android:layout_width="22dp"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:src="@drawable/icon_alarm_b"
+            android:src="@drawable/icon_alarm_n"
             android:layout_marginRight="20dp" />
     </androidx.appcompat.widget.Toolbar>
 
@@ -193,6 +193,7 @@
                     android:id="@+id/my_linear_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
@@ -214,16 +215,11 @@
                         android:visibility="visible" />
                 </LinearLayout>
 
-                <View
-                    android:id="@+id/view5"
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:layout_weight="1" />
-
                 <LinearLayout
                     android:id="@+id/my_linear_series"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <TextView
@@ -242,12 +238,6 @@
                         android:background="@color/grey_900"
                         android:visibility="gone" />
                 </LinearLayout>
-
-                <View
-                    android:id="@+id/view7"
-                    android:layout_width="match_parent"
-                    android:layout_height="3dp"
-                    android:layout_weight="1" />
 
                 <LinearLayout
                     android:id="@+id/my_linear_archive"
@@ -284,15 +274,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:translationY="-13dp">
+                android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/editTextTextPersonName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="22dp"
-                    android:layout_marginVertical="13dp"
+                    android:layout_marginBottom="13dp"
                     android:layout_weight="1"
                     android:background="@drawable/input_my_search"
                     android:ems="10"
@@ -325,9 +314,9 @@
                 android:id="@+id/my_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="11dp"
                 android:background="#E5E5E5"
                 android:orientation="vertical"
-                android:translationY="-13dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
         </LinearLayout>
     </ScrollView>

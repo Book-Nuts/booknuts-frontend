@@ -241,10 +241,10 @@
 
         <ImageView
             android:id="@+id/imageView27"
-            android:layout_width="wrap_content"
+            android:layout_width="36dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="4dp"
-            app:srcCompat="@drawable/icon_nut"
+            app:srcCompat="@drawable/icon_nuts_b"
             app:tint="@color/white" />
 
         <TextView
@@ -256,11 +256,12 @@
 
         <ImageView
             android:id="@+id/imageView28"
-            android:layout_width="24dp"
+            android:layout_width="17dp"
             android:layout_height="21dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="5dp"
-            app:srcCompat="@drawable/icon_heart_pink" />
+            app:srcCompat="@drawable/icon_heart"
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/text_heart_cnt"
@@ -271,7 +272,7 @@
 
         <ImageView
             android:id="@+id/img_archive_box"
-            android:layout_width="wrap_content"
+            android:layout_width="22dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="21dp"
             android:layout_marginRight="5dp"
