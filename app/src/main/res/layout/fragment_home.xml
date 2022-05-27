@@ -35,10 +35,10 @@
                  />
 
             <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
+                android:id="@+id/btn_alarm"
+                android:layout_width="22dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_alarm" />
+                android:src="@drawable/icon_alarm_b" />
         </LinearLayout>
     </LinearLayout>
 

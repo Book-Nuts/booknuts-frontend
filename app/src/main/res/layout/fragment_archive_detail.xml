@@ -7,44 +7,47 @@
     android:orientation="vertical"
     tools:context=".fragment.ArchiveDetailFragment">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="60dp"
+        android:background="@drawable/style_navigation_bottom"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/my_detail_img_back"
             android:layout_width="17.5dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:translationX="23dp"
+            android:layout_gravity="center_vertical|left"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="3dp"
             android:src="@drawable/icon_arrow_left" />
 
         <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
+            android:id="@+id/text_toolbarTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_gravity="center"
             android:gravity="center"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="14dp"
             android:text="아카이브"
-            android:textColor="@color/grey_900"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textColor="#3A3A3A"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="177dp"
+            tools:layout_editor_absoluteY="20dp" />
 
         <ImageView
             android:id="@+id/imageView14"
             android:layout_width="22dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="right"
             android:src="@drawable/icon_alarm_b"
-            android:layout_marginTop="2dp"
-            android:translationX="-20dp" />
-
-    </LinearLayout>
+            android:layout_marginRight="20dp" />
+    </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
         android:layout_width="match_parent"

@@ -68,7 +68,7 @@ class DebateFragment : Fragment() {
         binding.btnToggleAll.setOnClickListener {
             debateType = 2
             binding.btnToggleAll.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.white))
-            binding.btnToggleAll.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.grey_700))
+            binding.btnToggleAll.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.dark_grey_700))
             binding.btnToggleText.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.grey_700))
             binding.btnToggleText.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.white))
             loadData(debateType)
@@ -76,7 +76,7 @@ class DebateFragment : Fragment() {
         binding.btnToggleText.setOnClickListener {
             debateType = 0
             binding.btnToggleText.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.white))
-            binding.btnToggleText.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.grey_700))
+            binding.btnToggleText.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.dark_grey_700))
             binding.btnToggleAll.setTextColor(ContextCompat.getColor(this.requireContext(), R.color.grey_700))
             binding.btnToggleAll.setBackgroundColor(ContextCompat.getColor(this.requireContext(), R.color.white))
             loadData(debateType)

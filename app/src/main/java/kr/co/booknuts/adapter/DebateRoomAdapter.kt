@@ -43,12 +43,16 @@ class DebateRoomAdapter() : RecyclerView.Adapter<DebateRoomAdapter.DebateRoomHol
         fun setDebate(debate: DebateSearchInfo) {
             Log.d("ROOMLIST_PROCEED", "setDebate 실행")
             // ★★★ 토론장 사진 바꿀수 있게 설정하기
+            binding.imgBlack.clipToOutline = true
             binding.textTitle.text = "${debate.topic}"
             binding.textBookTitle.text = "${debate.bookTitle}"
-            binding.textParticipant.text = "${debate.owner}님 외 ${debate.participants - 1}명"
+            binding.textParticipant.text = "${debate.owner}님 외 ${debate.cons + debate.pros - 1}명"
             binding.textTime.text = "${debate.time}"
-            (binding.lineCons.layoutParams as LinearLayout.LayoutParams).weight = debate.cons.toFloat()
-            (binding.linePros.layoutParams as LinearLayout.LayoutParams).weight = debate.pros.toFloat()
+            (binding.lineCons.layoutParams as LinearLayout.LayoutParams).weight = debate.pros.toFloat()
+            (binding.linePros.layoutParams as LinearLayout.LayoutParams).weight = debate.cons.toFloat()
+            Log.d("DEBATEROOM_WEIGHT_CONS", (binding.lineCons.layoutParams as LinearLayout.LayoutParams).weight.toString())
+            Log.d("DEBATEROOM_WEIGHT_PROS", (binding.linePros.layoutParams as LinearLayout.LayoutParams).weight.toString())
+
             Log.d("ROOMLIST_PROCEED", debate.toString())
             binding.root.setOnClickListener {
                 val intent = Intent(binding.root.context, ChatDetailActivity::class.java)

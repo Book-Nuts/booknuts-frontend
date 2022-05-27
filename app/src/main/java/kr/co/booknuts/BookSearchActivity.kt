@@ -54,7 +54,8 @@ class BookSearchActivity : AppCompatActivity() {
                                 adapter.setItemClickListener(object: BookSearchListAdapter.OnItemClickListener {
                                     override fun onClick(v: View, position: Int) {
                                         var bookInfo = searchResponse?.get(position)
-                                        var postInfo = PostRequestDTO("", "",bookInfo?.title, bookInfo?.author, bookInfo?.image, "")
+                                        var postInfo = PostRequestDTO("", "",
+                                            bookInfo?.title?.replace("<b>", "")?.replace("</b>", ""), bookInfo?.author?.replace("<b>", "")?.replace("</b>", ""), bookInfo?.image, "")
                                         var intent = Intent()
                                         intent.putExtra("postInfo", postInfo)
                                         Log.d("Book Search Post Info", postInfo.toString())
