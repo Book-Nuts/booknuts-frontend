@@ -1,4 +1,4 @@
-# 🥜 독서 기반 SNS, BookNuts
+# 🥜 알차고 고소한 지식 공유 시간, BookNuts
 ![itemposter](https://user-images.githubusercontent.com/78673570/169695709-b6c4cc7b-5afe-461c-99d3-803b27dbd395.jpg)
 
 ## 🥜 주요 기능
