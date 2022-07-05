@@ -100,9 +100,9 @@ class HomeFragment : Fragment() {
             binding.homeTextMySub.setTextColor(resources.getColor(R.color.white))
             binding.homeTextToday.setTextColor(resources.getColor(R.color.black))
             binding.homeTextIndie.setTextColor(resources.getColor(R.color.black))
-            binding.homeTextMySub.setBackgroundResource(R.drawable.top_tab_view_fill)
-            binding.homeTextToday.setBackgroundResource(R.drawable.top_tab_view)
-            binding.homeTextIndie.setBackgroundResource(R.drawable.top_tab_view)
+            binding.homeTextMySub.setBackgroundResource(R.drawable.style_top_tab_view_fill)
+            binding.homeTextToday.setBackgroundResource(R.drawable.style_top_tab_view)
+            binding.homeTextIndie.setBackgroundResource(R.drawable.style_top_tab_view)
             binding.homeTextTitle.text = "내가 구독한 게시글"
 
             // 독립출판 뷰
@@ -115,9 +115,9 @@ class HomeFragment : Fragment() {
             binding.homeTextMySub.setTextColor(resources.getColor(R.color.black))
             binding.homeTextToday.setTextColor(resources.getColor(R.color.white))
             binding.homeTextIndie.setTextColor(resources.getColor(R.color.black))
-            binding.homeTextMySub.setBackgroundResource(R.drawable.top_tab_view)
-            binding.homeTextToday.setBackgroundResource(R.drawable.top_tab_view_fill)
-            binding.homeTextIndie.setBackgroundResource(R.drawable.top_tab_view)
+            binding.homeTextMySub.setBackgroundResource(R.drawable.style_top_tab_view)
+            binding.homeTextToday.setBackgroundResource(R.drawable.style_top_tab_view_fill)
+            binding.homeTextIndie.setBackgroundResource(R.drawable.style_top_tab_view)
             binding.homeTextTitle.text = "오늘의 추천 게시글"
 
             // 독립출판 뷰
@@ -130,9 +130,9 @@ class HomeFragment : Fragment() {
             binding.homeTextMySub.setTextColor(resources.getColor(R.color.black))
             binding.homeTextToday.setTextColor(resources.getColor(R.color.black))
             binding.homeTextIndie.setTextColor(resources.getColor(R.color.white))
-            binding.homeTextMySub.setBackgroundResource(R.drawable.top_tab_view)
-            binding.homeTextToday.setBackgroundResource(R.drawable.top_tab_view)
-            binding.homeTextIndie.setBackgroundResource(R.drawable.top_tab_view_fill)
+            binding.homeTextMySub.setBackgroundResource(R.drawable.style_top_tab_view)
+            binding.homeTextToday.setBackgroundResource(R.drawable.style_top_tab_view)
+            binding.homeTextIndie.setBackgroundResource(R.drawable.style_top_tab_view_fill)
             binding.homeTextTitle.text = "오늘의 독립출판 서적"
 
             // 독립출판 뷰

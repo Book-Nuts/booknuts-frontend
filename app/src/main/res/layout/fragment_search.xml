@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/input_my_search_box"
+                android:background="@drawable/style_input_my_search_box"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingHorizontal="20dp">
@@ -84,7 +84,7 @@
                 android:layout_width="85dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/bg_spinner_search"
+                android:background="@drawable/style_spinner_search"
                 android:gravity="center"
                 android:paddingRight="15dp"
                 android:text="전체보기"

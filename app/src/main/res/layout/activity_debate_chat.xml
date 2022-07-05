@@ -111,7 +111,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
-                tools:listitem="@layout/listitem_debate_chat" />
+                tools:listitem="@layout/item_debate_chat" />
         </LinearLayout>
     </ScrollView>
 
