@@ -15,7 +15,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.R
 import kr.co.booknuts.data.MySeries
 import kr.co.booknuts.data.Post
-import kr.co.booknuts.data.UserCheckStatus
 import kr.co.booknuts.databinding.*
 
 class MakeSeriesListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.Adapter<MakeSeriesListAdapter.ViewHolder>() {
