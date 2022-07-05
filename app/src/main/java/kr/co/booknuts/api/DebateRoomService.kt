@@ -1,7 +1,6 @@
 package kr.co.booknuts.api
 
-import android.text.Editable
-import kr.co.booknuts.data.*
+import kr.co.booknuts.data.remote.*
 import retrofit2.Call
 import retrofit2.http.*
 

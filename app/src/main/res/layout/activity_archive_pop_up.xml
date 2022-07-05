@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/series_pop_up_round_rect"
-    tools:context=".SeriesPopUpActivity">
+    tools:context=".view.activity.SeriesPopUpActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

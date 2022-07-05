@@ -15,39 +15,39 @@
         android:theme="@style/Theme.BookNuts"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ChatDetailActivity"
+            android:name=".view.activity.ChatDetailActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog"/>
-        <activity android:name=".ArchiveAddActivity"
+        <activity android:name=".view.activity.ArchiveAddActivity"
             android:exported="false" />
         <activity
-            android:name=".MakeArchiveActivity"
+            android:name=".view.activity.MakeArchiveActivity"
             android:exported="false" />
         <activity
-            android:name=".MakeSeriesSecondActivity"
+            android:name=".view.activity.MakeSeriesSecondActivity"
             android:exported="true" />
         <activity
-            android:name=".MakeSeriesFirstActivity"
+            android:name=".view.activity.MakeSeriesFirstActivity"
             android:exported="true" />
         <activity
-            android:name=".SeriesPopUpActivity"
+            android:name=".view.activity.SeriesPopUpActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
         <activity
-            android:name=".ArchivePopUpActivity"
+            android:name=".view.activity.ArchivePopUpActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
         <activity
-            android:name=".WriteActivity"
+            android:name=".view.activity.WriteActivity"
             android:exported="true" />
         <activity
-            android:name=".PostDetailActivity"
+            android:name=".view.activity.PostDetailActivity"
             android:exported="true" />
         <activity
-            android:name=".BookSearchActivity"
+            android:name=".view.activity.BookSearchActivity"
             android:exported="true" />
         <activity
-            android:name=".DebateChatActivity"
+            android:name=".view.activity.DebateChatActivity"
             android:exported="true" />
 
         <meta-data
@@ -55,16 +55,16 @@
             android:resource="@xml/network_security_config" />
 
         <activity
-            android:name=".DebateCreateActivity"
+            android:name=".view.activity.DebateCreateActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".view.activity.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".view.activity.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".IntroActivity"
+            android:name=".view.activity.IntroActivity"
             android:exported="true"
             android:theme="@style/Intro">
             <intent-filter>
@@ -74,7 +74,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".view.activity.LoginActivity"
             android:exported="true">
         </activity>
     </application>
