@@ -139,7 +139,7 @@
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:background="@drawable/top_tab_view_fill"
+                        android:background="@drawable/style_top_tab_view_fill"
                         android:clipToOutline="true"
                         android:gravity="center"
                         android:minWidth="59dp"
@@ -151,7 +151,7 @@
                         android:layout_width="70dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:background="@drawable/top_tab_view"
+                        android:background="@drawable/style_top_tab_view"
                         android:clipToOutline="true"
                         android:gravity="center"
                         android:minWidth="59dp"
@@ -163,7 +163,7 @@
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:background="@drawable/top_tab_view"
+                        android:background="@drawable/style_top_tab_view"
                         android:clipToOutline="true"
                         android:gravity="center"
                         android:minWidth="59dp"
@@ -232,7 +232,7 @@
                     android:layout_marginTop="15dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/listitem_debate_room" />
+                    tools:listitem="@layout/item_debate_room" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_proceeding"
@@ -295,7 +295,7 @@
                     android:background="#00FFFFFF"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/listitem_debate_room" />
+                    tools:listitem="@layout/item_debate_room" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_wait"
@@ -358,7 +358,7 @@
                     android:layout_marginBottom="30dp"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/listitem_debate_room">
+                    tools:listitem="@layout/item_debate_room">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
@@ -376,7 +376,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="18dp"
         android:background="#00FFFFFF"
-        android:src="@drawable/btn_add"
+        android:src="@drawable/icon_create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />

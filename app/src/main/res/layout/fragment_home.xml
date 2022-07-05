@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/top_tab_view_fill"
+                android:background="@drawable/style_top_tab_view_fill"
                 android:clipToOutline="true"
                 android:gravity="center"
                 android:text="나의 구독"
@@ -64,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/top_tab_view"
+                android:background="@drawable/style_top_tab_view"
                 android:clipToOutline="true"
                 android:gravity="center"
                 android:text="오늘 추천" />
@@ -74,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/top_tab_view"
+                android:background="@drawable/style_top_tab_view"
                 android:clipToOutline="true"
                 android:gravity="center"
                 android:text="독립출판" />
@@ -228,7 +228,7 @@
                     android:background="#eeeeee"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/home_recyclerview_item" />
+                    tools:listitem="@layout/item_home_recyclerview" />
             </LinearLayout>
         </ScrollView>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
