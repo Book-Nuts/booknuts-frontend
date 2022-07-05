@@ -17,11 +17,6 @@ data class BookSearchInfo (
     val item: List<BookItem>?,
 )   :Serializable {}
 
-data class BookSearchRequestDTO (
-    @SerializedName("query")
-    val query: String?,
-)   :Serializable {}
-
 data class BookItem(
     @SerializedName("title")
     val title: String?,
@@ -44,11 +39,6 @@ data class BookItem(
     @SerializedName("pubdate")
     val pubdate: String?,
 )   : Serializable {}
-
-data class BoardList (
-    //@SerializedName("boardList")
-    val item: ArrayList<Post>?,
-)   :Serializable {}
 
 data class Post(
     @SerializedName("boardId")
@@ -128,8 +118,3 @@ data class PostRequestDTO(
     @SerializedName("bookGenre")
     val bookGenre: String?,
 )   : Serializable {}
-
-data class UserCheckStatus(
-    val position: Int,
-    var isChecked: Boolean
-)

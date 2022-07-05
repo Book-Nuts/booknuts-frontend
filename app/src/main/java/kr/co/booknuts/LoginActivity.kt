@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
                         responseToken = response.body()
                         if(responseToken != null) {
                             Log.d("Login Success", responseToken.toString())
-                            editor.putString("Token", responseToken?.token).apply()
+                            editor.putString("Token", responseToken?.refreshToken).apply()
                             editor.putString("nickname", responseToken?.nickname).apply()
                             //var authToken = pref.getString("Token", "Token 없음")?.chunked(15)
                             //(authToken?.get(authToken.size-1) ?: null)

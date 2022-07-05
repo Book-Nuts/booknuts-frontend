@@ -43,10 +43,20 @@ data class JoinRequestDTO(
 )   :Serializable {}
 
 data class Token (
-    @SerializedName("token")
-    val token: String?,
+    @SerializedName("userId")
+    val userId: Int?,
+    @SerializedName("loginId")
+    val loginId: String?,
+    @SerializedName("username")
+    val username: String?,
     @SerializedName("nickname")
     val nickname: String?,
+    @SerializedName("email")
+    val email: String?,
+    @SerializedName("accessToken")
+    val accessToken: String?,
+    @SerializedName("refreshToken")
+    val refreshToken: String?,
     )   :Serializable {}
 
 data class UserInfo (

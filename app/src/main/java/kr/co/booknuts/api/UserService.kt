@@ -86,7 +86,7 @@ interface UserService {
 
     // 시리즈 생성
     // request body - 제목, 내용, 책표지, 게시글 리스트
-    @POST("/series/grouping")
+    @POST("/series/create")
     fun postSeries(
         @Header("X-AUTH-TOKEN") token: String?,
         @Body seriesInfo : SeriesRequestDTO
@@ -94,7 +94,7 @@ interface UserService {
 
     // 아카이브 생성
     // request body - 제목, 내용, 책표지
-    @POST("/archive/createarchive")
+    @POST("/archive/create")
     fun postArchive(
         @Header("X-AUTH-TOKEN") token: String?,
         @Body seriesInfo : ArchiveRequestDTO
@@ -102,7 +102,7 @@ interface UserService {
 
     // 아카이브에 게시글 추가하기
     // request body - 제목, 내용, 책표지
-    @GET("/archive/addarchive/{archiveId}/{boardId}")
+    @PATCH("/archive/add/{archiveId}/{boardId}")
     fun addPostToArchive(
         @Header("X-AUTH-TOKEN") token: String?,
         @Path("archiveId") archiveId: Int?,
