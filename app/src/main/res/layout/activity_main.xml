@@ -21,8 +21,8 @@
         android:id="@+id/bnv_main"
         android:background="#FFFFFF"
         app:menu="@menu/menu_navi"
-        app:itemTextColor="@drawable/bottom_icon_color"
-        app:itemIconTint="@drawable/bottom_icon_color"
+        app:itemTextColor="@drawable/style_bottom_icon_color"
+        app:itemIconTint="@drawable/style_bottom_icon_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>

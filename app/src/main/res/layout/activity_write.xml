@@ -133,7 +133,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="15dp"
-                android:background="@drawable/bg_spinner_genre"
+                android:background="@drawable/style_spinner_genre"
                 android:paddingHorizontal="12dp"
                 android:theme="@style/SpinnerTheme"
                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="20dp"
-                android:background="@drawable/bg_textview_rect"
+                android:background="@drawable/style_textview_rect"
                 android:ems="10"
                 android:gravity="start"
                 android:scrollHorizontally="false"
