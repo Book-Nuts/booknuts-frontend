@@ -42,7 +42,7 @@ interface UserService {
 
     // 유저 정보 조회
     // request body - token
-    @GET("/auth/userinfo")
+    @GET("/user/info")
     fun getUserInfo(
         @Header("X-AUTH-TOKEN") token: String?,
     ): Call<UserInfo>

@@ -298,7 +298,7 @@ class SignUpActivity : AppCompatActivity() {
                     Log.d("SIGNUP_D", "nickname : " + responseUser?.nickname.toString())
                     Log.d("SIGNUP_D", "email : " + responseUser?.email.toString())
                     Log.d("SIGNUP_D", "accesToken : " + responseUser?.accessToken.toString())
-                    Log.d("SIGNUP_D", "roles : " + responseUser?.roles.toString())
+                    Log.d("SIGNUP_D", "refreshToken : " + responseUser?.refreshToken.toString())
 
                     Toast.makeText(this@SignUpActivity, "가입이 완료되었습니다.", Toast.LENGTH_SHORT).show()
                     finish()

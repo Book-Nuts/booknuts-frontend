@@ -21,14 +21,14 @@ interface DebateRoomService {
     ): Call<DebateRoom>
 
     // 찬반 참여 가능 여부
-    @GET("/debate/canjoin/{roomId}")
+    @GET("/debate/canenter/{roomId}")
     fun joinable(
         @Header("X-AUTH-TOKEN") token: String,
         @Path("roomId") roomId: Long,
     ) : Call<DebateJoinableDTO>
 
     // 토론장 참여
-    @GET("/debate/join/{roomId}")
+    @PATCH("/debate/enter/{roomId}")
     fun join(
         @Header("X-AUTH-TOKEN") token: String,
         @Path("roomId") roomId: Long,
