@@ -5,7 +5,7 @@
     android:id="@+id/frame"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".fragment.DebateDetail2Fragment">
+    tools:context=".view.adapter.fragment.DebateDetail2Fragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
