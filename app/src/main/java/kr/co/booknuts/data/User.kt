@@ -18,8 +18,8 @@ data class User(
     val email: String?,
     @SerializedName("accessToken")
     val accessToken: String?,
-    @SerializedName("roles")
-    val roles: List<String>?,
+    @SerializedName("refreshToken")
+    val refreshToken: String?,
 )   :Serializable {}
 
 data class LoginRequestDTO(
@@ -62,6 +62,6 @@ data class UserInfo (
     val email: String?,
     @SerializedName("accessToken")
     val accessToken: String?,
-    @SerializedName("roles")
-    val roles: ArrayList<String>?,
+    @SerializedName("refreshToken")
+    val refreshToken: String?,
 )   :Serializable {}
