@@ -5,7 +5,7 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DebateChatActivity">
+    tools:context=".view.activity.DebateChatActivity">
 
     <TextView
         android:id="@+id/text_topic"
