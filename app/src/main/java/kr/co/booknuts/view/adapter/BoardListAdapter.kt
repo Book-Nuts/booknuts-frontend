@@ -11,12 +11,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.Post
-import kr.co.booknuts.databinding.HomeRecyclerviewItemBinding
+import kr.co.booknuts.databinding.ItemHomeRecyclerviewBinding
 
 class BoardListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.Adapter<BoardListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = HomeRecyclerviewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemHomeRecyclerviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -60,7 +60,7 @@ class BoardListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.Ad
 
     private lateinit var itemClickListenerArchive: OnItemClickListenerArchive
 
-    inner class ViewHolder(val binding: HomeRecyclerviewItemBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemHomeRecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {
         private val title: TextView = binding.boardTextTitle
         private val writer: TextView = binding.boardTextWriter
         private val bookImg: ImageView = binding.boardImgBookImg
