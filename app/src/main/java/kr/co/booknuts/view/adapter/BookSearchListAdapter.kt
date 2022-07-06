@@ -11,12 +11,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.BookItem
-import kr.co.booknuts.databinding.BookSearchItemBinding
+import kr.co.booknuts.databinding.ItemBookSearchBinding
 
 class BookSearchListAdapter(private val dataList: List<BookItem>?) : RecyclerView.Adapter<BookSearchListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = BookSearchItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemBookSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -48,7 +48,7 @@ class BookSearchListAdapter(private val dataList: List<BookItem>?) : RecyclerVie
     private lateinit var itemClickListener: OnItemClickListener
 
 
-inner class ViewHolder(val binding: BookSearchItemBinding): RecyclerView.ViewHolder(binding.root) {
+inner class ViewHolder(val binding: ItemBookSearchBinding): RecyclerView.ViewHolder(binding.root) {
         private val bookImg: ImageView = binding.imgBook
         private val bookTitle: TextView = binding.bookTitle
         private val bookAuthor: TextView = binding.bookAuthor

@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.Chat
-import kr.co.booknuts.databinding.ListitemDebateChatBinding
+import kr.co.booknuts.databinding.ItemDebateChatBinding
 
 class ChatAdapter: RecyclerView.Adapter<ChatHolder>() {
     var listData = mutableListOf<Chat>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatHolder {
-        val binding = ListitemDebateChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemDebateChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ChatHolder(binding)
     }
 
@@ -26,7 +26,7 @@ class ChatAdapter: RecyclerView.Adapter<ChatHolder>() {
     }
 }
 
-class ChatHolder(val binding: ListitemDebateChatBinding): RecyclerView.ViewHolder(binding.root) {
+class ChatHolder(val binding: ItemDebateChatBinding): RecyclerView.ViewHolder(binding.root) {
     fun setChat(chat: Chat) {
         if (chat.state) { // 찬성인 경우
             binding.imgProfileBackground.setImageResource(R.drawable.img_chat_corner_pros)

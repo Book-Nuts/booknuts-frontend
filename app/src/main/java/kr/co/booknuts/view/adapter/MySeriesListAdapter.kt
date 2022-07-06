@@ -11,14 +11,14 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.MySeries
-import kr.co.booknuts.databinding.MyRecyclerviewSeriesItemBinding
+import kr.co.booknuts.databinding.ItemMyRecyclerviewSeriesBinding
 
 class MySeriesListAdapter(private val dataList: ArrayList<MySeries>?) : RecyclerView.Adapter<MySeriesListAdapter.ViewHolder>() {
 
     //private val fragmentMySeriesDetail by lazy { MySeriesDetailFragment() }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = MyRecyclerviewSeriesItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMyRecyclerviewSeriesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -49,7 +49,7 @@ class MySeriesListAdapter(private val dataList: ArrayList<MySeries>?) : Recycler
 
     private lateinit var itemClickListener: OnItemClickListener
 
-    inner class ViewHolder(val binding: MyRecyclerviewSeriesItemBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemMyRecyclerviewSeriesBinding): RecyclerView.ViewHolder(binding.root) {
         private val title: TextView = binding.seriesTextTitle
         private val content: TextView = binding.seriesTextContent
         private val bookImg: ImageView = binding.imgSeriesBook

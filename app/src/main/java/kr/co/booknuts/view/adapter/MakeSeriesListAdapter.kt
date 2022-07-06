@@ -15,12 +15,12 @@ import kr.co.booknuts.databinding.*
 
 class MakeSeriesListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.Adapter<MakeSeriesListAdapter.ViewHolder>() {
 
-    var binding: SeriesMakeItemBinding? = null
+    var binding: ItemSeriesMakeBinding? = null
     //private val userCheckBoxStatus = arrayListOf<UserCheckStatus>()
     //private var mSelectedItems = SparseBooleanArray(0);
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding = SeriesMakeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = ItemSeriesMakeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding!!)
     }
 
@@ -51,7 +51,7 @@ class MakeSeriesListAdapter(private val dataList: ArrayList<Post>?) : RecyclerVi
 
     private lateinit var itemClickListener: OnItemClickListener
 
-    inner class ViewHolder(val binding: SeriesMakeItemBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemSeriesMakeBinding): RecyclerView.ViewHolder(binding.root) {
         private val title: TextView = binding.textTitle
         private val date: TextView = binding.textDate
         private val bookImg: ImageView = binding.imgBook

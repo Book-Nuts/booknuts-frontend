@@ -10,12 +10,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.PostDetail
-import kr.co.booknuts.databinding.MyArchiveDetailItemBinding
+import kr.co.booknuts.databinding.ItemMyArchiveDetailBinding
 
 class MyArchivePostListAdapter(private val dataList: ArrayList<PostDetail>?) : RecyclerView.Adapter<MyArchivePostListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = MyArchiveDetailItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMyArchiveDetailBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -46,7 +46,7 @@ class MyArchivePostListAdapter(private val dataList: ArrayList<PostDetail>?) : R
 
     private lateinit var itemClickListener: OnItemClickListener
 
-inner class ViewHolder(val binding: MyArchiveDetailItemBinding): RecyclerView.ViewHolder(binding.root) {
+inner class ViewHolder(val binding: ItemMyArchiveDetailBinding): RecyclerView.ViewHolder(binding.root) {
         private val bookImg: ImageView = binding.imgBook
         fun bind(item: PostDetail) {
             Glide.with(bookImg.context)
