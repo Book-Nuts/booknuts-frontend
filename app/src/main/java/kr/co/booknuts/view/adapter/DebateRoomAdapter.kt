@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kr.co.booknuts.data.remote.DebateSearchInfo
+import kr.co.booknuts.data.remote.DebateSearc
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat.startActivity
 import kr.co.booknuts.view.activity.ChatDetailActivity
