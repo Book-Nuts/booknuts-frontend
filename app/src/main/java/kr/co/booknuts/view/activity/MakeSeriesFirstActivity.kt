@@ -49,7 +49,7 @@ class MakeSeriesFirstActivity : AppCompatActivity() {
         }
 
         // 서버에서 내가 쓴 게시글 데이터 받아오기
-        RetrofitBuilder.api.getMyPostList(savedToken).enqueue(object:
+        RetrofitBuilder.myApi.getMyPostList(savedToken).enqueue(object:
             Callback<ArrayList<Post>> {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
                 postDataArray = response.body()

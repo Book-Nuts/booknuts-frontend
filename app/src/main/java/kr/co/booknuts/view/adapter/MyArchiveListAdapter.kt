@@ -11,12 +11,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.MyArchive
-import kr.co.booknuts.databinding.MyRecyclerviewArchiveItemBinding
+import kr.co.booknuts.databinding.ItemMyRecyclerviewArchiveBinding
 
 class MyArchiveListAdapter(private val dataList: ArrayList<MyArchive>?) : RecyclerView.Adapter<MyArchiveListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = MyRecyclerviewArchiveItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMyRecyclerviewArchiveBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -47,7 +47,7 @@ class MyArchiveListAdapter(private val dataList: ArrayList<MyArchive>?) : Recycl
 
     private lateinit var itemClickListener: OnItemClickListener
 
-    inner class ViewHolder(val binding: MyRecyclerviewArchiveItemBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(val binding: ItemMyRecyclerviewArchiveBinding): RecyclerView.ViewHolder(binding.root) {
         private val title: TextView = binding.myTextArchiveTitle
         private val date: TextView = binding.myTextArchiveDate
         private val cnt: TextView = binding.myTextArchiveCnt

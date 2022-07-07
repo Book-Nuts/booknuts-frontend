@@ -104,7 +104,7 @@ class WriteActivity : AppCompatActivity() {
             if (!bookGenre?.isEmpty()!! && !bookImgUrl?.isEmpty()!! && !bookAuthor?.isEmpty()!! && !bookTitle?.isEmpty()!! && !title?.isEmpty()!!) {
                 var postInfo =
                     PostRequestDTO(title, content, bookTitle, bookAuthor, bookImgUrl, bookGenre)
-                RetrofitBuilder.api.doPost(savedToken, postInfo).enqueue(object :
+                RetrofitBuilder.boardApi.doPost(savedToken, postInfo).enqueue(object :
                     Callback<PostDetail> {
                     override fun onResponse(
                         call: Call<PostDetail>,

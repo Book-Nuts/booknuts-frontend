@@ -68,7 +68,7 @@ class MySeriesDetailFragment : Fragment() {
         }
 
         // 서버에서 시리즈 세부 데이터 받아오기
-        RetrofitBuilder.api.getMySeriesDetailPost(savedToken, data?.get(0)?.toInt()).enqueue(object:
+        RetrofitBuilder.myApi.getMySeriesDetailPost(savedToken, data?.get(0)?.toInt()).enqueue(object:
             Callback<ArrayList<PostDetail>> {
             override fun onResponse(call: Call<ArrayList<PostDetail>>, response: Response<ArrayList<PostDetail>>) {
                 seriesPostDataArray = response.body()

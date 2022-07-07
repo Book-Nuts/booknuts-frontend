@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.booknuts.data.remote.DebateSearchInfo
-import kr.co.booknuts.databinding.ListitemDebateRoomBinding
+import kr.co.booknuts.databinding.ItemDebateRoomBinding
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat.startActivity
 import kr.co.booknuts.view.activity.ChatDetailActivity
@@ -17,7 +17,7 @@ class DebateRoomAdapter() : RecyclerView.Adapter<DebateRoomAdapter.DebateRoomHol
 
     // 한 화면의 레이아웃 생성
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DebateRoomHolder {
-        val binding = ListitemDebateRoomBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemDebateRoomBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         Log.d("ROOMLIST_ADAPTER", "onCreateViewHolder 실행")
         return DebateRoomHolder(binding)
     }
@@ -39,7 +39,7 @@ class DebateRoomAdapter() : RecyclerView.Adapter<DebateRoomAdapter.DebateRoomHol
         return 0
     }
 
-    inner class DebateRoomHolder(val binding: ListitemDebateRoomBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class DebateRoomHolder(val binding: ItemDebateRoomBinding): RecyclerView.ViewHolder(binding.root) {
         fun setDebate(debate: DebateSearchInfo) {
             Log.d("ROOMLIST_PROCEED", "setDebate 실행")
             // ★★★ 토론장 사진 바꿀수 있게 설정하기

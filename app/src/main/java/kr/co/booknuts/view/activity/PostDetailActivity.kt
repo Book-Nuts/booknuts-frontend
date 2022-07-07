@@ -36,7 +36,7 @@ class PostDetailActivity : AppCompatActivity() {
             finish()
         }
 
-        RetrofitBuilder.api.getPostDetail(savedToken, boardId).enqueue(object:
+        RetrofitBuilder.boardApi.getPostDetail(savedToken, boardId).enqueue(object:
             Callback<PostDetail> {
             override fun onResponse(call: Call<PostDetail>, response: Response<PostDetail>) {
                 data = response.body()
