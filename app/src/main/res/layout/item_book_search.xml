@@ -53,8 +53,8 @@
 
             <ImageView
                 android:id="@+id/img_book"
-                android:layout_width="61dp"
-                android:layout_height="95dp"
+                android:layout_width="67.1dp"
+                android:layout_height="104.5dp"
                 android:scaleType="centerCrop"/>
 
         </LinearLayout>

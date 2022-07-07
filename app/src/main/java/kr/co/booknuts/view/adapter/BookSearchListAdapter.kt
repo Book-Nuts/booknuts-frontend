@@ -10,10 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.R
-import kr.co.booknuts.data.remote.BookItem
+import kr.co.booknuts.data.remote.BookItemKakao
+import kr.co.booknuts.data.remote.BookItemNaver
 import kr.co.booknuts.databinding.ItemBookSearchBinding
 
-class BookSearchListAdapter(private val dataList: List<BookItem>?) : RecyclerView.Adapter<BookSearchListAdapter.ViewHolder>() {
+class BookSearchListAdapter(private val dataList: List<BookItemKakao>?) : RecyclerView.Adapter<BookSearchListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemBookSearchBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -23,10 +24,10 @@ class BookSearchListAdapter(private val dataList: List<BookItem>?) : RecyclerVie
     // 책 개수
     override fun getItemCount(): Int {
         if (dataList != null) {
-            Log.d("Adapter", "dataListSize " + dataList.size)
+            //Log.d("Adapter", "dataListSize " + dataList.size)
             return dataList.size
         }
-        Log.d("Adapter", "dataListSize zero")
+        //Log.d("Adapter", "dataListSize zero")
         return 0
     }
 
@@ -52,11 +53,25 @@ inner class ViewHolder(val binding: ItemBookSearchBinding): RecyclerView.ViewHol
         private val bookImg: ImageView = binding.imgBook
         private val bookTitle: TextView = binding.bookTitle
         private val bookAuthor: TextView = binding.bookAuthor
-        fun bind(item: BookItem) {
+        /*fun bind(item: BookItemNaver) {
             bookTitle.text = item.title?.replace("<b>", "")?.replace("</b>", "")
             bookAuthor.text = item.author?.replace("<b>", "")?.replace("</b>", "")
             Glide.with(bookImg.context)
                 .load(item.image)
+                .placeholder(R.drawable.img_book_cover_default)
+                .error(R.drawable.img_book_cover_default)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .fitCenter()
+                .into(bookImg)
+        }*/
+        fun bind(item: BookItemKakao) {
+            bookTitle.text = item.title
+            val authorSize = item.authors?.size?.minus(1)
+            if (authorSize != null && authorSize > 0) bookAuthor.text = item.authors?.get(0) + " 외 " + authorSize + "명"
+            else bookAuthor.text = item.authors?.get(0)
+
+            Glide.with(bookImg.context)
+                .load(item.thumbnail)
                 .placeholder(R.drawable.img_book_cover_default)
                 .error(R.drawable.img_book_cover_default)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)

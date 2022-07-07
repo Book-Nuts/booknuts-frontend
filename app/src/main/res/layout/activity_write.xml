@@ -26,7 +26,7 @@
             android:layout_gravity="left"
             android:layout_marginLeft="20dp"
             android:background="#00FFFFFF"
-            android:src="@drawable/icon_exit"
+            android:src="@drawable/icon_close"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <TextView

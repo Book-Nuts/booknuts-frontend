@@ -11,7 +11,7 @@ apply plugin: 'com.google.gms.google-services'
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-android {
+android {3
     compileSdk 31
 
     buildFeatures{
@@ -29,6 +29,7 @@ android {
         buildConfigField "String", "BASE_URL", properties['base_url']
         buildConfigField "String", "NAVER_CLIENT_ID", properties['naver_client_id']
         buildConfigField "String", "NAVER_CLIENT_SECRET", properties['naver_client_secret']
+        buildConfigField "String", "KAKAO_REST_API_KEY", properties['kakao_rest_api_key']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

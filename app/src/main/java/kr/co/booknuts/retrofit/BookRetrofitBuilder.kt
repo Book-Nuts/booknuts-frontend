@@ -29,8 +29,9 @@ object BookRetrofitBuilder {
         override fun intercept(chain: Interceptor.Chain)
                 : Response = with(chain) {
             val newRequest = request().newBuilder()
-                .addHeader("X-Naver-Client-Id", NAVER_CLIENT_ID)
-                .addHeader("X-Naver-Client-Secret", NAVER_CLIENT_SECRET)
+                //.addHeader("X-Naver-Client-Id", NAVER_CLIENT_ID)
+                //.addHeader("X-Naver-Client-Secret", NAVER_CLIENT_SECRET)
+                .addHeader("Authorization", "KakaoAK " + KAKAO_REST_API_KEY)
                 .build()
 
             proceed(newRequest)
@@ -39,12 +40,19 @@ object BookRetrofitBuilder {
 
     init {
         // api 서버 연결
-        val retrofit = Retrofit.Builder()
+        val retrofitNaver = Retrofit.Builder()
             .baseUrl("https://openapi.naver.com/v1/search/")
             .client(provideOkHttpClient(AppInterceptor()))
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
-        api = retrofit.create(BookService::class.java)
+        val retrofitKakao = Retrofit.Builder()
+            .baseUrl("https://dapi.kakao.com/v3/search/")
+            .client(provideOkHttpClient(AppInterceptor()))
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+
+        //api = retrofitNaver.create(BookService::class.java)
+        api = retrofitKakao.create(BookService::class.java)
     }
 }

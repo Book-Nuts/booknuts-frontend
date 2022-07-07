@@ -10,10 +10,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kr.co.booknuts.data.remote.*
 import kr.co.booknuts.view.adapter.BookSearchListAdapter
-import kr.co.booknuts.data.remote.BookItem
-import kr.co.booknuts.data.remote.BookSearchInfo
-import kr.co.booknuts.data.remote.PostRequestDTO
 import kr.co.booknuts.databinding.ActivityBookSearchBinding
 import kr.co.booknuts.retrofit.BookRetrofitBuilder
 import retrofit2.Call
@@ -45,9 +43,9 @@ class BookSearchActivity : AppCompatActivity() {
             //Toast.makeText(this@BookSearchActivity, "Title: " + bookTitle, Toast.LENGTH_SHORT).show()
 
             if(!bookTitle.isEmpty()) {
-                var searchResponse: List<BookItem>?
-                BookRetrofitBuilder.api.searchBook(bookTitle).enqueue(object: Callback<BookSearchInfo> {
-                    override fun onResponse(call: Call<BookSearchInfo>, response: Response<BookSearchInfo>) {
+                /*var searchResponse: List<BookItemNaver>?
+                BookRetrofitBuilder.api.searchBookNaver(bookTitle).enqueue(object: Callback<BookSearchInfoNaver> {
+                    override fun onResponse(call: Call<BookSearchInfoNaver>, response: Response<BookSearchInfoNaver>) {
                         //Toast.makeText(this@BookSearchActivity, "통신 성공", Toast.LENGTH_SHORT).show()
                         searchResponse = response.body()?.item
                         if(searchResponse != null) {
@@ -76,7 +74,44 @@ class BookSearchActivity : AppCompatActivity() {
                             Toast.makeText(this@BookSearchActivity, "책 정보 없음", Toast.LENGTH_SHORT).show()
                         }
                     }
-                    override fun onFailure(call: Call<BookSearchInfo>, t: Throwable) {
+                    override fun onFailure(call: Call<BookSearchInfoNaver>, t: Throwable) {
+                        Log.d("Approach Fail", "wrong server approach")
+                        //Toast.makeText(this@BookSearchActivity, "통신 실패", Toast.LENGTH_SHORT).show()
+                    }
+                })*/
+                var searchResponse: List<BookItemKakao>?
+                BookRetrofitBuilder.api.searchBookKakao(bookTitle, 20).enqueue(object: Callback<BookSearchInfoKakao> {
+                    override fun onResponse(call: Call<BookSearchInfoKakao>, response: Response<BookSearchInfoKakao>) {
+                        searchResponse = response.body()?.documents
+                        if(searchResponse != null) {
+                            recyclerView = binding.rvBook
+                            recyclerView.layoutManager = LinearLayoutManager(this@BookSearchActivity)
+                            val adapter = BookSearchListAdapter(searchResponse)
+                            if(searchResponse?.size != 0 ){
+                                recyclerView.adapter = adapter
+                                adapter.setItemClickListener(object: BookSearchListAdapter.OnItemClickListener {
+                                    override fun onClick(v: View, position: Int) {
+                                        var bookInfo = searchResponse?.get(position)
+                                        val authorSize = bookInfo?.authors?.size?.minus(1)
+                                        var bookAuthor = bookInfo?.authors?.get(0)
+                                        if (authorSize != null && authorSize > 0) bookAuthor = bookAuthor + " 외 " + authorSize + "명"
+
+                                        var postInfo = PostRequestDTO("", "",
+                                            bookInfo?.title, bookAuthor, bookInfo?.thumbnail, "")
+                                        var intent = Intent()
+                                        intent.putExtra("postInfo", postInfo)
+                                        //Log.d("Book Search Post Info", postInfo.toString())
+                                        setResult(RESULT_OK, intent)
+                                        finish()
+                                    }
+                                })
+                            }
+                        } else {
+                            Log.d("Search Null", "no book")
+                            Toast.makeText(this@BookSearchActivity, "책 정보 없음", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    override fun onFailure(call: Call<BookSearchInfoKakao>, t: Throwable) {
                         Log.d("Approach Fail", "wrong server approach")
                         //Toast.makeText(this@BookSearchActivity, "통신 실패", Toast.LENGTH_SHORT).show()
                     }
