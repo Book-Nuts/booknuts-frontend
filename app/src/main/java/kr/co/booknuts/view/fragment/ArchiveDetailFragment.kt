@@ -60,7 +60,7 @@ class ArchiveDetailFragment : Fragment() {
         val pref = this.activity?.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
         savedToken = pref?.getString("Token", null).toString()
 
-        RetrofitBuilder.api.getMyArchiveDetail(savedToken, data?.get(0)?.toInt()).enqueue(object:
+        RetrofitBuilder.myApi.getMyArchiveDetail(savedToken, data?.get(0)?.toInt()).enqueue(object:
             Callback<ArrayList<PostDetail>> {
             override fun onResponse(call: Call<ArrayList<PostDetail>>, response: Response<ArrayList<PostDetail>>) {
                 archivePostDataArray = response.body()

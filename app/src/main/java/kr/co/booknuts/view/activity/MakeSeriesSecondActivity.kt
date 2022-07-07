@@ -55,7 +55,7 @@ class MakeSeriesSecondActivity : AppCompatActivity() {
 
             if(!title.isEmpty() && !content.isEmpty()){
                 var seriesInfo = SeriesRequestDTO(title, content, imgUrl, postClickedList)
-                RetrofitBuilder.api.postSeries(savedToken, seriesInfo).enqueue(object :
+                RetrofitBuilder.myApi.postSeries(savedToken, seriesInfo).enqueue(object :
                     Callback<MySeries> {
                     override fun onResponse(
                         call: Call<MySeries>,

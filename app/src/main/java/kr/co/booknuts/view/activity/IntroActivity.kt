@@ -24,8 +24,8 @@ class IntroActivity : AppCompatActivity() {
         val intentMain = Intent(this, MainActivity::class.java)
 
         Timer().schedule(timerTask {
-            //startActivity(if(isLogin) intentMain else intentLogin)
-            startActivity(intentLogin)
+            startActivity(if(isLogin) intentMain else intentLogin)
+            //startActivity(intentLogin)
             finish()
         }, 2000)
 

@@ -41,7 +41,7 @@ class ArchiveAddActivity : AppCompatActivity() {
         }
 
         // 서버에서 나의 아카이브 데이터 받아오기
-        RetrofitBuilder.api.getMyArchiveList(savedToken).enqueue(object:
+        RetrofitBuilder.myApi.getMyArchiveList(savedToken).enqueue(object:
             Callback<ArrayList<MyArchive>> {
             override fun onResponse(call: Call<ArrayList<MyArchive>>, response: Response<ArrayList<MyArchive>>) {
                 archiveDataArray = response.body()
@@ -71,7 +71,7 @@ class ArchiveAddActivity : AppCompatActivity() {
     }
 
     fun setPostInArchive(archiveId: Int?) {
-        RetrofitBuilder.api.addPostToArchive(savedToken, archiveId, boardId).enqueue(object :
+        RetrofitBuilder.myApi.addPostToArchive(savedToken, archiveId, boardId).enqueue(object :
             Callback<ResultData> {
             override fun onResponse(
                 call: Call<ResultData>,

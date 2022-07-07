@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
     }
 
     fun getPostData() {
-        RetrofitBuilder.api.getBoardList(savedToken, tabType).enqueue(object: Callback<ArrayList<Post>> {
+        RetrofitBuilder.boardApi.getBoardList(savedToken, tabType).enqueue(object: Callback<ArrayList<Post>> {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
                 dataArray = response.body()
                 //Log.d("BoardList Get Test", "data : " + dataArray.toString())

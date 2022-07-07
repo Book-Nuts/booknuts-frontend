@@ -104,7 +104,7 @@ class MyFragment : Fragment() {
             }
         })*/
 
-        RetrofitBuilder.api.getMyPostList(savedToken).enqueue(object:
+        RetrofitBuilder.myApi.getMyPostList(savedToken).enqueue(object:
             Callback<ArrayList<Post>> {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
                 postDataArray = response.body()
@@ -193,7 +193,7 @@ class MyFragment : Fragment() {
 
     fun getPostData() {
         // 서버에서 내가 쓴 게시글 데이터 받아오기
-        RetrofitBuilder.api.getMyPostList(savedToken).enqueue(object:
+        RetrofitBuilder.myApi.getMyPostList(savedToken).enqueue(object:
             Callback<ArrayList<Post>> {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
                 postDataArray = response.body()
@@ -210,7 +210,7 @@ class MyFragment : Fragment() {
 
     fun getSeriesData() {
         // 서버에서 나의 시리즈 데이터 받아오기
-        RetrofitBuilder.api.getMySeriesList(savedToken).enqueue(object:
+        RetrofitBuilder.myApi.getMySeriesList(savedToken).enqueue(object:
             Callback<ArrayList<MySeries>> {
             override fun onResponse(call: Call<ArrayList<MySeries>>, response: Response<ArrayList<MySeries>>) {
                 seriesDataArray = response.body()
@@ -227,7 +227,7 @@ class MyFragment : Fragment() {
 
     fun getArchiveData() {
         // 서버에서 나의 아카이브 데이터 받아오기
-        RetrofitBuilder.api.getMyArchiveList(savedToken).enqueue(object:
+        RetrofitBuilder.myApi.getMyArchiveList(savedToken).enqueue(object:
             Callback<ArrayList<MyArchive>> {
             override fun onResponse(call: Call<ArrayList<MyArchive>>, response: Response<ArrayList<MyArchive>>) {
                 archiveDataArray = response.body()

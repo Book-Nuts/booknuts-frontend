@@ -51,7 +51,7 @@ class MakeArchiveActivity : AppCompatActivity() {
 
             if(!title.isEmpty() && !content.isEmpty()){
                 var archiveInfo = ArchiveRequestDTO(title, content, imgUrl)
-                RetrofitBuilder.api.postArchive(savedToken, archiveInfo).enqueue(object :
+                RetrofitBuilder.myApi.postArchive(savedToken, archiveInfo).enqueue(object :
                     Callback<MyArchive> {
                     override fun onResponse(
                         call: Call<MyArchive>,
@@ -77,7 +77,7 @@ class MakeArchiveActivity : AppCompatActivity() {
     }
 
     fun setPostInArchive(archiveId: Int?) {
-        RetrofitBuilder.api.addPostToArchive(savedToken, archiveId, boardId).enqueue(object :
+        RetrofitBuilder.myApi.addPostToArchive(savedToken, archiveId, boardId).enqueue(object :
             Callback<ResultData> {
             override fun onResponse(
                 call: Call<ResultData>,

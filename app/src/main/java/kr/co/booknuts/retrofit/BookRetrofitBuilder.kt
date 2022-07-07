@@ -2,7 +2,7 @@ package kr.co.booknuts.retrofit
 
 import com.google.gson.GsonBuilder
 import kr.co.booknuts.BuildConfig.*
-import kr.co.booknuts.api.UserService
+import kr.co.booknuts.api.BookService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -12,7 +12,7 @@ import java.io.IOException
 
 object BookRetrofitBuilder {
     // 사용할 api 인터페이스 선언
-    var api: UserService
+    var api: BookService
 
     val gson = GsonBuilder().setLenient().create()
 
@@ -45,6 +45,6 @@ object BookRetrofitBuilder {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
-        api = retrofit.create(UserService::class.java)
+        api = retrofit.create(BookService::class.java)
     }
 }
