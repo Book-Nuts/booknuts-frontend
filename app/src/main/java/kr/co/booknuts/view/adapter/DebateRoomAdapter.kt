@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.booknuts.data.remote.DebateSearchInfo
-import kr.co.booknuts.databinding.ItemDebateRoomBinding
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat.startActivity
 import kr.co.booknuts.view.activity.ChatDetailActivity
 import kr.co.booknuts.R
+import kr.co.booknuts.databinding.ItemDebateRoomBinding
 
 class DebateRoomAdapter() : RecyclerView.Adapter<DebateRoomAdapter.DebateRoomHolder>() {
     var listData = mutableListOf<DebateSearchInfo>()
