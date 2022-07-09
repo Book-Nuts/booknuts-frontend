@@ -37,12 +37,13 @@
 
         <ImageButton
             android:id="@+id/btn_exit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:scaleType="fitCenter"
             android:layout_gravity="left"
             android:layout_marginLeft="20dp"
             android:background="#00FFFFFF"
-            android:src="@drawable/icon_exit"
+            android:src="@drawable/icon_close"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <TextView
