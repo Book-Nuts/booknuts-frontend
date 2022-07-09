@@ -30,4 +30,9 @@
         <!-- android:backgroundDimEnabled : true - 반투명 검정 / false - 완전 투명 -->
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+
+    <style name="Theme.MyDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>
