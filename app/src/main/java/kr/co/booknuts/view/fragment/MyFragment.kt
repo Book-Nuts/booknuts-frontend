@@ -38,8 +38,9 @@ class MyFragment : Fragment() {
     var seriesCnt: Int = 0
     var archiveCnt: Int = 0
 
-    private var savedToken: String? = null
+    private var accessToken: String? = null
     private var nickname: String? = null
+    private var userId: Int? = null
     private var mBinding: FragmentMyBinding? = null
     private val binding get() = mBinding!!
 
@@ -66,10 +67,13 @@ class MyFragment : Fragment() {
         binding.myImgBg.setColorFilter(Color.parseColor("#aaaaaa"), PorterDuff.Mode.MULTIPLY);
 
         // 로컬에 저장된 토큰
-        val pref = this.activity?.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
-        savedToken = pref?.getString("Token", null).toString()
+        val pref = this.activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        accessToken = pref?.getString("accessToken", null).toString()
         nickname = pref?.getString("nickname", null).toString()
+        userId = pref?.getInt("userId", -1)
         binding.myTextNickname.text = nickname
+
+        Log.d("UserId", "" + userId)
 
         val idx = nickname!!.length.rem(5)
         when (idx) {
@@ -94,8 +98,6 @@ class MyFragment : Fragment() {
                     0 -> binding.myImgProfile.changeI
                 }*/
 
-
-
                 refreshFragment(this@MyFragment, parentFragmentManager)
             }
             override fun onFailure(call: Call<UserInfo>, t: Throwable) {
@@ -104,18 +106,15 @@ class MyFragment : Fragment() {
             }
         })*/
 
-        RetrofitBuilder.myApi.getMyPostList(savedToken).enqueue(object:
+        RetrofitBuilder.myApi.getMyPostList(accessToken, userId).enqueue(object:
             Callback<ArrayList<Post>> {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
                 postDataArray = response.body()
-                //Log.d("Post List Get Test", "data : " + postDataArray?.get(0)?.boardId)
-                //Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
                 postCnt = postDataArray?.size!!
                 postTab()
             }
             override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
-                //Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -193,11 +192,11 @@ class MyFragment : Fragment() {
 
     fun getPostData() {
         // 서버에서 내가 쓴 게시글 데이터 받아오기
-        RetrofitBuilder.myApi.getMyPostList(savedToken).enqueue(object:
+        RetrofitBuilder.myApi.getMyPostList(accessToken, userId).enqueue(object:
             Callback<ArrayList<Post>> {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
                 postDataArray = response.body()
-                //Log.d("Post List Get Test", "data : " + postDataArray?.get(0)?.boardId)
+                Log.d("Post List Get Test", "" + postDataArray)
                 //Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
                 postCnt = postDataArray?.size!!
             }
@@ -210,7 +209,7 @@ class MyFragment : Fragment() {
 
     fun getSeriesData() {
         // 서버에서 나의 시리즈 데이터 받아오기
-        RetrofitBuilder.myApi.getMySeriesList(savedToken).enqueue(object:
+        RetrofitBuilder.myApi.getMySeriesList(accessToken, userId).enqueue(object:
             Callback<ArrayList<MySeries>> {
             override fun onResponse(call: Call<ArrayList<MySeries>>, response: Response<ArrayList<MySeries>>) {
                 seriesDataArray = response.body()
@@ -227,7 +226,7 @@ class MyFragment : Fragment() {
 
     fun getArchiveData() {
         // 서버에서 나의 아카이브 데이터 받아오기
-        RetrofitBuilder.myApi.getMyArchiveList(savedToken).enqueue(object:
+        RetrofitBuilder.myApi.getMyArchiveList(accessToken, userId).enqueue(object:
             Callback<ArrayList<MyArchive>> {
             override fun onResponse(call: Call<ArrayList<MyArchive>>, response: Response<ArrayList<MyArchive>>) {
                 archiveDataArray = response.body()

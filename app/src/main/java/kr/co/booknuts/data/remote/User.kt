@@ -23,8 +23,8 @@ data class User(
 )   :Serializable {}
 
 data class LoginRequestDTO(
-    @SerializedName("email")
-    val email: String?,
+    @SerializedName("id")
+    val id: String?,
     @SerializedName("password")
     val password: String?,
 )   :Serializable {}
@@ -42,7 +42,7 @@ data class JoinRequestDTO(
     val email: String?,
 )   :Serializable {}
 
-data class Token (
+data class LoginInfo (
     @SerializedName("userId")
     val userId: Int?,
     @SerializedName("loginId")
@@ -57,6 +57,8 @@ data class Token (
     val accessToken: String?,
     @SerializedName("refreshToken")
     val refreshToken: String?,
+    @SerializedName("profileImgUrl")
+    val profileImgUrl: String?,
     )   :Serializable {}
 
 data class UserInfo (

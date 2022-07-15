@@ -256,12 +256,12 @@
             android:textColor="@color/white" />
 
         <ImageView
-            android:id="@+id/imageView28"
+            android:id="@+id/img_heart"
             android:layout_width="17dp"
             android:layout_height="21dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="5dp"
-            app:srcCompat="@drawable/icon_heart"
+            android:src="@drawable/icon_heart"
             app:tint="@color/white" />
 
         <TextView

@@ -8,8 +8,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import kr.co.booknuts.data.remote.LoginInfo
 import kr.co.booknuts.data.remote.LoginRequestDTO
-import kr.co.booknuts.data.remote.Token
 import kr.co.booknuts.databinding.ActivityLoginBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
 import retrofit2.Call
@@ -23,7 +23,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val pref = this.getSharedPreferences("authToken", MODE_PRIVATE)
+        val pref = this.getSharedPreferences("auth", MODE_PRIVATE)
         val editor = pref.edit()
 
         // 회원가입 textView에 밑줄 추가
@@ -45,31 +45,29 @@ class LoginActivity : AppCompatActivity() {
             if(!id.isEmpty() && !pw.isEmpty()) {
                 var loginInfo = LoginRequestDTO(id, pw)
 
-                var responseToken: Token? = null
+                var responseToken: LoginInfo? = null
 
-                RetrofitBuilder.api.doLogin(loginInfo).enqueue(object: Callback<Token> {
-                    override fun onResponse(call: Call<Token>, response: Response<Token>) {
+                RetrofitBuilder.api.doLogin(loginInfo).enqueue(object: Callback<LoginInfo> {
+                    override fun onResponse(call: Call<LoginInfo>, response: Response<LoginInfo>) {
                         responseToken = response.body()
                         if(responseToken != null) {
                             Log.d("Login Success", responseToken.toString())
-                            editor.putString("Token", responseToken?.refreshToken).apply()
+                            editor.putString("refreshToken", responseToken?.refreshToken).apply()
+                            editor.putString("accessToken", responseToken?.accessToken).apply()
                             editor.putString("nickname", responseToken?.nickname).apply()
-                            //var authToken = pref.getString("Token", "Token 없음")?.chunked(15)
-                            //(authToken?.get(authToken.size-1) ?: null)
-                            //pref.getString("Token", "Token 없음")
+                            editor.putInt("userId", responseToken?.userId!!).apply()
                             var intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)
                             finish()
                         } else {
                             Log.d("Login", "no user defined")
-                            Toast.makeText(this@LoginActivity, "아이디 또는 비밀번호를 잘못 입력했습니다.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this@LoginActivity, "아이디 또는 비밀번호를 잘못 입력하셨습니다.", Toast.LENGTH_SHORT).show()
                         }
 
                     }
 
-                    override fun onFailure(call: Call<Token>, t: Throwable) {
+                    override fun onFailure(call: Call<LoginInfo>, t: Throwable) {
                         Log.d("Approach Fail", "wrong server approach")
-                        //Toast.makeText(this@LoginActivity, "통신 실패", Toast.LENGTH_SHORT).show()
                     }
                 })
             } else {

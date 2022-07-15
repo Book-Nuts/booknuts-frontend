@@ -103,8 +103,8 @@ class DebateFragment : Fragment() {
     // debateType : 0 = 텍스트, 1 = 음성, 2 = 전체
     fun loadData(debateType: Int) {
         val data: MutableList<DebateSearchInfo> = mutableListOf()
-        val pref = this.getActivity()?.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
-        val token = pref?.getString("Token", "")
+        val pref = this.getActivity()?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        val token = pref?.getString("accessToken", "")
 
         RetrofitBuilder.debateApi.roomList(token, debateType).enqueue(object : Callback<DebateListRequestDTO> {
             override fun onResponse(call: Call<DebateListRequestDTO>, response: Response<DebateListRequestDTO>) {

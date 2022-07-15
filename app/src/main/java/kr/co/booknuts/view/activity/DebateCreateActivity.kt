@@ -161,8 +161,8 @@ class DebateCreateActivity : AppCompatActivity() {
                 val maxUser = toggleRatio
                 val opinion = userOpinion
 
-                val pref = this.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
-                val token = pref?.getString("Token", "")
+                val pref = this.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+                val token = pref?.getString("accessToken", "")
 
                 var debateInfo = DebateCreateDTO(bookTitle, author, bookImgUrl, bookGenre, topic, coverImgUrl, type, maxUser, opinion)
 

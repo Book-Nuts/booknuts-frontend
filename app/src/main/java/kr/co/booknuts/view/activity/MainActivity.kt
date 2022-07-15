@@ -27,9 +27,6 @@ class MainActivity : AppCompatActivity() {
 
         changeFragment(fragmentDebate)
         initNavigationBar()
-
-        val pref = getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
-        val editor = pref.edit()
     }
 
     private fun initNavigationBar() {

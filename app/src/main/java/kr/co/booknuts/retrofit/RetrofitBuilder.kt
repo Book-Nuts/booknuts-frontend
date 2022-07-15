@@ -2,10 +2,7 @@ package kr.co.booknuts.retrofit
 
 import com.google.gson.GsonBuilder
 import kr.co.booknuts.BuildConfig.BASE_URL
-import kr.co.booknuts.api.BoardService
-import kr.co.booknuts.api.DebateRoomService
-import kr.co.booknuts.api.MyService
-import kr.co.booknuts.api.UserService
+import kr.co.booknuts.api.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -15,6 +12,7 @@ object RetrofitBuilder {
     var boardApi: BoardService
     var myApi: MyService
     var debateApi: DebateRoomService
+    var authApi: AuthService
 
     val gson = GsonBuilder().setLenient().create()
 
@@ -29,5 +27,6 @@ object RetrofitBuilder {
         boardApi = retrofit.create(BoardService::class.java)
         myApi = retrofit.create(MyService::class.java)
         debateApi = retrofit.create(DebateRoomService::class.java)
+        authApi = retrofit.create(AuthService::class.java)
     }
 }
