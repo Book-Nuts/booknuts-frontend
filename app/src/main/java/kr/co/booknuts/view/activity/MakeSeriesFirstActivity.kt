@@ -21,7 +21,8 @@ class MakeSeriesFirstActivity : AppCompatActivity() {
     val binding by lazy {ActivityMakeSeriesFirstBinding.inflate(layoutInflater) }
     lateinit var recyclerView: RecyclerView
 
-    private var savedToken: String? = null
+    private var accessToken: String? = null
+    private var userId: Int? = null
     private var postDataArray: ArrayList<Post>? = null
 
     var postClickedList = ArrayList<Int?>()
@@ -31,8 +32,9 @@ class MakeSeriesFirstActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 로컬에 저장된 토큰
-        val pref = getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
-        savedToken = pref?.getString("Token", null).toString()
+        val pref = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        accessToken = pref?.getString("accessToken", null).toString()
+        userId = pref?.getInt("userId", -1)
 
         binding.textGoNext.setOnClickListener {
             if(postClickedList.size < 2)
@@ -49,7 +51,7 @@ class MakeSeriesFirstActivity : AppCompatActivity() {
         }
 
         // 서버에서 내가 쓴 게시글 데이터 받아오기
-        RetrofitBuilder.myApi.getMyPostList(savedToken).enqueue(object:
+        RetrofitBuilder.myApi.getMyPostList(accessToken, userId).enqueue(object:
             Callback<ArrayList<Post>> {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
                 postDataArray = response.body()

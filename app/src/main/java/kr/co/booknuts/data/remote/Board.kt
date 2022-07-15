@@ -28,6 +28,12 @@ data class Post(
     val heartCnt: Int?,
     @SerializedName("archiveCnt")
     val archiveCnt: Int?,
+    @SerializedName("isNuts")
+    val isNuts: Boolean?,
+    @SerializedName("isHeart")
+    val isHeart: Boolean?,
+    @SerializedName("isArchived")
+    val isArchived: Boolean?,
     @SerializedName("curUser")
     val curUser: Boolean?,
 )   : Serializable {}

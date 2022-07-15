@@ -24,8 +24,8 @@ import retrofit2.Callback
 class HomeFragment : Fragment() {
     //private var swipeRefreshLayout: SwipeRefreshLayout? = null
     var dataArray: ArrayList<Post>? = null
-    var tabType: Int = 0    // 0 -> 나의 구독, 1 -> 오늘 추천, 2 -> 독립출판
-    var savedToken: String? = null
+    var tabType: Int = 1    // 0 -> 나의 구독, 1 -> 오늘 추천, 2 -> 독립출판
+    var accessToken: String? = null
 
     lateinit var recyclerView: RecyclerView
     //val rootView:
@@ -47,8 +47,8 @@ class HomeFragment : Fragment() {
         }
 
         // 로컬에 저장된 토큰
-        val pref = this.activity?.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
-        savedToken = pref?.getString("Token", null)
+        val pref = this.activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        accessToken = pref?.getString("accessToken", null)
 
         // 서버에서 게시글 데이터 받아오기
         getPostData()
@@ -58,34 +58,43 @@ class HomeFragment : Fragment() {
     }
 
     fun getPostData() {
-        RetrofitBuilder.boardApi.getBoardList(savedToken, tabType).enqueue(object: Callback<ArrayList<Post>> {
+        RetrofitBuilder.boardApi.getBoardList(accessToken, tabType).enqueue(object: Callback<ArrayList<Post>> {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
-                dataArray = response.body()
-                //Log.d("BoardList Get Test", "data : " + dataArray.toString())
-                //Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
+                if(response.isSuccessful) {
+                    dataArray = response.body()
+                    //Log.d("BoardList Get Test", "data : " + dataArray.toString())
+                    //Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
 
-                recyclerView = binding.rvBoard
-                recyclerView.layoutManager = LinearLayoutManager(requireContext())
-                val adapter: BoardListAdapter = BoardListAdapter(dataArray)
-                if(dataArray?.size != 0 )
-                    recyclerView.adapter = adapter
-                adapter.setItemClickListener(object: BoardListAdapter.OnItemClickListener{
-                    override fun onClick(v: View, position: Int) {
-                        var intent = Intent(activity, PostDetailActivity::class.java)
-                        intent.putExtra("id", dataArray?.get(position)?.boardId)
-                        Log.d("Board ID", "" + dataArray?.get(position)?.boardId)
-                        startActivity(intent)
+                    recyclerView = binding.rvBoard
+                    recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                    val adapter: BoardListAdapter = BoardListAdapter(dataArray)
+                    if(dataArray?.size != 0 )
+                        recyclerView.adapter = adapter
+                    adapter.setItemClickListener(object: BoardListAdapter.OnItemClickListener{
+                        override fun onClick(v: View, position: Int) {
+                            var intent = Intent(activity, PostDetailActivity::class.java)
+                            intent.putExtra("id", dataArray?.get(position)?.boardId)
+                            //Log.d("Board ID", "" + dataArray?.get(position)?.boardId)
+                            startActivity(intent)
+                        }
+                    })
+                    adapter.setItemClickListenerArchive(object: BoardListAdapter.OnItemClickListenerArchive{
+                        override fun onClick(v: View, position: Int) {
+                            var intent = Intent(activity, ArchivePopUpActivity::class.java)
+                            intent.putExtra("id", dataArray?.get(position)?.boardId)
+                            //Log.d("Board ID", "" + dataArray?.get(position)?.boardId)
+                            startActivity(intent)
+                        }
+                    })
+                } else {
+                    if(response.errorBody() != null) {
+                        when(response.code()) {
+                            403 -> {
+                                Log.d("Token Error", "Wrong token")
+                            }
+                        }
                     }
-                })
-                adapter.setItemClickListenerArchive(object: BoardListAdapter.OnItemClickListenerArchive{
-                    override fun onClick(v: View, position: Int) {
-                        var intent = Intent(activity, ArchivePopUpActivity::class.java)
-                        intent.putExtra("id", dataArray?.get(position)?.boardId)
-                        Log.d("Board ID", "" + dataArray?.get(position)?.boardId)
-                        startActivity(intent)
-                    }
-                })
-
+                }
             }
             override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")

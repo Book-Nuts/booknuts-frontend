@@ -36,8 +36,8 @@ class DebateDetail2Fragment : Fragment() {
 
         binding.checkBox2.setOnCheckedChangeListener { button, isChecked ->
             if (isChecked) {
-                val pref = this.getActivity()?.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
-                val token = pref?.getString("Token", "")
+                val pref = this.getActivity()?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+                val token = pref?.getString("accessToken", "")
                 Log.d("DEBATE_JOIN", "Bundle2 : ${token}, ${roomId}, ${opinion}")
 
                 // 토론장 참여하기

@@ -44,8 +44,8 @@ class WriteActivity : AppCompatActivity() {
             val bookInfo = data?.extras?.get("postInfo") as PostRequestDTO
             Log.d("Book Info", bookInfo.toString())
             var title = bookInfo.bookTitle
-            title = title?.replace("<b>", "")
-            title = title?.replace("</b>", "")
+            /*title = title?.replace("<b>", "")
+            title = title?.replace("</b>", "")*/
             bookTitle = title
             bookAuthor = bookInfo.bookAuthor
             bookImgUrl = bookInfo.bookImgUrl
@@ -92,14 +92,12 @@ class WriteActivity : AppCompatActivity() {
         }
 
         // 로컬에 저장된 토큰
-        val pref = getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
-        val savedToken = pref?.getString("Token", null)
+        val pref = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        val savedToken = pref?.getString("accessToken", null)
 
         binding.imgPosting.setOnClickListener {
             title = binding.editTitle.text.toString()
             content = binding.editContent.text.toString()
-            var postInfo =
-                PostRequestDTO(title, content, bookTitle, bookAuthor, bookImgUrl, bookGenre)
 
             if (!bookGenre?.isEmpty()!! && !bookImgUrl?.isEmpty()!! && !bookAuthor?.isEmpty()!! && !bookTitle?.isEmpty()!! && !title?.isEmpty()!!) {
                 var postInfo =
@@ -110,12 +108,11 @@ class WriteActivity : AppCompatActivity() {
                         call: Call<PostDetail>,
                         response: Response<PostDetail>
                     ) {
-                        Log.d("Post Info Sent", postInfo.toString())
+                        //Log.d("Post Info Sent", postInfo.toString())
                         responseData = response.body()
-                        Log.d("Post Success", responseData.toString())
+                        //Log.d("Post Success", responseData.toString())
                         //Toast.makeText(this@WriteActivity, "통신 성공", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this@WriteActivity, MainActivity::class.java)
-                        startActivity(intent)
+                        closeWriteActivity()
                     }
 
                     override fun onFailure(call: Call<PostDetail>, t: Throwable) {
@@ -125,14 +122,22 @@ class WriteActivity : AppCompatActivity() {
                 })
             } else {
                 Toast.makeText(this@WriteActivity, "게시글 정보를 모두 입력해주세요.", Toast.LENGTH_SHORT).show()
-                Log.d("Post Info", postInfo.toString())
+                //Log.d("Post Info", postInfo.toString())
             }
         }
 
         binding.imgClose.setOnClickListener {
-            val intent = Intent(this@WriteActivity, MainActivity::class.java)
-            startActivity(intent)
+            closeWriteActivity()
         }
+    }
+
+    override fun onBackPressed() {
+        closeWriteActivity()
+    }
+
+    fun closeWriteActivity() {
+        val intent = Intent(this@WriteActivity, MainActivity::class.java)
+        startActivity(intent)
     }
 
     // 키보드 비활성화 함수

@@ -54,8 +54,8 @@ class DebateDetail1Fragment : Fragment() {
 
     fun checkJoinable(roomId: Long, opinion: Boolean){
         var result = false
-        val pref = this.getActivity()?.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
-        val token = pref?.getString("Token", "")
+        val pref = this.getActivity()?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        val token = pref?.getString("accessToken", "")
         if (token != null) {
             RetrofitBuilder.debateApi.joinable(token, roomId).enqueue(object: Callback<DebateJoinableDTO> {
                 override fun onResponse(call: Call<DebateJoinableDTO>, response: Response<DebateJoinableDTO>) {

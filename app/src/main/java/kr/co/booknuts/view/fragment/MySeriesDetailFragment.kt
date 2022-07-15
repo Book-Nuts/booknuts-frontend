@@ -35,7 +35,7 @@ class MySeriesDetailFragment : Fragment() {
     private var data: Array<String?>? = null
     var postCnt: Int = 0
 
-    private var savedToken: String? = null
+    private var accessToken: String? = null
     private var seriesPostDataArray: ArrayList<PostDetail>? = null
 
     lateinit var recyclerView: RecyclerView
@@ -57,8 +57,8 @@ class MySeriesDetailFragment : Fragment() {
             Log.d("Arguments", data.toString())
         }
 
-        val pref = this.activity?.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
-        savedToken = pref?.getString("Token", null).toString()
+        val pref = this.activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        accessToken = pref?.getString("accessToken", null).toString()
 
         binding.myImgBg.setColorFilter(Color.parseColor("#aaaaaa"), PorterDuff.Mode.MULTIPLY);
         //binding.myImgSeriesDetail.bringToFront()
@@ -68,7 +68,7 @@ class MySeriesDetailFragment : Fragment() {
         }
 
         // 서버에서 시리즈 세부 데이터 받아오기
-        RetrofitBuilder.myApi.getMySeriesDetailPost(savedToken, data?.get(0)?.toInt()).enqueue(object:
+        RetrofitBuilder.myApi.getMySeriesDetailPost(accessToken, data?.get(0)?.toInt()).enqueue(object:
             Callback<ArrayList<PostDetail>> {
             override fun onResponse(call: Call<ArrayList<PostDetail>>, response: Response<ArrayList<PostDetail>>) {
                 seriesPostDataArray = response.body()

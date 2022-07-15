@@ -2,6 +2,7 @@ package kr.co.booknuts.view.activity
 
 import android.content.Context
 import android.content.Intent
+import android.icu.number.Scale.none
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,6 +12,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.new_app_widget.*
+import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.*
 import kr.co.booknuts.view.adapter.BookSearchListAdapter
 import kr.co.booknuts.databinding.ActivityBookSearchBinding

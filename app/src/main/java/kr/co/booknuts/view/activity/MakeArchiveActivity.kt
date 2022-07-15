@@ -40,8 +40,8 @@ class MakeArchiveActivity : AppCompatActivity() {
         }
 
         // 로컬에 저장된 토큰
-        val pref = getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
-        savedToken = pref?.getString("Token", null).toString()
+        val pref = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        savedToken = pref?.getString("accessToken", null).toString()
 
         binding.textGoNext.setOnClickListener{
             var title = binding.editTitle.text.toString()

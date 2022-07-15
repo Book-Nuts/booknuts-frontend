@@ -25,8 +25,8 @@ class PostDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // 로컬에 저장된 토큰
-        val pref = getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
-        val savedToken = pref?.getString("Token", null)
+        val pref = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        val savedToken = pref?.getString("accessToken", null)
 
         var boardId = intent.getIntExtra("id", -1)?.toLong()
 
@@ -75,6 +75,9 @@ class PostDetailActivity : AppCompatActivity() {
                     intent.putExtra("id", data?.boardId)
                     Log.d("Board ID", "" + data?.boardId)
                     startActivity(intent)
+                }
+                binding.imgHeart.setOnClickListener{
+                    binding.imgHeart.setImageResource(R.drawable.icon_heart_fill)
                 }
             }
             override fun onFailure(call: Call<PostDetail>, t: Throwable) {

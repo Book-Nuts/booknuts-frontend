@@ -5,25 +5,28 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface MyService {
-    // 내가 쓴 게시글 조회
+    // 유저의 게시글 조회
     // request body - token
-    @GET("/board/mypost")
+    @GET("/board/post/{userId}")
     fun getMyPostList(
         @Header("X-AUTH-TOKEN") token: String?,
+        @Path("userId") userId: Int?,
     ): Call<ArrayList<Post>>
 
-    // 나의 시리즈 조회
+    // 유저의 시리즈 조회
     // request body - token
-    @GET("/series/list")
+    @GET("/series/list/{userId}")
     fun getMySeriesList(
         @Header("X-AUTH-TOKEN") token: String?,
+        @Path("userId") userId: Int?,
     ): Call<ArrayList<MySeries>>
 
-    // 나의 아카이브 조회
+    // 유저의 아카이브 조회
     // request body - token
-    @GET("/archive/list")
+    @GET("/archive/list/{userId}")
     fun getMyArchiveList(
-        @Header("X-AUTH-TOKEN") token: String?,
+        @Header("X-AUTH-TOKEN")  token: String?,
+        @Path("userId") userId: Int?,
     ): Call<ArrayList<MyArchive>>
 
     // 나의 시리즈 세부 조회

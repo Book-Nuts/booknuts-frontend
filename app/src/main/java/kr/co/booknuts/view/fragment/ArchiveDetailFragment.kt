@@ -57,8 +57,8 @@ class ArchiveDetailFragment : Fragment() {
         }
 
         // 로컬에 저장된 토큰
-        val pref = this.activity?.getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
-        savedToken = pref?.getString("Token", null).toString()
+        val pref = this.activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        savedToken = pref?.getString("accessToken", null).toString()
 
         RetrofitBuilder.myApi.getMyArchiveDetail(savedToken, data?.get(0)?.toInt()).enqueue(object:
             Callback<ArrayList<PostDetail>> {

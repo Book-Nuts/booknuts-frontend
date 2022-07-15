@@ -21,6 +21,7 @@ class ArchiveAddActivity : AppCompatActivity() {
 
     private var archiveDataArray: ArrayList<MyArchive>? = null
     private var savedToken: String? = null
+    private var userId: Int? = null
     var boardId: Int? = null
 
     lateinit var recyclerView: RecyclerView
@@ -33,15 +34,16 @@ class ArchiveAddActivity : AppCompatActivity() {
         Log.d("Board Id Got", boardId.toString())
 
         // 로컬에 저장된 토큰
-        val pref = getSharedPreferences("authToken", AppCompatActivity.MODE_PRIVATE)
-        savedToken = pref?.getString("Token", null).toString()
+        val pref = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        savedToken = pref?.getString("accessToken", null).toString()
+        userId = pref?.getInt("userId", -1)
 
         binding.imgClose.setOnClickListener{
             finish()
         }
 
         // 서버에서 나의 아카이브 데이터 받아오기
-        RetrofitBuilder.myApi.getMyArchiveList(savedToken).enqueue(object:
+        RetrofitBuilder.myApi.getMyArchiveList(savedToken, userId).enqueue(object:
             Callback<ArrayList<MyArchive>> {
             override fun onResponse(call: Call<ArrayList<MyArchive>>, response: Response<ArrayList<MyArchive>>) {
                 archiveDataArray = response.body()
