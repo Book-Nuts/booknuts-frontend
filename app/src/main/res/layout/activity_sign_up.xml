@@ -528,7 +528,8 @@
                     android:minHeight="0dp"
                     android:text="     본인은 만 14세 이상입니다. "
                     android:textColor="#222222"
-                    app:useMaterialThemeColors="false" />
+                    app:useMaterialThemeColors="false"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <TextView
                     android:id="@+id/text_terms2Type"

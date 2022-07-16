@@ -12,6 +12,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.Post
 import kr.co.booknuts.databinding.*
+import kr.co.booknuts.view.activity.MakeSeriesFirstActivity
+import kr.co.booknuts.view.activity.MakeSeriesFirstActivity.Companion.parentBinding
+import kr.co.booknuts.view.activity.MakeSeriesFirstActivity.Companion.postClickedList
+import kr.co.booknuts.view.activity.MakeSeriesFirstActivity.Companion.postDataArray
+import kr.co.booknuts.view.activity.MakeSeriesFirstActivity.Companion.seriesCount
 
 class MakeSeriesListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.Adapter<MakeSeriesListAdapter.ViewHolder>() {
 
@@ -36,17 +41,13 @@ class MakeSeriesListAdapter(private val dataList: ArrayList<Post>?) : RecyclerVi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         dataList?.get(position)?.let { holder?.bind(it) }
-        holder.binding.linearItem.setOnClickListener{
-            itemClickListener.onClick(it, position)
-        }
+//        holder.binding.linearItem.setOnClickListener{
+//            itemClickListener.onClick(it, position)
+//        }
     }
 
     interface OnItemClickListener {
         fun onClick(v: View, position: Int)
-    }
-
-    fun setItemClickListener(onItemClickListener: OnItemClickListener){
-        this.itemClickListener = onItemClickListener
     }
 
     private lateinit var itemClickListener: OnItemClickListener
@@ -55,11 +56,9 @@ class MakeSeriesListAdapter(private val dataList: ArrayList<Post>?) : RecyclerVi
         private val title: TextView = binding.textTitle
         private val date: TextView = binding.textDate
         private val bookImg: ImageView = binding.imgBook
-        private val postNum: TextView = binding.textPostNum
         fun bind(item: Post) {
             title.text = item.title
             date.text = item.bookTitle
-            postNum.text = item.boardId.toString()
             Glide.with(bookImg.context)
                 .load(item.bookImgUrl)
                 .placeholder(R.drawable.img_book_cover_default)
@@ -67,6 +66,31 @@ class MakeSeriesListAdapter(private val dataList: ArrayList<Post>?) : RecyclerVi
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .fitCenter()
                 .into(bookImg)
+
+            // 체크박스 선택
+            binding.checkSeries.setOnCheckedChangeListener { button, isChecked ->
+                // 선택
+                if (isChecked) {
+                    seriesCount++
+                    // 1개면 보이게
+                    if (seriesCount == 1) parentBinding?.cardView?.visibility = View.VISIBLE
+                    MakeSeriesFirstActivity.postClickedList.add(postDataArray.get(adapterPosition).boardId)
+                }
+                // 해제
+                else {
+                    seriesCount--
+                    // 0개면 안 보이게
+                    if (seriesCount == 0) parentBinding?.cardView?.visibility = View.INVISIBLE
+                    MakeSeriesFirstActivity.postClickedList.remove(postDataArray.get(adapterPosition).boardId)
+                }
+                Log.d("MAKE_SERIES", postClickedList.toString())
+                parentBinding?.textSelectedPost?.text = "총 ${seriesCount}개 선택"
+            }
+
+            // 아무데나 선택
+            binding.root.setOnClickListener {
+                binding.checkSeries.isChecked = !binding.checkSeries.isChecked
+            }
         }
     }
 }

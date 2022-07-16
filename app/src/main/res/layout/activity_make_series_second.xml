@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -22,10 +23,10 @@
             android:id="@+id/img_close"
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:scaleType="fitCenter"
             android:layout_gravity="left"
             android:layout_marginLeft="20dp"
             android:background="#00FFFFFF"
+            android:scaleType="fitCenter"
             android:src="@drawable/icon_close"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
@@ -44,21 +45,22 @@
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
+        android:id="@+id/linear_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp"
         android:layout_marginTop="30dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp">
 
         <TextView
             android:id="@+id/textView25"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="18dp"
             android:lineHeight="25dp"
+            android:text="제목"
             android:textColor="#191919"
-            android:text="제목" />
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edit_title"
@@ -68,10 +70,10 @@
             android:layout_marginBottom="4dp"
             android:background="@drawable/style_make_series_input"
             android:ems="10"
-            android:maxLines="1"
-            android:maxLength="40"
             android:hint="시리즈 제목"
             android:inputType="textPersonName"
+            android:maxLength="40"
+            android:maxLines="1"
             android:paddingLeft="14dp"
             android:paddingTop="8dp"
             android:paddingBottom="10dp"
@@ -81,60 +83,61 @@
             android:id="@+id/textView27"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12dp"
-            android:textColor="@color/grey_200"
             android:lineHeight="17dp"
             android:text="최대 40까지 입력할 수 있습니다. 시리즈 제목을 작성할 때는 독자
-에게 도움이 될 수 있도록 직관적인 이름으로 작성해주세요.  " />
+에게 도움이 될 수 있도록 직관적인 이름으로 작성해주세요.  "
+            android:textColor="@color/grey_200"
+            android:textSize="12dp" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linear_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="20dp"
-        android:layout_weight="1"
         android:layout_marginTop="27dp"
-        android:orientation="vertical">
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp">
 
         <TextView
             android:id="@+id/textView26"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="18dp"
             android:lineHeight="25dp"
+            android:text="설명"
             android:textColor="#191919"
-            android:text="설명" />
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/edit_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/style_make_series_input_b"
             android:ems="10"
             android:gravity="start|top"
-            android:background="@drawable/style_make_series_input_b"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="11dp"
+            android:hint="시리즈 설명"
+            android:inputType="textMultiLine"
+            android:maxLength="100"
+            android:maxLines="50"
+            android:paddingLeft="14dp"
             android:paddingTop="8dp"
             android:paddingBottom="10dp"
-            android:maxLength="100"
-            android:scrollHorizontally="false"
-            android:maxLines="50"
-            android:inputType="textMultiLine"
-            android:paddingLeft="14dp"
-            android:hint="시리즈 설명" />
+            android:scrollHorizontally="false" />
 
         <TextView
             android:id="@+id/textView28"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12dp"
-            android:textColor="@color/grey_200"
             android:lineHeight="17dp"
             android:text="최대 100자까지 입력할 수 있습니다. 독자가 작가님의  스토리를
 확인할 때 가장 먼저 참고하는 정보 중 하나입니다. 매력적으로 소
-개해보세요. " />
+개해보세요. "
+            android:textColor="@color/grey_200"
+            android:textSize="12dp" />
     </LinearLayout>
 
     <TextView
@@ -142,11 +145,11 @@
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="#3A3A3A"
+        android:gravity="center"
         android:lineHeight="23dp"
         android:paddingBottom="15dp"
-        android:textSize="16dp"
+        android:text="만들기"
         android:textColor="@color/white"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:text="만들기"/>
+        android:textSize="16dp"
+        android:textStyle="bold" />
 </LinearLayout>
