@@ -4,16 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import kotlinx.android.synthetic.main.activity_post_detail.*
 import kr.co.booknuts.R
-import kr.co.booknuts.data.remote.HeartResult
-import kr.co.booknuts.data.remote.NutsResult
-import kr.co.booknuts.data.remote.Post
-import kr.co.booknuts.data.remote.PostDetail
+import kr.co.booknuts.data.remote.*
 import kr.co.booknuts.databinding.ActivityPostDetailBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
 import kr.co.booknuts.view.adapter.BoardListAdapter
@@ -32,6 +32,9 @@ class PostDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         // 로컬에 저장된 토큰
         val pref = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
@@ -122,6 +125,34 @@ class PostDetailActivity : AppCompatActivity() {
                 binding.textNutsCnt.text = (nutsCnt.minus(1)).toString()
             }
         }
+    }
+
+    // 옵션 메뉴 넣기
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_board_detail, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+    
+    // 옵션 메뉴별 동작
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.menu_delete -> deletePost()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun deletePost() {
+        RetrofitBuilder.boardApi.deletePost(accessToken, data?.boardId).enqueue(object: Callback<PostDeleteResult> {
+            override fun onResponse(call: Call<PostDeleteResult>, response: Response<PostDeleteResult>) {
+                if (response.isSuccessful) {
+                    Log.d("Post Delete Success", "" + response.body()?.result)
+                }
+            }
+            override fun onFailure(call: Call<PostDeleteResult>, t: Throwable) {
+                Log.d("Approach Fail", "Wrong server approach in deletePost")
+            }
+        })
+        finish()
     }
 
     private fun heartClickedHandling() {
