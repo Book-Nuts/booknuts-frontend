@@ -17,27 +17,33 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MakeSeriesFirstActivity : AppCompatActivity() {
+    companion object {
+        var seriesCount: Int = 0
+        var parentBinding: ActivityMakeSeriesFirstBinding? = null
+        var postClickedList = ArrayList<Int?>()
+        var postDataArray = ArrayList<Post>()
+    }
 
     val binding by lazy {ActivityMakeSeriesFirstBinding.inflate(layoutInflater) }
     lateinit var recyclerView: RecyclerView
 
     private var accessToken: String? = null
     private var userId: Int? = null
-    private var postDataArray: ArrayList<Post>? = null
-
-    var postClickedList = ArrayList<Int?>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        parentBinding = binding
 
         // 로컬에 저장된 토큰
         val pref = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
         accessToken = pref?.getString("accessToken", null).toString()
         userId = pref?.getInt("userId", -1)
 
+        // 다음 버튼 클릭
         binding.textGoNext.setOnClickListener {
-            if(postClickedList.size < 2)
+            if(seriesCount < 2)
                 Toast.makeText(this@MakeSeriesFirstActivity, "게시글을 두 개 이상 선택해주세요.", Toast.LENGTH_SHORT).show()
             else {
                 val intent = Intent(this@MakeSeriesFirstActivity, MakeSeriesSecondActivity::class.java)
@@ -46,6 +52,7 @@ class MakeSeriesFirstActivity : AppCompatActivity() {
             }
         }
 
+        // X 버튼 클릭
         binding.imgClose.setOnClickListener {
             finish()
         }
@@ -54,9 +61,8 @@ class MakeSeriesFirstActivity : AppCompatActivity() {
         RetrofitBuilder.myApi.getMyPostList(accessToken, userId).enqueue(object:
             Callback<ArrayList<Post>> {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
-                postDataArray = response.body()
+                postDataArray = response.body()!!
                 Log.d("Post List Get Test", "data : " + postDataArray?.get(0)?.boardId)
-                //Toast.makeText(this@MakeSeriesFirstActivity, "통신 성공", Toast.LENGTH_SHORT).show()
 
                 recyclerView = binding.rvPost
                 recyclerView.layoutManager = LinearLayoutManager(this@MakeSeriesFirstActivity)
@@ -65,17 +71,9 @@ class MakeSeriesFirstActivity : AppCompatActivity() {
                     Log.d("DataArray size is not 0", "" + postDataArray?.size)
                     recyclerView.adapter = adapter
                 }
-                adapter.setItemClickListener(object: MakeSeriesListAdapter.OnItemClickListener{
-                    override fun onClick(v: View, position: Int) {
-                        postClickedList.add(postDataArray?.get(position)?.boardId)
-                        Log.d("Board ID", postClickedList.toString())
-                        binding.textSelectedPost.text = binding.textSelectedPost.text.toString() + " " + postDataArray?.get(position)?.boardId + "번"
-                    }
-                })
             }
             override fun onFailure(call: Call<ArrayList<Post>>, t: Throwable) {
                 Log.d("Approach Fail", "wrong server approach")
-                //Toast.makeText(this@MakeSeriesFirstActivity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
     }

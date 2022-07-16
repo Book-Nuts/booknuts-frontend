@@ -1,9 +1,11 @@
 package kr.co.booknuts.view.activity
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import kr.co.booknuts.data.remote.MySeries
 import kr.co.booknuts.data.remote.SeriesRequestDTO
 import kr.co.booknuts.databinding.ActivityMakeSeriesSecondBinding
@@ -35,6 +37,11 @@ class MakeSeriesSecondActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        // 키보드 내리기
+        binding.toolbar.setOnClickListener { hideKeyboard() }
+        binding.linearTitle.setOnClickListener { hideKeyboard() }
+        binding.linearContent.setOnClickListener { hideKeyboard() }
+
         var intentG = intent
         var postClickedList: List<Long> = intentG.getIntegerArrayListExtra("postClickedList") as List<Long>
         Log.d("Get Post List", postClickedList.toString())
@@ -47,6 +54,7 @@ class MakeSeriesSecondActivity : AppCompatActivity() {
         val pref = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
         savedToken = pref?.getString("accessToken", null).toString()
 
+        // 만들기 버튼 클릭
         binding.textGoNext.setOnClickListener{
             var title = binding.editTitle.text.toString()
             var content = binding.editContent.text.toString()
@@ -55,26 +63,30 @@ class MakeSeriesSecondActivity : AppCompatActivity() {
 
             if(!title.isEmpty() && !content.isEmpty()){
                 var seriesInfo = SeriesRequestDTO(title, content, imgUrl, postClickedList)
-                RetrofitBuilder.myApi.postSeries(savedToken, seriesInfo).enqueue(object :
-                    Callback<MySeries> {
-                    override fun onResponse(
-                        call: Call<MySeries>,
-                        response: Response<MySeries>
-                    ) {
-                        Log.d("Post Info Sent", seriesInfo.toString())
+                // 시리즈 생성
+                RetrofitBuilder.myApi.postSeries(savedToken, seriesInfo).enqueue(object : Callback<MySeries> {
+                    override fun onResponse(call: Call<MySeries>, response: Response<MySeries>) {
+                        Log.d("MAKE_SERIES", seriesInfo.toString())
                         var responseData = response.body()
-                        Log.d("Post Success", responseData.toString())
+                        Log.d("MAKE_SERIES", responseData.toString())
                         //Toast.makeText(this@MakeSeriesSecondActivity, "통신 성공", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this@MakeSeriesSecondActivity, MainActivity::class.java)
                         startActivity(intent)
                     }
 
                     override fun onFailure(call: Call<MySeries>, t: Throwable) {
-                        Log.d("Approach Fail", "wrong server approach")
+                        Log.d("MAKE_SERIES", "wrong server approach")
                         //Toast.makeText(this@MakeSeriesSecondActivity, "통신 실패", Toast.LENGTH_SHORT).show()
                     }
                 })
             }
         }
+    }
+
+    // 키보드 비활성화 함수
+    fun hideKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.editTitle.windowToken, 0)
+        imm.hideSoftInputFromWindow(binding.editContent.windowToken, 0)
     }
 }
