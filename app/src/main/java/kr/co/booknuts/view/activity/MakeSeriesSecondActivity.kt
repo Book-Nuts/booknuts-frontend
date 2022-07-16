@@ -69,9 +69,9 @@ class MakeSeriesSecondActivity : AppCompatActivity() {
                         Log.d("MAKE_SERIES", seriesInfo.toString())
                         var responseData = response.body()
                         Log.d("MAKE_SERIES", responseData.toString())
-                        //Toast.makeText(this@MakeSeriesSecondActivity, "통신 성공", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this@MakeSeriesSecondActivity, MainActivity::class.java)
-                        startActivity(intent)
+                        finish()
+//                        val intent = Intent(this@MakeSeriesSecondActivity, MainActivity::class.java)
+//                        startActivity(intent)
                     }
 
                     override fun onFailure(call: Call<MySeries>, t: Throwable) {

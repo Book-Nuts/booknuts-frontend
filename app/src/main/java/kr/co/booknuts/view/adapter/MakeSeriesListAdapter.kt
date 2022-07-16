@@ -41,9 +41,9 @@ class MakeSeriesListAdapter(private val dataList: ArrayList<Post>?) : RecyclerVi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         dataList?.get(position)?.let { holder?.bind(it) }
-        holder.binding.linearItem.setOnClickListener{
-            itemClickListener.onClick(it, position)
-        }
+//        holder.binding.linearItem.setOnClickListener{
+//            itemClickListener.onClick(it, position)
+//        }
     }
 
     interface OnItemClickListener {

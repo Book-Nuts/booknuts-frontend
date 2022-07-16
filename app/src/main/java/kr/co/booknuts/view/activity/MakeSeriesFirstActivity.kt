@@ -49,6 +49,7 @@ class MakeSeriesFirstActivity : AppCompatActivity() {
                 val intent = Intent(this@MakeSeriesFirstActivity, MakeSeriesSecondActivity::class.java)
                 intent.putIntegerArrayListExtra("postClickedList", postClickedList)
                 startActivity(intent)
+                finish()
             }
         }
 
