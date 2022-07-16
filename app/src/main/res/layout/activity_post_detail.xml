@@ -241,8 +241,8 @@
         android:paddingBottom="26dp">
 
         <ImageView
-            android:id="@+id/imageView27"
-            android:layout_width="36dp"
+            android:id="@+id/img_nuts"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="4dp"
             app:srcCompat="@drawable/icon_nuts_b"
@@ -261,8 +261,7 @@
             android:layout_height="21dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="5dp"
-            android:src="@drawable/icon_heart"
-            app:tint="@color/white" />
+            android:src="@drawable/icon_heart_white" />
 
         <TextView
             android:id="@+id/text_heart_cnt"

@@ -4,13 +4,19 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.R
+import kr.co.booknuts.data.remote.HeartResult
+import kr.co.booknuts.data.remote.NutsResult
+import kr.co.booknuts.data.remote.Post
 import kr.co.booknuts.data.remote.PostDetail
 import kr.co.booknuts.databinding.ActivityPostDetailBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
+import kr.co.booknuts.view.adapter.BoardListAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,7 +24,10 @@ import retrofit2.Response
 class PostDetailActivity : AppCompatActivity() {
 
     val binding by lazy { ActivityPostDetailBinding.inflate(layoutInflater) }
+    var accessToken: String? = null
     var data: PostDetail? = null
+    var isHeartClicked: Boolean? = false
+    var isNutsClicked: Boolean? = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,23 +35,26 @@ class PostDetailActivity : AppCompatActivity() {
 
         // 로컬에 저장된 토큰
         val pref = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
-        val savedToken = pref?.getString("accessToken", null)
+        accessToken = pref?.getString("accessToken", null)
 
         var boardId = intent.getIntExtra("id", -1)?.toLong()
-
-        Log.d("Board ID", "" + boardId)
 
         binding.imgClose.setOnClickListener{
             finish()
         }
 
-        RetrofitBuilder.boardApi.getPostDetail(savedToken, boardId).enqueue(object:
+        RetrofitBuilder.boardApi.getPostDetail(accessToken, boardId).enqueue(object:
             Callback<PostDetail> {
             override fun onResponse(call: Call<PostDetail>, response: Response<PostDetail>) {
                 data = response.body()
-                Log.d("Board Detail Get Test", "" + data.toString())
-                //Toast.makeText(this@PostDetailActivity, "통신 성공", Toast.LENGTH_SHORT).show()
-
+                isHeartClicked = data?.isHeart
+                isNutsClicked = data?.isNuts
+                if(isHeartClicked == true){
+                    binding.imgHeart.setImageResource(R.drawable.icon_heart_fill)
+                }
+                if(isHeartClicked == true){
+                    binding.imgNuts.setImageResource(R.drawable.icon_heart_fill)
+                }
                 binding.textWriter.text = data?.writer + " 님의 게시글"
                 binding.textTitle.text = data?.title
                 binding.textNickname.text = data?.writer
@@ -69,20 +81,71 @@ class PostDetailActivity : AppCompatActivity() {
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .fitCenter()
                     .into(binding.imgBook)
-
-                binding.imgArchiveBox.setOnClickListener {
-                    var intent = Intent(this@PostDetailActivity, ArchivePopUpActivity::class.java)
-                    intent.putExtra("id", data?.boardId)
-                    Log.d("Board ID", "" + data?.boardId)
-                    startActivity(intent)
-                }
-                binding.imgHeart.setOnClickListener{
-                    binding.imgHeart.setImageResource(R.drawable.icon_heart_fill)
-                }
             }
             override fun onFailure(call: Call<PostDetail>, t: Throwable) {
-                Log.d("Approach Fail", "wrong server approach")
-                //Toast.makeText(this@PostDetailActivity, "통신 실패", Toast.LENGTH_SHORT).show()
+                Log.d("Approach Fail", "Wrong server approach in getPostDetail")
+            }
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.imgArchiveBox.setOnClickListener {
+            var intent = Intent(this@PostDetailActivity, ArchivePopUpActivity::class.java)
+            intent.putExtra("id", data?.boardId)
+            startActivity(intent)
+        }
+        // 하트 클릭 시
+        binding.imgHeart.setOnClickListener{
+            isHeartClicked = !isHeartClicked!!
+            heartClickedHandling()
+            val heartCnt = binding.textHeartCnt.text.toString().toInt()
+            if(isHeartClicked == true){
+                binding.imgHeart.setImageResource(R.drawable.icon_heart_fill)
+                binding.textHeartCnt.text = (heartCnt.plus(1)).toString()
+            } else {
+                binding.imgHeart.setImageResource(R.drawable.icon_heart_white)
+                binding.textHeartCnt.text = (heartCnt.minus(1)).toString()
+            }
+        }
+        // 넛츠 클릭 시
+        binding.imgNuts.setOnClickListener{
+            isNutsClicked = !isNutsClicked!!
+            nutsClickedHandling()
+            val nutsCnt = binding.textNutsCnt.text.toString().toInt()
+            if(isNutsClicked == true){
+                // 넛츠 활성화 이미지 없음 (하트로 대체)
+                binding.imgNuts.setImageResource(R.drawable.icon_heart_fill)
+                binding.textNutsCnt.text = (nutsCnt.plus(1)).toString()
+            } else {
+                binding.imgNuts.setImageResource(R.drawable.icon_nuts_b)
+                binding.textNutsCnt.text = (nutsCnt.minus(1)).toString()
+            }
+        }
+    }
+
+    private fun heartClickedHandling() {
+        RetrofitBuilder.reactionApi.putHeart(accessToken, data?.boardId).enqueue(object: Callback<HeartResult> {
+            override fun onResponse(call: Call<HeartResult>, response: Response<HeartResult>) {
+                if (response.isSuccessful) {
+                    Log.d("Heart clicked result", "" + response.body()?.result)
+                }
+            }
+            override fun onFailure(call: Call<HeartResult>, t: Throwable) {
+                Log.d("Approach Fail", "Wrong server approach in putHeart")
+            }
+        })
+    }
+
+    private fun nutsClickedHandling() {
+        RetrofitBuilder.reactionApi.putNuts(accessToken, data?.boardId).enqueue(object: Callback<NutsResult> {
+            override fun onResponse(call: Call<NutsResult>, response: Response<NutsResult>) {
+                if (response.isSuccessful) {
+                    Log.d("Nuts clicked result", "" + response.body()?.result)
+                }
+            }
+            override fun onFailure(call: Call<NutsResult>, t: Throwable) {
+                Log.d("Approach Fail", "Wrong server approach in putHeart")
             }
         })
     }
