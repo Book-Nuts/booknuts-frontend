@@ -1,6 +1,5 @@
 package kr.co.booknuts.api
 
-import kr.co.booknuts.data.*
 import kr.co.booknuts.data.remote.*
 import retrofit2.Call
 import retrofit2.http.*
@@ -34,15 +33,15 @@ interface BoardService {
     @DELETE("/board/{boardId}")
     fun deletePost(
         @Header("X-AUTH-TOKEN") token: String?,
-        @Path("boardId") boardId: Int?
+        @Path("boardId") boardId: Long?
     ): Call<PostDeleteResult>
 
     // 게시글 수정
     // request body - boardId
-    @DELETE("/board/{boardId}")
+    @PATCH("/board/{boardId}")
     fun editPost(
         @Header("X-AUTH-TOKEN") token: String?,
-        @Path("boardId") boardId: Int?,
+        @Path("boardId") boardId: Long?,
         @Body editInfo: PostEditInfo
     ): Call<PostDetail>
 }

@@ -33,14 +33,11 @@ class PostDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
-
         // 로컬에 저장된 토큰
         val pref = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
         accessToken = pref?.getString("accessToken", null)
 
-        var boardId = intent.getIntExtra("id", -1)?.toLong()
+        var boardId = intent.getIntExtra("id", -1).toLong()
 
         binding.imgClose.setOnClickListener{
             finish()
@@ -89,6 +86,9 @@ class PostDetailActivity : AppCompatActivity() {
                 Log.d("Approach Fail", "Wrong server approach in getPostDetail")
             }
         })
+
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     override fun onResume() {
@@ -136,23 +136,33 @@ class PostDetailActivity : AppCompatActivity() {
     // 옵션 메뉴별 동작
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.menu_delete -> deletePost()
+            R.id.menu_delete -> {
+                deletePost()
+                return super.onOptionsItemSelected(item)
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun deletePost() {
-        RetrofitBuilder.boardApi.deletePost(accessToken, data?.boardId).enqueue(object: Callback<PostDeleteResult> {
+        RetrofitBuilder.boardApi.deletePost(accessToken, data?.boardId?.toLong()).enqueue(object: Callback<PostDeleteResult> {
             override fun onResponse(call: Call<PostDeleteResult>, response: Response<PostDeleteResult>) {
+                Log.d("Post Delete has an Response", "" + response.body()?.result)
                 if (response.isSuccessful) {
                     Log.d("Post Delete Success", "" + response.body()?.result)
+                    finish()
+                } else if (response.errorBody() != null) {
+                    when(response.code()) {
+                        400 -> {
+                            Log.d("Delete Permission Fail", "No Permission")
+                        }
+                    }
                 }
             }
             override fun onFailure(call: Call<PostDeleteResult>, t: Throwable) {
                 Log.d("Approach Fail", "Wrong server approach in deletePost")
             }
         })
-        finish()
     }
 
     private fun heartClickedHandling() {
