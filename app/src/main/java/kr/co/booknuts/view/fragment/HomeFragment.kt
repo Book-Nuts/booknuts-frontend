@@ -73,6 +73,7 @@ class HomeFragment : Fragment() {
                         override fun onClick(v: View, position: Int) {
                             var intent = Intent(activity, PostDetailActivity::class.java)
                             intent.putExtra("id", dataArray?.get(position)?.boardId)
+                            intent.putExtra("writer", dataArray?.get(position)?.writer)
                             //Log.d("Board ID", "" + dataArray?.get(position)?.boardId)
                             startActivity(intent)
                         }

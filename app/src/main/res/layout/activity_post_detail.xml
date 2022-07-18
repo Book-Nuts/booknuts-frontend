@@ -21,10 +21,10 @@
             android:id="@+id/img_close"
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:scaleType="fitCenter"
             android:layout_gravity="left"
             android:layout_marginLeft="20dp"
             android:background="#00FFFFFF"
+            android:scaleType="fitCenter"
             android:src="@drawable/icon_close"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 

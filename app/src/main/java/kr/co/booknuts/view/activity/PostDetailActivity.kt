@@ -25,6 +25,8 @@ class PostDetailActivity : AppCompatActivity() {
 
     val binding by lazy { ActivityPostDetailBinding.inflate(layoutInflater) }
     var accessToken: String? = null
+    var nickname: String? = null
+    var writer: String? = null
     var data: PostDetail? = null
     var isHeartClicked: Boolean? = false
     var isNutsClicked: Boolean? = false
@@ -36,8 +38,10 @@ class PostDetailActivity : AppCompatActivity() {
         // 로컬에 저장된 토큰
         val pref = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
         accessToken = pref?.getString("accessToken", null)
+        nickname = pref?.getString("nickname", null)
 
         var boardId = intent.getIntExtra("id", -1).toLong()
+        writer = intent.getStringExtra("writer").toString()
 
         binding.imgClose.setOnClickListener{
             finish()
@@ -129,7 +133,9 @@ class PostDetailActivity : AppCompatActivity() {
 
     // 옵션 메뉴 넣기
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_board_detail, menu)
+        Log.d("Nickname", "" + nickname)
+        Log.d("Writer", "" + writer)
+        if(nickname == writer) menuInflater.inflate(R.menu.menu_board_detail, menu)
         return super.onCreateOptionsMenu(menu)
     }
     
