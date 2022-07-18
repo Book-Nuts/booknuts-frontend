@@ -257,6 +257,7 @@ class MyFragment : Fragment() {
             override fun onClick(v: View, position: Int) {
                 var intent = Intent(activity, PostDetailActivity::class.java)
                 intent.putExtra("id", postDataArray?.get(position)?.boardId)
+                intent.putExtra("writer", postDataArray?.get(position)?.writer)
                 Log.d("Board ID", "" + postDataArray?.get(position)?.boardId)
                 startActivity(intent)
             }
