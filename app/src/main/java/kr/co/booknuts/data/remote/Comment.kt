@@ -17,3 +17,8 @@ data class Comment(
     @SerializedName("parentId")
     val parentId: Long?,
 )   : Serializable {}
+
+data class CommentRequestDTO(
+    @SerializedName("content")
+    val content: String?,
+)   : Serializable {}
