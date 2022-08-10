@@ -67,6 +67,9 @@ class WriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        var type = intent.getIntExtra("type", 0)
+
+
         // 키보드 내리기
         binding.layout.setOnClickListener { hideKeyboard() }
         binding.toolbar.setOnClickListener { hideKeyboard() }

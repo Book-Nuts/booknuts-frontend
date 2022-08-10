@@ -17,6 +17,7 @@ import kr.co.booknuts.data.remote.*
 import kr.co.booknuts.databinding.ActivityPostDetailBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
 import kr.co.booknuts.view.adapter.BoardListAdapter
+import kr.co.booknuts.view.fragment.PostCommentFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,6 +25,7 @@ import retrofit2.Response
 class PostDetailActivity : AppCompatActivity() {
 
     val binding by lazy { ActivityPostDetailBinding.inflate(layoutInflater) }
+    var boardId: Long? = null
     var accessToken: String? = null
     var nickname: String? = null
     var writer: String? = null
@@ -40,7 +42,7 @@ class PostDetailActivity : AppCompatActivity() {
         accessToken = pref?.getString("accessToken", null)
         nickname = pref?.getString("nickname", null)
 
-        var boardId = intent.getIntExtra("id", -1).toLong()
+        boardId = intent.getIntExtra("id", -1).toLong()
         writer = intent.getStringExtra("writer").toString()
 
         binding.imgClose.setOnClickListener{
@@ -128,6 +130,14 @@ class PostDetailActivity : AppCompatActivity() {
                 binding.imgNuts.setImageResource(R.drawable.icon_nuts_b)
                 binding.textNutsCnt.text = (nutsCnt.minus(1)).toString()
             }
+        }
+        // 댓글 클릭 시
+        binding.textCommentCnt.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putLong("boardId", boardId!!)
+            var fragment = PostCommentFragment()
+            fragment.arguments = bundle
+            supportFragmentManager.beginTransaction().replace(R.id.linear_post_detail, fragment).commit()
         }
     }
 
