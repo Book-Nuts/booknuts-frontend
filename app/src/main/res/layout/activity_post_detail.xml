@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/linear_post_detail"
     tools:context=".view.activity.PostDetailActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -287,10 +288,10 @@
             android:textColor="@color/white" />
 
         <TextView
-            android:id="@+id/textView30"
+            android:id="@+id/text_comment_cnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="댓글(0)"
+            android:text="댓글"
             android:textColor="@color/white" />
     </LinearLayout>
 
