@@ -45,6 +45,60 @@
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
+        android:id="@+id/linear_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="20dp">
+
+        <LinearLayout
+            android:id="@+id/linear_bg_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineHeight="25dp"
+                android:text="배경 이미지"
+                android:textColor="#191919"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:lineHeight="17dp"
+                android:text="시리즈의 배경 이미지를 선택할 수 있습니다."
+                android:textColor="@color/grey_200"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/style_camera_box">
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/icon_camera"/>
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/linear_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,8 +138,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineHeight="17dp"
-            android:text="최대 40까지 입력할 수 있습니다. 시리즈 제목을 작성할 때는 독자
-에게 도움이 될 수 있도록 직관적인 이름으로 작성해주세요.  "
+            android:text="최대 40까지 입력할 수 있습니다. 시리즈 제목을 작성할 때는 독자에게 도움이 될 수 있도록 직관적인 이름으로 작성해주세요.  "
             android:textColor="@color/grey_200"
             android:textSize="12dp" />
 
@@ -133,9 +186,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lineHeight="17dp"
-            android:text="최대 100자까지 입력할 수 있습니다. 독자가 작가님의  스토리를
-확인할 때 가장 먼저 참고하는 정보 중 하나입니다. 매력적으로 소
-개해보세요. "
+            android:text="최대 100자까지 입력할 수 있습니다. 독자가 작가님의 스토리를
+확인할 때 가장 먼저 참고하는 정보 중 하나입니다. 매력적으로 소개해보세요. "
             android:textColor="@color/grey_200"
             android:textSize="12dp" />
     </LinearLayout>
