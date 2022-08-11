@@ -1,4 +1,4 @@
-package kr.co.booknuts.view.adapter.fragment
+package kr.co.booknuts.view.fragment
 
 import android.content.Intent
 import android.os.Bundle

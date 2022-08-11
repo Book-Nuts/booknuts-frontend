@@ -29,6 +29,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kr.co.booknuts.view.activity.PostDetailActivity
+import kr.co.booknuts.view.fragment.ArchiveDetailFragment
 
 
 class MyFragment : Fragment() {

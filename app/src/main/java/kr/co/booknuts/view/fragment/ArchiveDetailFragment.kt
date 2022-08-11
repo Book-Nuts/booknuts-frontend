@@ -1,4 +1,4 @@
-package kr.co.booknuts.view.adapter.fragment
+package kr.co.booknuts.view.fragment
 
 import android.content.Intent
 import android.graphics.Color
@@ -21,6 +21,7 @@ import kr.co.booknuts.view.adapter.MyArchivePostListAdapter
 import kr.co.booknuts.data.remote.PostDetail
 import kr.co.booknuts.databinding.FragmentArchiveDetailBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
+import kr.co.booknuts.view.adapter.fragment.MyFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
