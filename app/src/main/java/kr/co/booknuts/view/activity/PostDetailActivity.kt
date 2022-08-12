@@ -1,6 +1,7 @@
 package kr.co.booknuts.view.activity
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -117,6 +118,7 @@ class PostDetailActivity : AppCompatActivity() {
                 binding.textHeartCnt.text = (heartCnt.minus(1)).toString()
             }
         }
+
         // 넛츠 클릭 시
         binding.imgNuts.setOnClickListener{
             isNutsClicked = !isNutsClicked!!
@@ -131,6 +133,7 @@ class PostDetailActivity : AppCompatActivity() {
                 binding.textNutsCnt.text = (nutsCnt.minus(1)).toString()
             }
         }
+
         // 댓글 클릭 시
         binding.textCommentCnt.setOnClickListener {
             val bundle = Bundle()
@@ -166,6 +169,7 @@ class PostDetailActivity : AppCompatActivity() {
                 Log.d("Post Delete has an Response", "" + response.body()?.result)
                 if (response.isSuccessful) {
                     Log.d("Post Delete Success", "" + response.body()?.result)
+
                     finish()
                 } else if (response.errorBody() != null) {
                     when(response.code()) {

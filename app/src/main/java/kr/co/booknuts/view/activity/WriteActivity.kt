@@ -20,6 +20,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.PostDetail
 import kr.co.booknuts.data.remote.PostRequestDTO
+import kr.co.booknuts.view.CommonMethod
 
 
 class WriteActivity : AppCompatActivity() {
@@ -44,8 +45,6 @@ class WriteActivity : AppCompatActivity() {
             val bookInfo = data?.extras?.get("postInfo") as PostRequestDTO
             Log.d("Book Info", bookInfo.toString())
             var title = bookInfo.bookTitle
-            /*title = title?.replace("<b>", "")
-            title = title?.replace("</b>", "")*/
             bookTitle = title
             bookAuthor = bookInfo.bookAuthor
             bookImgUrl = bookInfo.bookImgUrl
@@ -71,9 +70,9 @@ class WriteActivity : AppCompatActivity() {
 
 
         // 키보드 내리기
-        binding.layout.setOnClickListener { hideKeyboard() }
-        binding.toolbar.setOnClickListener { hideKeyboard() }
-        binding.linear.setOnClickListener { hideKeyboard() }
+        binding.layout.setOnClickListener { CommonMethod.hideKeyboards(binding.editContent, binding.editTitle, this@WriteActivity) }
+        binding.toolbar.setOnClickListener { CommonMethod.hideKeyboards(binding.editContent, binding.editTitle, this@WriteActivity) }
+        binding.linear.setOnClickListener { CommonMethod.hideKeyboards(binding.editContent, binding.editTitle, this@WriteActivity) }
 
         val spinnerAdapter = ArrayAdapter(this,
             R.layout.support_simple_spinner_dropdown_item, genres)
@@ -111,9 +110,7 @@ class WriteActivity : AppCompatActivity() {
                         call: Call<PostDetail>,
                         response: Response<PostDetail>
                     ) {
-                        //Log.d("Post Info Sent", postInfo.toString())
                         responseData = response.body()
-                        //Log.d("Post Success", responseData.toString())
                         //Toast.makeText(this@WriteActivity, "통신 성공", Toast.LENGTH_SHORT).show()
                         closeWriteActivity()
                     }
@@ -141,12 +138,5 @@ class WriteActivity : AppCompatActivity() {
     fun closeWriteActivity() {
         val intent = Intent(this@WriteActivity, MainActivity::class.java)
         startActivity(intent)
-    }
-
-    // 키보드 비활성화 함수
-    fun hideKeyboard() {
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(binding.editContent.windowToken, 0)
-        imm.hideSoftInputFromWindow(binding.editTitle.windowToken, 0)
     }
 }
