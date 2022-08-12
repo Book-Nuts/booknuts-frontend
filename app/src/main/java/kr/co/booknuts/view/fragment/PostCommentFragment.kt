@@ -1,6 +1,7 @@
 package kr.co.booknuts.view.fragment
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -10,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.FragmentManager
@@ -64,6 +66,7 @@ class PostCommentFragment : Fragment() {
             closeFragment()
         }
 
+        // 댓글 작성
         binding.imgBtnCommentSend.setOnClickListener{
             hideKeyboard()
             sendComment()
@@ -119,8 +122,14 @@ class PostCommentFragment : Fragment() {
                     recyclerview.adapter = adapter
                     adapter.setDeleteClickListener(object: PostCommentListAdapter.OnDeleteClickListener{
                         override fun onClick(v: View, position: Int) {
-                            deleteComment(commentList?.get(position)?.commentId)
-                            fragmentRefresh()
+                            val dialogBuilder = AlertDialog.Builder(requireContext())
+                            dialogBuilder.setMessage("삭제하시겠습니까?").setCancelable(false)
+                                .setPositiveButton("삭제", DialogInterface.OnClickListener {
+                                        dialogInterface, i -> deleteComment(commentList?.get(position)?.commentId)
+                                    fragmentRefresh()})
+                                .setNegativeButton("취소", DialogInterface.OnClickListener { dialogInterface, i -> dialogInterface.cancel() })
+
+                            dialogBuilder.create().show()
                         }
                     })
                 } else {
