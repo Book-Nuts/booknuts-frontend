@@ -161,8 +161,8 @@ class PostDetailActivity : AppCompatActivity() {
     }
 
     private fun deletePost() {
-        RetrofitBuilder.boardApi.deletePost(accessToken, data?.boardId?.toLong()).enqueue(object: Callback<PostDeleteResult> {
-            override fun onResponse(call: Call<PostDeleteResult>, response: Response<PostDeleteResult>) {
+        RetrofitBuilder.boardApi.deletePost(accessToken, data?.boardId?.toLong()).enqueue(object: Callback<DeleteResult> {
+            override fun onResponse(call: Call<DeleteResult>, response: Response<DeleteResult>) {
                 Log.d("Post Delete has an Response", "" + response.body()?.result)
                 if (response.isSuccessful) {
                     Log.d("Post Delete Success", "" + response.body()?.result)
@@ -175,7 +175,7 @@ class PostDetailActivity : AppCompatActivity() {
                     }
                 }
             }
-            override fun onFailure(call: Call<PostDeleteResult>, t: Throwable) {
+            override fun onFailure(call: Call<DeleteResult>, t: Throwable) {
                 Log.d("Approach Fail", "Wrong server approach in deletePost")
             }
         })

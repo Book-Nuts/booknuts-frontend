@@ -15,11 +15,14 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.item_post_comment.*
 import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.Comment
 import kr.co.booknuts.data.remote.CommentRequestDTO
+import kr.co.booknuts.data.remote.DeleteResult
 import kr.co.booknuts.databinding.FragmentPostCommentBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
+import kr.co.booknuts.view.adapter.BoardListAdapter
 import kr.co.booknuts.view.adapter.PostCommentListAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,6 +36,7 @@ class PostCommentFragment : Fragment() {
     var accessToken: String? = null
     var boardId: Long? = null
     var commentList: Array<Comment>? = null
+    var commentCnt: Int? = 0
     lateinit var recyclerview: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,11 +53,10 @@ class PostCommentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         mBinding = FragmentPostCommentBinding.inflate(inflater, container, false)
         recyclerview = binding.rvComment
-        Log.d("PostCommentFragment onCreateView", "" + boardId)
-        //recyclerview.layoutManager = LinearLayoutManager(requireContext())
+        recyclerview.layoutManager = LinearLayoutManager(requireContext())
+        //Log.d("PostCommentFragment onCreateView", "" + boardId)
 
         getPostCommentList()
 
@@ -65,20 +68,14 @@ class PostCommentFragment : Fragment() {
             hideKeyboard()
             sendComment()
             binding.editComment.text = null
-            Handler().postDelayed({
-                var ft = this.fragmentManager?.beginTransaction()
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    ft?.detach(this)?.commitNow()
-                    ft?.attach(this)?.commitNow()
-                } else {
-                    ft?.detach(this)?.attach(this)?.commit()
-                }
-            }, 500)
+            //Log.d("Start Refresh", "Before Refresh")
+            fragmentRefresh()
         }
 
         return binding.root
     }
-
+    
+    // 새 댓글 API 전송
     private fun sendComment() {
         val comment = CommentRequestDTO(binding.editComment.text.toString())
         if(!comment.content!!.isNullOrEmpty()) {
@@ -106,15 +103,26 @@ class PostCommentFragment : Fragment() {
         }
     }
 
+    // 해당 게시글의 댓글 리스트 가져오기
     private fun getPostCommentList() {
         RetrofitBuilder.commentApi.getCommentList(accessToken, boardId).enqueue(object:
             Callback<Array<Comment>> {
             override fun onResponse(call: Call<Array<Comment>>, response: Response<Array<Comment>>) {
                 if(response.isSuccessful) {
-                    commentList = response.body()
                     Log.d("API Success", "Get Comment List")
-                    recyclerview.layoutManager = LinearLayoutManager(requireContext())
-                    recyclerview.adapter = PostCommentListAdapter(commentList)
+
+                    commentList = response.body()
+                    if(commentList?.size != 0) commentCnt = commentList?.size
+                    binding.textCommentTitle.text = "댓글 " + commentCnt + "개"
+
+                    val adapter = PostCommentListAdapter(commentList)
+                    recyclerview.adapter = adapter
+                    adapter.setDeleteClickListener(object: PostCommentListAdapter.OnDeleteClickListener{
+                        override fun onClick(v: View, position: Int) {
+                            deleteComment(commentList?.get(position)?.commentId)
+                            fragmentRefresh()
+                        }
+                    })
                 } else {
                     if(response.errorBody() != null) {
                         when(response.code()) {
@@ -132,9 +140,46 @@ class PostCommentFragment : Fragment() {
         })
     }
 
+    // 댓글 삭제
+    private fun deleteComment(commentId: Long?) {
+        RetrofitBuilder.commentApi.deleteComment(accessToken, commentId).enqueue(object:
+            Callback<DeleteResult> {
+            override fun onResponse(call: Call<DeleteResult>, response: Response<DeleteResult>) {
+                if(response.isSuccessful) {
+                    Log.d("COMMENT DELETE SUCCESS", "" + response.body()?.result.toString())
+                } else {
+                    if(response.errorBody() != null) {
+                        when(response.code()) {
+                            403 -> {
+                                Log.d("Token Error", "Wrong token")
+                            }
+                        }
+                    }
+                }
+            }
+            override fun onFailure(call: Call<DeleteResult>, t: Throwable) {
+                Log.d("Approach Fail", "wrong server approach")
+                //Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
     // 프래그먼트 종료
     private fun closeFragment() {
         activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
+    }
+
+    // 프래그먼트 새로고침
+    private fun fragmentRefresh(){
+        Handler().postDelayed({
+            var ft = this.fragmentManager?.beginTransaction()
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                ft?.detach(this)?.commitNow()
+                ft?.attach(this)?.commitNow()
+            } else {
+                ft?.detach(this)?.attach(this)?.commit()
+            }
+        }, 500)
     }
 
     // 키보드 내리기

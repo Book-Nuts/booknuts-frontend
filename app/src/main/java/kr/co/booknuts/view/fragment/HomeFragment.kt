@@ -65,7 +65,7 @@ class HomeFragment : Fragment() {
                     dataArray = response.body()
 
                     recyclerView = binding.rvBoard
-                    recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                    //recyclerView.layoutManager = LinearLayoutManager(requireContext())
                     val adapter: BoardListAdapter = BoardListAdapter(dataArray)
                     if(dataArray?.size != 0 )
                         recyclerView.adapter = adapter

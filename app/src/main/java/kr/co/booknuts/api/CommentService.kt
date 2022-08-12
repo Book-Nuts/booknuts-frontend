@@ -1,8 +1,6 @@
 package kr.co.booknuts.api
 
-import kr.co.booknuts.data.remote.Comment
-import kr.co.booknuts.data.remote.CommentRequestDTO
-import kr.co.booknuts.data.remote.RefreshToken
+import kr.co.booknuts.data.remote.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -21,4 +19,10 @@ interface CommentService {
         @Path("boardId") boardId: Long?,
         @Body commentRequest : CommentRequestDTO
     ): Call<Comment>
+
+    @DELETE("/comment/{commentId}")
+    fun deleteComment(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Path("commentId") commentId: Long?,
+    ): Call<DeleteResult>
 }

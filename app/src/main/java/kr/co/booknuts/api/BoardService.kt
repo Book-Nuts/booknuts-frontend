@@ -34,7 +34,7 @@ interface BoardService {
     fun deletePost(
         @Header("X-AUTH-TOKEN") token: String?,
         @Path("boardId") boardId: Long?
-    ): Call<PostDeleteResult>
+    ): Call<DeleteResult>
 
     // 게시글 수정
     // request body - boardId
