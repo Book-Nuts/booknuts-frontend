@@ -1,18 +1,16 @@
 package kr.co.booknuts.view.activity
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import kr.co.booknuts.data.remote.LoginInfo
 import kr.co.booknuts.data.remote.LoginRequestDTO
 import kr.co.booknuts.databinding.ActivityLoginBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
-import kr.co.booknuts.view.CommonMethod
+import kr.co.booknuts.view.CommonMethod.hideKeyboards
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,13 +29,11 @@ class LoginActivity : AppCompatActivity() {
         binding.textJoin.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
         binding.linearLayout.setOnClickListener{
-            //hideKeyboard()
-            CommonMethod.hideKeyboards(binding.editId, binding.editPw, this@LoginActivity)
+            hideKeyboards(binding.editId, binding.editPw, this@LoginActivity)
         }
 
         binding.btnLogin.setOnClickListener {
-            //hideKeyboard()
-            CommonMethod.hideKeyboards(binding.editId, binding.editPw, this@LoginActivity)
+            hideKeyboards(binding.editId, binding.editPw, this@LoginActivity)
 
             var id: String = binding.editId.text.toString()
             var pw: String = binding.editPw.text.toString()
@@ -66,7 +62,6 @@ class LoginActivity : AppCompatActivity() {
                             Log.d("Login", "no user defined")
                             Toast.makeText(this@LoginActivity, "아이디 또는 비밀번호를 잘못 입력하셨습니다.", Toast.LENGTH_SHORT).show()
                         }
-
                     }
 
                     override fun onFailure(call: Call<LoginInfo>, t: Throwable) {
@@ -83,14 +78,5 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             //Toast.makeText(this@LoginActivity, "회원가입", Toast.LENGTH_SHORT).show()
         }
-    }
-
-    // 키보드 내리기
-    private fun hideKeyboard() {
-        val editId = binding.editId
-        val editPw = binding.editPw
-        val imm = this@LoginActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(editId.windowToken, 0)
-        imm.hideSoftInputFromWindow(editPw.windowToken, 0)
     }
 }

@@ -1,6 +1,7 @@
 package kr.co.booknuts.view.fragment
 
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -18,7 +19,8 @@ import kr.co.booknuts.data.remote.CommentRequestDTO
 import kr.co.booknuts.data.remote.DeleteResult
 import kr.co.booknuts.databinding.FragmentPostCommentBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
-import kr.co.booknuts.view.CommonMethod
+import kr.co.booknuts.view.CommonMethod.controlTokenError
+import kr.co.booknuts.view.CommonMethod.hideKeyboard
 import kr.co.booknuts.view.adapter.PostCommentListAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,6 +30,8 @@ class PostCommentFragment : Fragment() {
 
     private var mBinding: FragmentPostCommentBinding? = null
     private val binding get() = mBinding!!
+
+    var pref: SharedPreferences? = null
 
     var accessToken: String? = null
     var boardId: Long? = null
@@ -41,7 +45,8 @@ class PostCommentFragment : Fragment() {
         Log.d("BoarId In Comment Frag", "" + boardId)
 
         // 로컬에 저장된 토큰
-        val pref = this.activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        //val pref = this.activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        pref = requireContext().getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
         accessToken = pref?.getString("accessToken", null)
     }
 
@@ -56,14 +61,14 @@ class PostCommentFragment : Fragment() {
         getPostCommentList()
 
         // 리스트 스크롤 시 키보드 내리기
-        binding.rvComment.setOnScrollChangeListener { _, _, i2, _, i4 -> if(i2.minus(i4) >= 10) CommonMethod.hideKeyboard(binding.editComment, requireContext()) }
+        binding.rvComment.setOnScrollChangeListener { _, _, i2, _, i4 -> if(i2.minus(i4) >= 10) hideKeyboard(binding.editComment, requireContext()) }
 
         // 게시글 상세로 돌아가기
         binding.imgClose.setOnClickListener{ closeFragment() }
 
         // 댓글 작성
         binding.imgBtnCommentSend.setOnClickListener{
-            CommonMethod.hideKeyboard(binding.editComment, requireContext())
+            hideKeyboard(binding.editComment, requireContext())
             sendComment()
             fragmentRefresh()
             binding.editComment.text = null
@@ -83,13 +88,8 @@ class PostCommentFragment : Fragment() {
                         var commentData = response.body()
                         Log.d("API Success", "Written Comment Data is " + commentData.toString())
                     } else {
-                        if (response.errorBody() != null) {
-                            when (response.code()) {
-                                403 -> {
-                                    Log.d("Token Error", "Wrong token")
-                                }
-                            }
-                        }
+                        // 토큰 에러 처리
+                        controlTokenError(response.errorBody(), response.code(), requireContext(), activity, requireActivity())
                     }
                 }
 
@@ -112,28 +112,24 @@ class PostCommentFragment : Fragment() {
                     if(commentList?.size != 0) commentCnt = commentList?.size
                     binding.textCommentTitle.text = "댓글 " + commentCnt + "개"
 
+                    // 댓글 리스트 RecyclerView Adapter에 연결
                     val adapter = PostCommentListAdapter(commentList)
                     recyclerview.adapter = adapter
                     adapter.setDeleteClickListener(object: PostCommentListAdapter.OnDeleteClickListener{
                         override fun onClick(v: View, position: Int) {
+                            
+                            // 삭제 확인 Dialog 띄우기
                             val dialogBuilder = AlertDialog.Builder(requireContext())
                             dialogBuilder.setMessage("삭제하시겠습니까?").setCancelable(false)
-                                .setPositiveButton("삭제", DialogInterface.OnClickListener {
-                                        dialogInterface, i -> deleteComment(commentList?.get(position)?.commentId)
-                                    fragmentRefresh()})
+                                .setPositiveButton("삭제", DialogInterface.OnClickListener { _, _ -> deleteComment(commentList?.get(position)?.commentId); fragmentRefresh()})
                                 .setNegativeButton("취소", DialogInterface.OnClickListener { dialogInterface, i -> dialogInterface.cancel() })
 
                             dialogBuilder.create().show()
                         }
                     })
                 } else {
-                    if(response.errorBody() != null) {
-                        when(response.code()) {
-                            403 -> {
-                                Log.d("Token Error", "Wrong token")
-                            }
-                        }
-                    }
+                    // 토큰 에러 처리
+                    controlTokenError(response.errorBody(), response.code(), requireContext(), activity, requireActivity())
                 }
             }
             override fun onFailure(call: Call<Array<Comment>>, t: Throwable) {
@@ -151,13 +147,8 @@ class PostCommentFragment : Fragment() {
                 if(response.isSuccessful) {
                     Log.d("COMMENT DELETE SUCCESS", "" + response.body()?.result.toString())
                 } else {
-                    if(response.errorBody() != null) {
-                        when(response.code()) {
-                            403 -> {
-                                Log.d("Token Error", "Wrong token")
-                            }
-                        }
-                    }
+                    // 토큰 에러 처리
+                    controlTokenError(response.errorBody(), response.code(), requireContext(), activity, requireActivity())
                 }
             }
             override fun onFailure(call: Call<DeleteResult>, t: Throwable) {

@@ -9,6 +9,6 @@ interface AuthService {
     // 토큰 리프레쉬
     @GET("/auth/refresh")
     fun getTokenRefresh(
-        @Header("X-AUTH-TOKEN") token: String?,
+        @Header("X-AUTH-TOKEN") refreshtoken: String?,
     ): Call<RefreshToken>
 }

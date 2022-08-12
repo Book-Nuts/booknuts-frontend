@@ -13,14 +13,12 @@ import kr.co.booknuts.retrofit.RetrofitBuilder
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import android.content.Context
-import android.view.inputmethod.InputMethodManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.PostDetail
 import kr.co.booknuts.data.remote.PostRequestDTO
-import kr.co.booknuts.view.CommonMethod
+import kr.co.booknuts.view.CommonMethod.hideKeyboards
 
 
 class WriteActivity : AppCompatActivity() {
@@ -70,9 +68,9 @@ class WriteActivity : AppCompatActivity() {
 
 
         // 키보드 내리기
-        binding.layout.setOnClickListener { CommonMethod.hideKeyboards(binding.editContent, binding.editTitle, this@WriteActivity) }
-        binding.toolbar.setOnClickListener { CommonMethod.hideKeyboards(binding.editContent, binding.editTitle, this@WriteActivity) }
-        binding.linear.setOnClickListener { CommonMethod.hideKeyboards(binding.editContent, binding.editTitle, this@WriteActivity) }
+        binding.layout.setOnClickListener { hideKeyboards(binding.editContent, binding.editTitle, this@WriteActivity) }
+        binding.toolbar.setOnClickListener { hideKeyboards(binding.editContent, binding.editTitle, this@WriteActivity) }
+        binding.linear.setOnClickListener { hideKeyboards(binding.editContent, binding.editTitle, this@WriteActivity) }
 
         val spinnerAdapter = ArrayAdapter(this,
             R.layout.support_simple_spinner_dropdown_item, genres)
