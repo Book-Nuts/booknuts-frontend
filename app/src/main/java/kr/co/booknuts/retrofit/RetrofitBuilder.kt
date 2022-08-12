@@ -13,6 +13,8 @@ object RetrofitBuilder {
     var myApi: MyService
     var debateApi: DebateRoomService
     var authApi: AuthService
+    var reactionApi: ReactionService
+    var commentApi: CommentService
 
     val gson = GsonBuilder().setLenient().create()
 
@@ -28,5 +30,7 @@ object RetrofitBuilder {
         myApi = retrofit.create(MyService::class.java)
         debateApi = retrofit.create(DebateRoomService::class.java)
         authApi = retrofit.create(AuthService::class.java)
+        reactionApi = retrofit.create(ReactionService::class.java)
+        commentApi = retrofit.create(CommentService::class.java)
     }
 }

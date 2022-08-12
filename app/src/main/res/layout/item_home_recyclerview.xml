@@ -129,7 +129,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView8"
+                android:id="@+id/img_nuts"
                 android:layout_width="22dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -137,7 +137,7 @@
                 app:srcCompat="@drawable/icon_nut" />
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/text_nuts_cnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -151,7 +151,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView9"
+                android:id="@+id/img_heart"
                 android:layout_width="17dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -159,7 +159,7 @@
                 app:srcCompat="@drawable/icon_heart" />
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/text_heart_cnt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

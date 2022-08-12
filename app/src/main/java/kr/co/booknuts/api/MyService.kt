@@ -1,8 +1,10 @@
 package kr.co.booknuts.api
 
 import kr.co.booknuts.data.remote.*
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
+import java.io.File
 
 interface MyService {
     // 유저의 게시글 조회
@@ -47,10 +49,12 @@ interface MyService {
 
     // 시리즈 생성
     // request body - 제목, 내용, 책표지, 게시글 리스트
+    @Multipart
     @POST("/series/create")
-    fun postSeries(
+    fun createSeries(
         @Header("X-AUTH-TOKEN") token: String?,
-        @Body seriesInfo : SeriesRequestDTO
+        @Part("file") file: File?,
+        @Part("series") series: SeriesRequestDTO
     ): Call<MySeries>
 
     // 아카이브 생성
