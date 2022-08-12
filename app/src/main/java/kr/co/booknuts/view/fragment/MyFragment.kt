@@ -186,11 +186,6 @@ class MyFragment : Fragment() {
         }
     }
 
-    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
-        var ft: FragmentTransaction = fragmentManager.beginTransaction()
-        ft.detach(fragment).attach(fragment).commit()
-    }
-
     fun getPostData() {
         // 서버에서 내가 쓴 게시글 데이터 받아오기
         RetrofitBuilder.myApi.getMyPostList(accessToken, userId).enqueue(object:

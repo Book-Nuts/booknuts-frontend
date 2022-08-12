@@ -12,6 +12,7 @@ import kr.co.booknuts.data.remote.LoginInfo
 import kr.co.booknuts.data.remote.LoginRequestDTO
 import kr.co.booknuts.databinding.ActivityLoginBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
+import kr.co.booknuts.view.CommonMethod
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,11 +31,13 @@ class LoginActivity : AppCompatActivity() {
         binding.textJoin.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
         binding.linearLayout.setOnClickListener{
-            hideKeyboard()
+            //hideKeyboard()
+            CommonMethod.hideKeyboards(binding.editId, binding.editPw, this@LoginActivity)
         }
 
         binding.btnLogin.setOnClickListener {
-            hideKeyboard()
+            //hideKeyboard()
+            CommonMethod.hideKeyboards(binding.editId, binding.editPw, this@LoginActivity)
 
             var id: String = binding.editId.text.toString()
             var pw: String = binding.editPw.text.toString()
@@ -83,10 +86,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     // 키보드 내리기
-    fun hideKeyboard() {
+    private fun hideKeyboard() {
         val editId = binding.editId
         val editPw = binding.editPw
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = this@LoginActivity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(editId.windowToken, 0)
         imm.hideSoftInputFromWindow(editPw.windowToken, 0)
     }

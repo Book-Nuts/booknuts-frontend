@@ -1,6 +1,5 @@
 package kr.co.booknuts.view.fragment
 
-import android.content.Context
 import android.content.DialogInterface
 import android.os.Build
 import android.os.Bundle
@@ -10,21 +9,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_post_comment.*
-import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.Comment
 import kr.co.booknuts.data.remote.CommentRequestDTO
 import kr.co.booknuts.data.remote.DeleteResult
 import kr.co.booknuts.databinding.FragmentPostCommentBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
-import kr.co.booknuts.view.adapter.BoardListAdapter
+import kr.co.booknuts.view.CommonMethod
 import kr.co.booknuts.view.adapter.PostCommentListAdapter
 import retrofit2.Call
 import retrofit2.Callback
@@ -58,21 +52,21 @@ class PostCommentFragment : Fragment() {
         mBinding = FragmentPostCommentBinding.inflate(inflater, container, false)
         recyclerview = binding.rvComment
         recyclerview.layoutManager = LinearLayoutManager(requireContext())
-        //Log.d("PostCommentFragment onCreateView", "" + boardId)
 
         getPostCommentList()
 
-        binding.imgClose.setOnClickListener{
-            closeFragment()
-        }
+        // 리스트 스크롤 시 키보드 내리기
+        binding.rvComment.setOnScrollChangeListener { _, _, i2, _, i4 -> if(i2.minus(i4) >= 10) CommonMethod.hideKeyboard(binding.editComment, requireContext()) }
+
+        // 게시글 상세로 돌아가기
+        binding.imgClose.setOnClickListener{ closeFragment() }
 
         // 댓글 작성
         binding.imgBtnCommentSend.setOnClickListener{
-            hideKeyboard()
+            CommonMethod.hideKeyboard(binding.editComment, requireContext())
             sendComment()
-            binding.editComment.text = null
-            //Log.d("Start Refresh", "Before Refresh")
             fragmentRefresh()
+            binding.editComment.text = null
         }
 
         return binding.root
@@ -189,12 +183,5 @@ class PostCommentFragment : Fragment() {
                 ft?.detach(this)?.attach(this)?.commit()
             }
         }, 500)
-    }
-
-    // 키보드 내리기
-    private fun hideKeyboard() {
-        val editComment = binding.editComment
-        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(editComment.windowToken, 0)
     }
 }
