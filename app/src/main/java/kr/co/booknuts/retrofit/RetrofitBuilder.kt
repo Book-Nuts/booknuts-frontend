@@ -10,6 +10,7 @@ object RetrofitBuilder {
     // 사용할 api 인터페이스 선언
     var api: UserService
     var boardApi: BoardService
+    var archiveApi: ArchiveService
     var myApi: MyService
     var debateApi: DebateRoomService
     var authApi: AuthService
@@ -32,5 +33,6 @@ object RetrofitBuilder {
         authApi = retrofit.create(AuthService::class.java)
         reactionApi = retrofit.create(ReactionService::class.java)
         commentApi = retrofit.create(CommentService::class.java)
+        archiveApi = retrofit.create(ArchiveService::class.java)
     }
 }

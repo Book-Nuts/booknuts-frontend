@@ -14,14 +14,14 @@ interface CommentService {
     @GET("/comment/{boardId}")
     fun getCommentList(
         @Header("X-AUTH-TOKEN") token: String?,
-        @Path("boardId") boardId: Long?,
+        @Path("boardId") boardId: Long,
     ): Call<Array<Comment>>
 
     // 댓글 작섣
     @GET("/comment/{boardId}/write")
     fun writeComment(
         @Header("X-AUTH-TOKEN") token: String?,
-        @Path("boardId") boardId: Long?,
+        @Path("boardId") boardId: Long,
         @Body commentRequest : CommentRequestDTO
     ): Call<Comment>
 }

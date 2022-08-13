@@ -47,14 +47,6 @@
             tools:layout_editor_absoluteY="20dp" />
     </androidx.appcompat.widget.Toolbar>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_comment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="#eeeeee"/>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,7 +64,8 @@
             android:background="@drawable/style_input_box"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingHorizontal="15dp">
+            android:paddingRight="15dp"
+            android:paddingLeft="25dp">
 
             <EditText
                 android:id="@+id/edit_comment"
@@ -86,19 +79,22 @@
                 android:textSize="18dp"
                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-            <LinearLayout
-                android:id="@+id/linear_comment_send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@android:drawable/ic_menu_send"
-                     />
-
-            </LinearLayout>
+            <ImageButton
+                android:id="@+id/imgBtn_comment_send"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@color/white"
+                android:src="@android:drawable/ic_menu_send" />
         </LinearLayout>
     </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_comment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#eeeeee"/>
+
 
 </LinearLayout>

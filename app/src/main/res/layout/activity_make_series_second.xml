@@ -83,6 +83,7 @@
         </LinearLayout>
 
         <FrameLayout
+            android:id="@+id/frame_pic"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@drawable/style_camera_box">
@@ -94,7 +95,6 @@
                 android:layout_gravity="center"
                 app:srcCompat="@drawable/icon_camera"/>
         </FrameLayout>
-
 
     </LinearLayout>
 
