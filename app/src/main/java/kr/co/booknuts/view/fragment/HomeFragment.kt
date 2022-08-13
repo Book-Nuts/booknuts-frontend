@@ -1,6 +1,7 @@
-package kr.co.booknuts.view.adapter.fragment
+package kr.co.booknuts.view.fragment
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -65,7 +66,7 @@ class HomeFragment : Fragment() {
                     dataArray = response.body()
 
                     recyclerView = binding.rvBoard
-                    recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                    //recyclerView.layoutManager = LinearLayoutManager(requireContext())
                     val adapter: BoardListAdapter = BoardListAdapter(dataArray)
                     if(dataArray?.size != 0 )
                         recyclerView.adapter = adapter
@@ -76,6 +77,7 @@ class HomeFragment : Fragment() {
                             intent.putExtra("writer", dataArray?.get(position)?.writer)
                             //Log.d("Board ID", "" + dataArray?.get(position)?.boardId)
                             startActivity(intent)
+                            fragmentRefresh()
                         }
                     })
                     adapter.setItemClickListenerArchive(object: BoardListAdapter.OnItemClickListenerArchive{
@@ -84,6 +86,7 @@ class HomeFragment : Fragment() {
                             intent.putExtra("id", dataArray?.get(position)?.boardId)
                             //Log.d("Board ID", "" + dataArray?.get(position)?.boardId)
                             startActivity(intent)
+                            fragmentRefresh()
                         }
                     })
                     adapter.setItemClickListenerNuts(object: BoardListAdapter.OnItemClickListenerNuts{
@@ -156,6 +159,17 @@ class HomeFragment : Fragment() {
             binding.homeImgIndieEvent.visibility = View.VISIBLE
             binding.homeImgIndieSample.visibility = View.VISIBLE
 
+        }
+    }
+
+    // 프래그먼트 새로고침
+    private fun fragmentRefresh(){
+        var ft = this.fragmentManager?.beginTransaction()
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.N) {
+            ft?.detach(this)?.commitNow()
+            ft?.attach(this)?.commitNow()
+        } else {
+            ft?.detach(this)?.attach(this)?.commit()
         }
     }
 }

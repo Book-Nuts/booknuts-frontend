@@ -1,6 +1,7 @@
 package kr.co.booknuts.view.activity
 
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -117,6 +118,7 @@ class PostDetailActivity : AppCompatActivity() {
                 binding.textHeartCnt.text = (heartCnt.minus(1)).toString()
             }
         }
+
         // 넛츠 클릭 시
         binding.imgNuts.setOnClickListener{
             isNutsClicked = !isNutsClicked!!
@@ -131,6 +133,7 @@ class PostDetailActivity : AppCompatActivity() {
                 binding.textNutsCnt.text = (nutsCnt.minus(1)).toString()
             }
         }
+
         // 댓글 클릭 시
         binding.textCommentCnt.setOnClickListener {
             val bundle = Bundle()
@@ -161,11 +164,12 @@ class PostDetailActivity : AppCompatActivity() {
     }
 
     private fun deletePost() {
-        RetrofitBuilder.boardApi.deletePost(accessToken, data?.boardId?.toLong()).enqueue(object: Callback<PostDeleteResult> {
-            override fun onResponse(call: Call<PostDeleteResult>, response: Response<PostDeleteResult>) {
+        RetrofitBuilder.boardApi.deletePost(accessToken, data?.boardId?.toLong()).enqueue(object: Callback<DeleteResult> {
+            override fun onResponse(call: Call<DeleteResult>, response: Response<DeleteResult>) {
                 Log.d("Post Delete has an Response", "" + response.body()?.result)
                 if (response.isSuccessful) {
                     Log.d("Post Delete Success", "" + response.body()?.result)
+
                     finish()
                 } else if (response.errorBody() != null) {
                     when(response.code()) {
@@ -175,7 +179,7 @@ class PostDetailActivity : AppCompatActivity() {
                     }
                 }
             }
-            override fun onFailure(call: Call<PostDeleteResult>, t: Throwable) {
+            override fun onFailure(call: Call<DeleteResult>, t: Throwable) {
                 Log.d("Approach Fail", "Wrong server approach in deletePost")
             }
         })

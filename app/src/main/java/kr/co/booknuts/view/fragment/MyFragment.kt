@@ -29,6 +29,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kr.co.booknuts.view.activity.PostDetailActivity
+import kr.co.booknuts.view.fragment.ArchiveDetailFragment
 
 
 class MyFragment : Fragment() {
@@ -183,11 +184,6 @@ class MyFragment : Fragment() {
 
             archiveTab()
         }
-    }
-
-    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
-        var ft: FragmentTransaction = fragmentManager.beginTransaction()
-        ft.detach(fragment).attach(fragment).commit()
     }
 
     fun getPostData() {
