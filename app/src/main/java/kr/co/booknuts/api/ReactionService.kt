@@ -14,7 +14,7 @@ interface ReactionService {
     @PUT("/reaction/heart/{boardId}")
     fun putHeart(
         @Header("X-AUTH-TOKEN") accessToken: String?,
-        @Path("boardId") boardId: Int?,
+        @Path("boardId") boardId: Long?,
     ): Call<HeartResult>
 
     // 넛츠 클릭
@@ -22,6 +22,6 @@ interface ReactionService {
     @PUT("/reaction/nuts/{boardId}")
     fun putNuts(
         @Header("X-AUTH-TOKEN") accessToken: String?,
-        @Path("boardId") boardId: Int?,
+        @Path("boardId") boardId: Long?,
     ): Call<NutsResult>
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.BookSearchInfoKakao
@@ -26,46 +27,47 @@ class IntroActivity : AppCompatActivity() {
         setContentView(R.layout.activity_intro)
 
         val pref = this.getSharedPreferences("auth", MODE_PRIVATE)
-        val savedToken = pref.getString("refreshToken", null)
-        val editor = pref.edit()
-        var responseData: RefreshToken?
+        val refreshToken = pref.getString("refreshToken", null)
 
         val intentLogin = Intent(this, LoginActivity::class.java)
         val intentMain = Intent(this, MainActivity::class.java)
 
         Timer().schedule(timerTask {
-            if(savedToken != null) {
-                RetrofitBuilder.authApi.getTokenRefresh(savedToken).enqueue(object:
+            if(refreshToken != null) {
+                RetrofitBuilder.authApi.getTokenRefresh(refreshToken).enqueue(object :
                     Callback<RefreshToken> {
-                    override fun onResponse(call: Call<RefreshToken>, response: Response<RefreshToken>) {
-                        if(response.isSuccessful) {
-                            responseData = response.body()
-                            Log.d("Token Valid", "" + responseData)
-                            editor.putString("refreshToken", responseData?.refreshToken).apply()
-                            editor.putString("accessToken", responseData?.accessToken).apply()
+                    override fun onResponse(
+                        call: Call<RefreshToken>,
+                        response: Response<RefreshToken>
+                    ) {
+                        if (response.isSuccessful) {
+                            var responseToken = response.body()
+                            pref?.edit()?.putString("accessToken", responseToken?.accessToken)?.apply()
+                            Log.d("API Success", "New access token is successfully reissued")
                             startActivity(intentMain)
+                            finish()
                         } else {
-                            if(response.errorBody() != null) {
-                                when(response.code()) {
+                            if (response.errorBody() != null) {
+                                when (response.code()) {
                                     403 -> {
-                                        Log.d("Token  Expired", "Both token expired")
+                                        Log.d("INVALID REFRESH TOKEN", "Login needed")
                                         startActivity(intentLogin)
+                                        finish()
                                     }
                                 }
                             }
                         }
                     }
+
                     override fun onFailure(call: Call<RefreshToken>, t: Throwable) {
-                        Log.d("API Falied", "Wrong Request")
-                        startActivity(intentLogin)
+                        Log.d("Approach Fail", "wrong server approach")
                     }
                 })
             } else {
                 Log.d("Logout Status", "Login needed")
                 startActivity(intentLogin)
+                finish()
             }
-            finish()
-        }, 2000)
-
+        }, 1500)
     }
 }

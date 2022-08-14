@@ -31,8 +31,6 @@ class PostCommentFragment : Fragment() {
     private var mBinding: FragmentPostCommentBinding? = null
     private val binding get() = mBinding!!
 
-    var pref: SharedPreferences? = null
-
     var accessToken: String? = null
     var boardId: Long? = null
     var commentList: Array<Comment>? = null
@@ -45,8 +43,7 @@ class PostCommentFragment : Fragment() {
         Log.d("BoarId In Comment Frag", "" + boardId)
 
         // 로컬에 저장된 토큰
-        //val pref = this.activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
-        pref = requireContext().getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
+        val pref = this.activity?.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
         accessToken = pref?.getString("accessToken", null)
     }
 
@@ -89,7 +86,7 @@ class PostCommentFragment : Fragment() {
                         Log.d("API Success", "Written Comment Data is " + commentData.toString())
                     } else {
                         // 토큰 에러 처리
-                        controlTokenError(response.errorBody(), response.code(), requireContext(), activity, requireActivity())
+                        if(controlTokenError(response.errorBody(), response.code(), requireContext(), activity, requireActivity())) sendComment()
                     }
                 }
 
@@ -112,7 +109,7 @@ class PostCommentFragment : Fragment() {
                     if(commentList?.size != 0) commentCnt = commentList?.size
                     binding.textCommentTitle.text = "댓글 " + commentCnt + "개"
 
-                    // 댓글 리스트 RecyclerView Adapter에 연결
+                    // 댓글 리스트 RecyclerView Adapter 연결
                     val adapter = PostCommentListAdapter(commentList)
                     recyclerview.adapter = adapter
                     adapter.setDeleteClickListener(object: PostCommentListAdapter.OnDeleteClickListener{
@@ -129,7 +126,7 @@ class PostCommentFragment : Fragment() {
                     })
                 } else {
                     // 토큰 에러 처리
-                    controlTokenError(response.errorBody(), response.code(), requireContext(), activity, requireActivity())
+                    if(controlTokenError(response.errorBody(), response.code(), requireContext(), activity, requireActivity())) getPostCommentList()
                 }
             }
             override fun onFailure(call: Call<Array<Comment>>, t: Throwable) {
@@ -148,7 +145,7 @@ class PostCommentFragment : Fragment() {
                     Log.d("COMMENT DELETE SUCCESS", "" + response.body()?.result.toString())
                 } else {
                     // 토큰 에러 처리
-                    controlTokenError(response.errorBody(), response.code(), requireContext(), activity, requireActivity())
+                    if(controlTokenError(response.errorBody(), response.code(), requireContext(), activity, requireActivity())) deleteComment(commentId)
                 }
             }
             override fun onFailure(call: Call<DeleteResult>, t: Throwable) {

@@ -49,183 +49,189 @@
         android:layout_marginTop="60dp"
         android:orientation="vertical">
 
-        <ScrollView
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="23dp"
-                    android:paddingTop="13dp"
-                    android:paddingBottom="21dp">
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/img_user"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginRight="8dp"
-                            app:srcCompat="@drawable/img_user1" />
+                        android:orientation="vertical"
+                        android:paddingHorizontal="23dp"
+                        android:paddingTop="13dp"
+                        android:paddingBottom="21dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="horizontal">
 
-                            <TextView
-                                android:id="@+id/text_nickname"
+                            <ImageView
+                                android:id="@+id/img_user"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_marginRight="8dp"
+                                app:srcCompat="@drawable/img_user1" />
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:lineHeight="17.5dp"
-                                android:text="nickname"
-                                android:textSize="12dp"
-                                android:textStyle="bold" />
+                                android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/text_date"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:lineHeight="17.5dp"
-                                android:text="2022년 5월 5일 11시 11분"
-                                android:textColor="#7c7c7c"
-                                android:textFontWeight="400"
-                                android:textSize="12dp" />
+                                <TextView
+                                    android:id="@+id/text_nickname"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:lineHeight="17.5dp"
+                                    android:text="nickname"
+                                    android:textSize="12dp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/text_date"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:lineHeight="17.5dp"
+                                    android:text="2022년 5월 5일 11시 11분"
+                                    android:textColor="#7c7c7c"
+                                    android:textFontWeight="400"
+                                    android:textSize="12dp" />
+                            </LinearLayout>
                         </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/text_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="9dp"
+                            android:layout_marginBottom="18dp"
+                            android:lineHeight="26dp"
+                            android:text="잊혀지는 사람들에게 감사해하며"
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/img_book"
+                                android:layout_width="61dp"
+                                android:layout_height="95dp"
+                                android:scaleType="centerCrop" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="35dp"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="3dp"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:id="@+id/imageView24"
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:layout_marginRight="11dp"
+                                        app:srcCompat="@drawable/icon_title" />
+
+                                    <TextView
+                                        android:id="@+id/text_book_title"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:lineHeight="17.5dp"
+                                        android:text="바깥은 여름"
+                                        android:textSize="12dp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="3dp"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:id="@+id/imageView25"
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:layout_marginRight="11dp"
+                                        app:srcCompat="@drawable/icon_person" />
+
+                                    <TextView
+                                        android:id="@+id/text_author"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:lineHeight="17.5dp"
+                                        android:text="김예란"
+                                        android:textSize="12dp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:id="@+id/imageView26"
+                                        android:layout_width="24dp"
+                                        android:layout_height="24dp"
+                                        android:layout_marginRight="11dp"
+                                        app:srcCompat="@drawable/icon_lines" />
+
+                                    <TextView
+                                        android:id="@+id/text_genre"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:lineHeight="17.5dp"
+                                        android:text="소설"
+                                        android:textSize="12dp"
+                                        android:textStyle="bold" />
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+
                     </LinearLayout>
+
+                    <View
+                        android:id="@+id/view5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0.5dp"
+                        android:layout_marginBottom="25dp"
+                        android:background="@color/grey_200" />
 
                     <TextView
-                        android:id="@+id/text_title"
+                        android:id="@+id/text_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="9dp"
-                        android:layout_marginBottom="18dp"
-                        android:lineHeight="26dp"
-                        android:text="잊혀지는 사람들에게 감사해하며"
-                        android:textSize="18dp"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:id="@+id/img_book"
-                            android:layout_width="61dp"
-                            android:layout_height="95dp"
-                            android:scaleType="centerCrop" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="35dp"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="3dp"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:id="@+id/imageView24"
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    android:layout_marginRight="11dp"
-                                    app:srcCompat="@drawable/icon_title" />
-
-                                <TextView
-                                    android:id="@+id/text_book_title"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:lineHeight="17.5dp"
-                                    android:text="바깥은 여름"
-                                    android:textSize="12dp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="3dp"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:id="@+id/imageView25"
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    android:layout_marginRight="11dp"
-                                    app:srcCompat="@drawable/icon_person" />
-
-                                <TextView
-                                    android:id="@+id/text_author"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:lineHeight="17.5dp"
-                                    android:text="김예란"
-                                    android:textSize="12dp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:id="@+id/imageView26"
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
-                                    android:layout_marginRight="11dp"
-                                    app:srcCompat="@drawable/icon_lines" />
-
-                                <TextView
-                                    android:id="@+id/text_genre"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:lineHeight="17.5dp"
-                                    android:text="소설"
-                                    android:textSize="12dp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-                        </LinearLayout>
-                    </LinearLayout>
-
+                        android:lineHeight="23dp"
+                        android:paddingHorizontal="24dp"
+                        android:text="죄와 벌은 과연 어떤 것이 죄인가, 법에 어긋나는 행동이 죄라면 그 법을 만든 시점으로 거슬러 올라가 그것이 과연 진정한 선과 악을 가려낼 수 있을 만한 타당한 잣대가 맞는가. 그 죗값에 대한 벌은 과연 징역을 사는 것만이 벌인가. 평생의 심리적 고통을 안고 살아가는 것이 진정한 의미의 벌일 수 있지 않을까. "
+                        android:textFontWeight="400"
+                        android:textSize="16dp" />
                 </LinearLayout>
-
-                <View
-                    android:id="@+id/view5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0.5dp"
-                    android:layout_marginBottom="25dp"
-                    android:background="@color/grey_200" />
-
-                <TextView
-                    android:id="@+id/text_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:lineHeight="23dp"
-                    android:paddingHorizontal="24dp"
-                    android:text="죄와 벌은 과연 어떤 것이 죄인가, 법에 어긋나는 행동이 죄라면 그 법을 만든 시점으로 거슬러 올라가 그것이 과연 진정한 선과 악을 가려낼 수 있을 만한 타당한 잣대가 맞는가. 그 죗값에 대한 벌은 과연 징역을 사는 것만이 벌인가. 평생의 심리적 고통을 안고 살아가는 것이 진정한 의미의 벌일 수 있지 않을까. "
-                    android:textFontWeight="400"
-                    android:textSize="16dp" />
-            </LinearLayout>
-        </ScrollView>
+            </ScrollView>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
 
     <LinearLayout

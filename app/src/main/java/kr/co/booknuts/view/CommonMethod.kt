@@ -17,6 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 object CommonMethod {
+    var genres = arrayOf("자기계발", "매거진", "현대문학", "경제경영", "고전문학", "세계문학", "라이프스타일", "자녀교육", "어린이/청소년", "인문사회", "과학기술", "판타지/무협", "로맨스/BL", "독립서적")
     // 키보드 내리기
     fun hideKeyboard(editText: EditText, context: Context) {
         val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -36,7 +37,8 @@ object CommonMethod {
         context: Context,
         activity: FragmentActivity?,
         requireActivity: FragmentActivity
-    ) {
+    ): Boolean {
+        var isReissued = false
         val pref = context.getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
         val refreshToken = pref?.getString("refreshToken", null)
         if (responseErrorBody != null) {
@@ -54,6 +56,7 @@ object CommonMethod {
                                 editor?.putString("accessToken", responseToken?.accessToken)
                                     ?.apply()
                                 Log.d("API Success", "New access token is successfully reissued")
+                                isReissued = true
                             } else {
                                 if (response.errorBody() != null) {
                                     when (response.code()) {
@@ -81,5 +84,7 @@ object CommonMethod {
                 }
             }
         }
+
+        return isReissued
     }
 }

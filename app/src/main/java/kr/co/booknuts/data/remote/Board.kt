@@ -40,7 +40,7 @@ data class Post(
 
 data class PostDetail(
     @SerializedName("boardId")
-    val boardId: Int?,
+    val boardId: Long?,
     @SerializedName("title")
     val title: String?,
     @SerializedName("content")
@@ -88,7 +88,7 @@ data class PostRequestDTO(
     val bookGenre: String?,
 )   : Serializable {}
 
-data class PostEditInfo(
+data class PostEditRequestDTO(
     @SerializedName("title")
     val title: String?,
     @SerializedName("content")

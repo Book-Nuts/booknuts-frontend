@@ -42,6 +42,6 @@ interface BoardService {
     fun editPost(
         @Header("X-AUTH-TOKEN") token: String?,
         @Path("boardId") boardId: Long?,
-        @Body editInfo: PostEditInfo
+        @Body editInfo: PostEditRequestDTO
     ): Call<PostDetail>
 }

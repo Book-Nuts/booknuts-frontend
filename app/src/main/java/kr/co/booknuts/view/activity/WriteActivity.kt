@@ -18,14 +18,16 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.PostDetail
 import kr.co.booknuts.data.remote.PostRequestDTO
+import kr.co.booknuts.view.CommonMethod
 import kr.co.booknuts.view.CommonMethod.hideKeyboards
+import kr.co.booknuts.view.fragment.HomeFragment
 
 
 class WriteActivity : AppCompatActivity() {
 
+    private val fragmentHome by lazy { HomeFragment() }
     val binding by lazy { ActivityWriteBinding.inflate(layoutInflater) }
     //private val genres = resources.getStringArray(R.array.genres)
-    var genres = arrayOf("자기계발", "매거진", "현대문학", "경제경영", "고전문학", "세계문학", "라이프스타일", "자녀교육", "어린이/청소년", "인문사회", "과학기술", "판타지/무협", "로맨스/BL", "독립서적")
 
     var bookGenre: String? = "자기계발"
     var bookImgUrl: String? = ""
@@ -50,9 +52,10 @@ class WriteActivity : AppCompatActivity() {
             binding.imgPlus.visibility = View.GONE
             binding.textAddBook.visibility = View.GONE
             Glide.with(binding.imgBook)
-                .load(bookInfo.bookImgUrl)
+                .load(bookInfo?.bookImgUrl)
+                .placeholder(R.drawable.img_book_cover_default)
+                .error(R.drawable.img_book_cover_default)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .error(R.drawable.img_user2)
                 .fitCenter()
                 .into(binding.imgBook)
         } else {
@@ -64,26 +67,24 @@ class WriteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        var type = intent.getIntExtra("type", 0)
-
-
         // 키보드 내리기
         binding.layout.setOnClickListener { hideKeyboards(binding.editContent, binding.editTitle, this@WriteActivity) }
         binding.toolbar.setOnClickListener { hideKeyboards(binding.editContent, binding.editTitle, this@WriteActivity) }
         binding.linear.setOnClickListener { hideKeyboards(binding.editContent, binding.editTitle, this@WriteActivity) }
 
+        // Spinner 처리
         val spinnerAdapter = ArrayAdapter(this,
-            R.layout.support_simple_spinner_dropdown_item, genres)
+            R.layout.support_simple_spinner_dropdown_item, CommonMethod.genres)
         binding.spinnerGenre.adapter = spinnerAdapter
-
         binding.spinnerGenre.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                bookGenre = genres[position]
+                bookGenre = CommonMethod.genres[position]
             }
         }
 
+        // 책 선택
         binding.linearAddBook.setOnClickListener{
             title = binding.editTitle.text.toString()
             content = binding.editContent.text.toString()
@@ -93,7 +94,7 @@ class WriteActivity : AppCompatActivity() {
 
         // 로컬에 저장된 토큰
         val pref = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
-        val savedToken = pref?.getString("accessToken", null)
+        val accessToken = pref?.getString("accessToken", null)
 
         binding.imgPosting.setOnClickListener {
             title = binding.editTitle.text.toString()
@@ -102,7 +103,7 @@ class WriteActivity : AppCompatActivity() {
             if (!bookGenre?.isEmpty()!! && !bookImgUrl?.isEmpty()!! && !bookAuthor?.isEmpty()!! && !bookTitle?.isEmpty()!! && !title?.isEmpty()!!) {
                 var postInfo =
                     PostRequestDTO(title, content, bookTitle, bookAuthor, bookImgUrl, bookGenre)
-                RetrofitBuilder.boardApi.doPost(savedToken, postInfo).enqueue(object :
+                RetrofitBuilder.boardApi.doPost(accessToken, postInfo).enqueue(object :
                     Callback<PostDetail> {
                     override fun onResponse(
                         call: Call<PostDetail>,
@@ -112,7 +113,6 @@ class WriteActivity : AppCompatActivity() {
                         //Toast.makeText(this@WriteActivity, "통신 성공", Toast.LENGTH_SHORT).show()
                         closeWriteActivity()
                     }
-
                     override fun onFailure(call: Call<PostDetail>, t: Throwable) {
                         Log.d("Approach Fail", "wrong server approach")
                         //Toast.makeText(this@WriteActivity, "통신 실패", Toast.LENGTH_SHORT).show()
@@ -136,5 +136,6 @@ class WriteActivity : AppCompatActivity() {
     fun closeWriteActivity() {
         val intent = Intent(this@WriteActivity, MainActivity::class.java)
         startActivity(intent)
+        finish()
     }
 }
