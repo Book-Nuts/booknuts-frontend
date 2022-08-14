@@ -159,18 +159,37 @@ class MakeArchiveActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if(resultCode == RESULT_OK) {
+        Log.d("ACTIVITY RESULT", "&&&&&&&")
+        if(resultCode == -1) {
+            Log.d("RESULT", "&&&&&&&+++++++++++++++++++++")
             when(requestCode) {
-                REQUEST_STORAGE -> {
+                201 -> {
+                    Log.d("IN WHEN", "%%%%%%%%%%%%%%%%%%%%%%")
                     data?.data?.let {
                         uri ->
                         {
+                            Log.d("COVER IMAGE", "" + uri)
                             binding.imgCover.setImageURI(uri)
                             coverImage = uri.toFile()
                         }
                     }
                 }
+                REQUEST_STORAGE -> {
+                    Log.d("IN WHEN RS", "%%%%%%%%%%%%%%%%%%%%%%")
+                    data?.data?.let {
+                            uri ->
+                        {
+                            Log.d("COVER IMAGE", "" + uri)
+                            binding.imgCover.setImageURI(uri)
+                            coverImage = uri.toFile()
+                        }
+                    }
+                }
+                else -> Log.d("REQUEST CODE", "#########" + requestCode)
             }
+            Log.d("REQUEST CODE", "#########+++++++++++++++++" + resultCode)
+        } else {
+            Log.d("RESULT CODE IS NOT OK", "!!!!")
         }
     }
 }

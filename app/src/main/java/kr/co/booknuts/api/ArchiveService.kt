@@ -10,6 +10,7 @@ import java.io.File
 interface ArchiveService {
     // 아카이브 생성
     // request body - 제목, 내용, 책표지
+    @Multipart
     @POST("/archive/create")
     fun postArchive(
         @Header("X-AUTH-TOKEN") token: String?,

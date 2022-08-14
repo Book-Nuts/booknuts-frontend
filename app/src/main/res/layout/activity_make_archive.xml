@@ -84,8 +84,7 @@
         <ImageView
             android:id="@+id/img_cover"
             android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/style_camera_box">
+            android:layout_height="60dp">
 
         </ImageView>
 
