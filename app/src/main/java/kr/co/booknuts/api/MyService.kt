@@ -57,14 +57,6 @@ interface MyService {
         @Part("series") series: SeriesRequestDTO
     ): Call<MySeries>
 
-    // 아카이브 생성
-    // request body - 제목, 내용, 책표지
-    @POST("/archive/create")
-    fun postArchive(
-        @Header("X-AUTH-TOKEN") token: String?,
-        @Body seriesInfo : ArchiveRequestDTO
-    ): Call<MyArchive>
-
     // 아카이브에 게시글 추가하기
     // request body - 제목, 내용, 책표지
     @PATCH("/archive/add/{archiveId}/{boardId}")

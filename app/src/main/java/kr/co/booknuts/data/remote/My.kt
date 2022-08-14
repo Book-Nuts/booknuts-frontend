@@ -1,6 +1,7 @@
 package kr.co.booknuts.data.remote
 
 import com.google.gson.annotations.SerializedName
+import java.io.File
 import java.io.Serializable
 import java.util.*
 
@@ -48,8 +49,6 @@ data class ArchiveRequestDTO (
     val title: String?,
     @SerializedName("content")
     val content: String?,
-    @SerializedName("imgUrl")
-    val imgUrl: String?,
 )   :Serializable {}
 
 data class ResultData (

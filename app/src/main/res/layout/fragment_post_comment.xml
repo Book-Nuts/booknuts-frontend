@@ -72,7 +72,8 @@
             android:background="@drawable/style_input_box"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:paddingHorizontal="15dp">
+            android:paddingRight="15dp"
+            android:paddingLeft="25dp">
 
             <EditText
                 android:id="@+id/edit_comment"
