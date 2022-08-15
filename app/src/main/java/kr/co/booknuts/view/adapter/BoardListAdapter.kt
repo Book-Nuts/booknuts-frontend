@@ -23,10 +23,8 @@ class BoardListAdapter(private val dataList: ArrayList<Post>?) : RecyclerView.Ad
     // 게시글 개수
     override fun getItemCount(): Int {
         if (dataList != null) {
-            Log.d("Adapter", "dataListSize " + dataList.size)
             return dataList.size
         }
-        Log.d("Adapter", "dataListSize zero")
         return 0
     }
 

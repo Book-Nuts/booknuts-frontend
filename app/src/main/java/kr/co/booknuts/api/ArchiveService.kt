@@ -14,7 +14,7 @@ interface ArchiveService {
     @POST("/archive/create")
     fun postArchive(
         @Header("X-AUTH-TOKEN") token: String?,
-        @Part("file") file: File?,
-        @Part("archive") archive: ArchiveRequestDTO
+        @Part file: MultipartBody.Part?,
+        @Part archive: MultipartBody.Part,
     ): Call<MyArchive>
 }

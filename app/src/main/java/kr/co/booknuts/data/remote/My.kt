@@ -22,7 +22,7 @@ data class MySeries (
 
 data class MyArchive (
     @SerializedName("archiveId")
-    val archiveId: Int?,
+    val archiveId: Long?,
     @SerializedName("title")
     val title: String?,
     @SerializedName("content")
@@ -55,5 +55,8 @@ data class ResultData (
     @SerializedName("result")
     val result: String?,
 )   :Serializable {}
+
+
+
 
 

@@ -17,7 +17,10 @@ import kr.co.booknuts.data.remote.MyArchive
 import kr.co.booknuts.data.remote.ResultData
 import kr.co.booknuts.databinding.ActivityMakeArchiveBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
+import okhttp3.MediaType
 import okhttp3.MultipartBody
+import okhttp3.Request
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,7 +34,7 @@ class MakeArchiveActivity : AppCompatActivity() {
 
     val binding by lazy { ActivityMakeArchiveBinding.inflate(layoutInflater) }
 
-    private var savedToken: String? = null
+    private var accessToken: String? = null
     var boardId: Int? = null
     var coverImage: File? = null
 
@@ -57,7 +60,7 @@ class MakeArchiveActivity : AppCompatActivity() {
 
         // 로컬에 저장된 토큰
         val pref = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
-        savedToken = pref?.getString("accessToken", null).toString()
+        accessToken = pref?.getString("accessToken", null).toString()
 
 
         binding.imgCover.setOnClickListener{
@@ -70,28 +73,40 @@ class MakeArchiveActivity : AppCompatActivity() {
             //var random = Random().nextInt(imageList.size)
             //var imgUrl = imageList[random]
 
-            if(!title.isEmpty() && !content.isEmpty()){
-                var archiveInfo = ArchiveRequestDTO(title, content)
+            if(title.isNotEmpty() && content.isNotEmpty() ){
+                var archiveInfo = "{\"title\": \"$title\",\"content\": \"$content\"}"
 
+                var requestFile: RequestBody
+                var imageBody: MultipartBody.Part? = null
 
-                RetrofitBuilder.archiveApi.postArchive(savedToken, coverImage, archiveInfo).enqueue(object :
+                if(coverImage != null) {
+                    requestFile = RequestBody.create(MediaType.parse("image/jpeg"), coverImage)
+                    imageBody = MultipartBody.Part.createFormData("file", coverImage?.name, requestFile)
+                }
+                val requestArchiveInfo = RequestBody.create(MediaType.parse("application/json"), archiveInfo)
+                val archiveInfoBody = MultipartBody.Part.createFormData("archive", null ,requestArchiveInfo)
+
+                //val body = MultipartBody.Part.createFormData("image", coverImage?.name, requestFile)\
+
+                Log.d("Post Info Sent", archiveInfoBody.body().contentType().toString())
+                RetrofitBuilder.archiveApi.postArchive(accessToken, null, archiveInfoBody).enqueue(object :
                     Callback<MyArchive> {
                     override fun onResponse(
                         call: Call<MyArchive>,
                         response: Response<MyArchive>
                     ) {
-                        Log.d("Post Info Sent", archiveInfo.toString())
+                        //Log.d("Post Info Sent", archiveInfo.toString())
                         var responseData = response.body()
-                        Log.d("Post Success", responseData?.archiveId.toString())
+                        Log.d("Post Success", responseData.toString())
                         //Toast.makeText(this@MakeArchiveActivity, "통신 성공", Toast.LENGTH_SHORT).show()
-                        setPostInArchive(responseData?.archiveId)
+                        //setPostInArchive(responseData?.archiveId)
 
                         val intent = Intent(this@MakeArchiveActivity, MainActivity::class.java)
                         startActivity(intent)
                     }
 
                     override fun onFailure(call: Call<MyArchive>, t: Throwable) {
-                        Log.d("Approach Fail", "wrong server approach")
+                        Log.d("Approach Fail", "wrong server approach in postArchive")
                         //Toast.makeText(this@MakeArchiveActivity, "통신 실패", Toast.LENGTH_SHORT).show()
                     }
                 })
@@ -99,8 +114,8 @@ class MakeArchiveActivity : AppCompatActivity() {
         }
     }
 
-    fun setPostInArchive(archiveId: Int?) {
-        RetrofitBuilder.myApi.addPostToArchive(savedToken, archiveId, boardId).enqueue(object :
+    fun setPostInArchive(archiveId: Long?) {
+        RetrofitBuilder.myApi.addPostToArchive(accessToken, archiveId, boardId).enqueue(object :
             Callback<ResultData> {
             override fun onResponse(
                 call: Call<ResultData>,
@@ -113,7 +128,7 @@ class MakeArchiveActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ResultData>, t: Throwable) {
-                Log.d("Approach Fail", "wrong server approach")
+                Log.d("Approach Fail", "wrong server approach in addPostToArchive")
                 //Toast.makeText(this@MakeArchiveActivity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
@@ -159,23 +174,21 @@ class MakeArchiveActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        Log.d("ACTIVITY RESULT", "&&&&&&&")
         if(resultCode == -1) {
-            Log.d("RESULT", "&&&&&&&+++++++++++++++++++++")
             when(requestCode) {
                 201 -> {
-                    Log.d("IN WHEN", "%%%%%%%%%%%%%%%%%%%%%%")
-                    data?.data?.let {
+                    binding.imgCover.setImageURI(data?.data)
+                    coverImage = File(data?.data?.path)
+                    /*data?.data?.let {
                         uri ->
                         {
                             Log.d("COVER IMAGE", "" + uri)
                             binding.imgCover.setImageURI(uri)
                             coverImage = uri.toFile()
                         }
-                    }
+                    }*/
                 }
                 REQUEST_STORAGE -> {
-                    Log.d("IN WHEN RS", "%%%%%%%%%%%%%%%%%%%%%%")
                     data?.data?.let {
                             uri ->
                         {
@@ -185,9 +198,7 @@ class MakeArchiveActivity : AppCompatActivity() {
                         }
                     }
                 }
-                else -> Log.d("REQUEST CODE", "#########" + requestCode)
             }
-            Log.d("REQUEST CODE", "#########+++++++++++++++++" + resultCode)
         } else {
             Log.d("RESULT CODE IS NOT OK", "!!!!")
         }

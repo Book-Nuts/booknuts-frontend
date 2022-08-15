@@ -62,7 +62,7 @@ interface MyService {
     @PATCH("/archive/add/{archiveId}/{boardId}")
     fun addPostToArchive(
         @Header("X-AUTH-TOKEN") token: String?,
-        @Path("archiveId") archiveId: Int?,
+        @Path("archiveId") archiveId: Long?,
         @Path("boardId") boardId: Int?,
     ): Call<ResultData>
 }

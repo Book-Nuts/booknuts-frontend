@@ -9,14 +9,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.booknuts.view.activity.ArchivePopUpActivity
 import kr.co.booknuts.view.activity.PostDetailActivity
 import kr.co.booknuts.view.adapter.BoardListAdapter
 import kr.co.booknuts.R
-import kr.co.booknuts.data.remote.HeartResult
-import kr.co.booknuts.data.remote.NutsResult
 import kr.co.booknuts.data.remote.Post
 import kr.co.booknuts.databinding.FragmentHomeBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder

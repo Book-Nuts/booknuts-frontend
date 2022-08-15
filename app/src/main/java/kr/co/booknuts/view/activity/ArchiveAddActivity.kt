@@ -59,7 +59,7 @@ class ArchiveAddActivity : AppCompatActivity() {
                     adapter.setItemClickListener(object: MyArchiveListAdapter.OnItemClickListener{
                         override fun onClick(v: View, position: Int) {
                             Log.d("DataArray position", position.toString())
-                            var archiveId: Int? = archiveDataArray?.get(position)?.archiveId
+                            var archiveId: Long? = archiveDataArray?.get(position)?.archiveId
                             setPostInArchive(archiveId)
                             finish()
                         }
@@ -72,7 +72,7 @@ class ArchiveAddActivity : AppCompatActivity() {
         })
     }
 
-    fun setPostInArchive(archiveId: Int?) {
+    fun setPostInArchive(archiveId: Long?) {
         RetrofitBuilder.myApi.addPostToArchive(savedToken, archiveId, boardId).enqueue(object :
             Callback<ResultData> {
             override fun onResponse(
