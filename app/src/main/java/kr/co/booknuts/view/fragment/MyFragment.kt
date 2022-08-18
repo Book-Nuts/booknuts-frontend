@@ -15,6 +15,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kr.co.booknuts.R
 import kr.co.booknuts.view.activity.MainActivity
 import kr.co.booknuts.view.activity.SeriesPopUpActivity
 import kr.co.booknuts.view.adapter.MyArchiveListAdapter
@@ -293,18 +294,17 @@ class MyFragment : Fragment() {
 
         recyclerView = binding.myRv
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        val adapter: MyArchiveListAdapter = MyArchiveListAdapter(archiveDataArray)
+        val adapter = MyArchiveListAdapter(archiveDataArray)
         if(archiveCnt != 0 )
             Log.d("DataArray size is not 0", "" + archiveCnt)
         recyclerView.adapter = adapter
         adapter.setItemClickListener(object: MyArchiveListAdapter.OnItemClickListener{
             override fun onClick(v: View, position: Int) {
-                Log.d("DataArray position", position.toString())
-                var archive: MyArchive? = archiveDataArray?.get(position)
-                Log.d("DataArray", archiveDataArray.toString())
-                var archiveInfo: Array<String?> = arrayOf(archive?.archiveId?.toString(), archive?.title, archive?.content, archive?.imgUrl)
-                Log.d("DataArray", archiveInfo.toString())
-                (activity as MainActivity).changeFragmentWithArrayData(fragmentArchiveDetail, archiveInfo);
+                var bundle = Bundle()
+                bundle.putSerializable("archiveDetailData", archiveDataArray?.get(position))
+                var fragment = ArchiveDetailFragment()
+                fragment.arguments = bundle
+                activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fl_container, fragment)?.commit()
             }
         })
     }

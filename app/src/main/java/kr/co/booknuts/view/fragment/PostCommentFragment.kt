@@ -19,6 +19,7 @@ import kr.co.booknuts.data.remote.CommentRequestDTO
 import kr.co.booknuts.data.remote.DeleteResult
 import kr.co.booknuts.databinding.FragmentPostCommentBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
+import kr.co.booknuts.view.CommonMethod.closeFragment
 import kr.co.booknuts.view.CommonMethod.controlTokenError
 import kr.co.booknuts.view.CommonMethod.hideKeyboard
 import kr.co.booknuts.view.adapter.PostCommentListAdapter
@@ -61,7 +62,7 @@ class PostCommentFragment : Fragment() {
         binding.rvComment.setOnScrollChangeListener { _, _, i2, _, i4 -> if(i2.minus(i4) >= 10) hideKeyboard(binding.editComment, requireContext()) }
 
         // 게시글 상세로 돌아가기
-        binding.imgClose.setOnClickListener{ closeFragment() }
+        binding.imgClose.setOnClickListener{ closeFragment(activity, this@PostCommentFragment) }
 
         // 댓글 작성
         binding.imgBtnCommentSend.setOnClickListener{
@@ -153,11 +154,6 @@ class PostCommentFragment : Fragment() {
                 //Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
             }
         })
-    }
-
-    // 프래그먼트 종료
-    private fun closeFragment() {
-        activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
     }
 
     // 프래그먼트 새로고침

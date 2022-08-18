@@ -44,7 +44,7 @@ interface MyService {
     @GET("/archive/{archiveId}")
     fun getMyArchiveDetail(
         @Header("X-AUTH-TOKEN") token: String?,
-        @Path("archiveId") archiveId: Int?
+        @Path("archiveId") archiveId: Long?
     ): Call<ArrayList<PostDetail>>
 
     // 시리즈 생성

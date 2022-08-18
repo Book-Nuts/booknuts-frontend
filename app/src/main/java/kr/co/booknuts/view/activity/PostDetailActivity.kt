@@ -1,15 +1,12 @@
 package kr.co.booknuts.view.activity
 
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageView
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.activity_post_detail.*
@@ -17,7 +14,6 @@ import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.*
 import kr.co.booknuts.databinding.ActivityPostDetailBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
-import kr.co.booknuts.view.adapter.BoardListAdapter
 import kr.co.booknuts.view.fragment.PostCommentFragment
 import kr.co.booknuts.view.fragment.PostEditFragment
 import retrofit2.Call
@@ -110,7 +106,7 @@ class PostDetailActivity : AppCompatActivity() {
 
     // 옵션 메뉴 넣기
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if(nickname == writer) menuInflater.inflate(R.menu.menu_board_detail, menu)
+        if(nickname == writer) menuInflater.inflate(R.menu.menu_del_mod, menu)
         return super.onCreateOptionsMenu(menu)
     }
 

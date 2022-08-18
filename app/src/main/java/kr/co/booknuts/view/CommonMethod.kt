@@ -7,6 +7,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import kr.co.booknuts.data.remote.RefreshToken
 import kr.co.booknuts.retrofit.RetrofitBuilder
@@ -31,6 +32,7 @@ object CommonMethod {
         imm.hideSoftInputFromWindow(editText2.windowToken, 0)
     }
 
+    // 토큰 에러 처리
     fun controlTokenError(
         responseErrorBody: ResponseBody?,
         responseCode: Int,
@@ -86,5 +88,10 @@ object CommonMethod {
         }
 
         return isReissued
+    }
+
+    // 프래그먼트 종료
+    fun closeFragment(activity: FragmentActivity?, fragment: Fragment) {
+        activity?.supportFragmentManager?.beginTransaction()?.remove(fragment)?.commit()
     }
 }

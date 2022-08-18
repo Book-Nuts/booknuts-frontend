@@ -17,4 +17,12 @@ interface ArchiveService {
         @Part file: MultipartBody.Part?,
         @Part archive: MultipartBody.Part,
     ): Call<MyArchive>
+
+    // 아카이브 삭제
+    // request body - 아카이브 아이디
+    @DELETE("/archive/{archiveId}")
+    fun deleteArchive(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Path("archiveId") archiveId: Long?,
+    ): Call<DeleteResult>
 }
