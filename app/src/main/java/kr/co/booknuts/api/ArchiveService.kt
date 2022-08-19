@@ -25,4 +25,13 @@ interface ArchiveService {
         @Header("X-AUTH-TOKEN") token: String?,
         @Path("archiveId") archiveId: Long?,
     ): Call<DeleteResult>
+
+    // 아카이브 수정
+    // request body - 아카이브 아이디, 제목, 내용
+    @PATCH("/archive/{archiveId}")
+    fun modifyArchive(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Path("archiveId") archiveId: Long?,
+        @Body body: ModifyArchiveRequestDTO
+    ): Call<MyArchive>
 }

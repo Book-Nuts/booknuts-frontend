@@ -23,10 +23,10 @@ class MyArchiveListAdapter(private val dataList: ArrayList<MyArchive>?) : Recycl
     // 아카이브 게시글 개수
     override fun getItemCount(): Int {
         if (dataList != null) {
-            Log.d("Adapter", "ArchiveDataListSize " + dataList.size)
+            //Log.d("Adapter", "ArchiveDataListSize " + dataList.size)
             return dataList.size
         }
-        Log.d("Adapter", "ArchiveDataListSize zero")
+        //Log.d("Adapter", "ArchiveDataListSize zero")
         return 0
     }
 

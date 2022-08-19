@@ -35,7 +35,6 @@ class ArchiveDetailFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
     private var accessToken: String? = null
-    //private var data: Array<String?>? = null
     private var data: MyArchive? = null
     var postCnt: Int = 0
 
@@ -124,7 +123,7 @@ class ArchiveDetailFragment : Fragment() {
         return when(item.itemId) {
             R.id.menu_mod -> {
                 Log.d("Archive Modification", "Clicked")
-                //modifyPost()
+                modifyArchive()
                 super.onOptionsItemSelected(item)
             }
             R.id.menu_delete -> {
@@ -134,6 +133,16 @@ class ArchiveDetailFragment : Fragment() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun modifyArchive() {
+        var bundle = Bundle()
+        bundle.putString("title", data?.title)
+        bundle.putString("content", data?.content)
+        bundle.putLong("archiveId", data?.archiveId!!)
+        var fragment = ArchiveEditFragment()
+        fragment.arguments = bundle
+        (activity as MainActivity).changeFragment(fragment)
     }
 
     private fun deleteArchive() {

@@ -22,10 +22,10 @@ class MyArchivePostListAdapter(private val dataList: ArrayList<PostDetail>?) : R
     // 게시글 개수
     override fun getItemCount(): Int {
         if (dataList != null) {
-            Log.d("Adapter", "dataListSize " + dataList.size)
+            //Log.d("Adapter", "dataListSize " + dataList.size)
             return dataList.size
         }
-        Log.d("Adapter", "dataListSize zero")
+        //Log.d("Adapter", "dataListSize zero")
         return 0
     }
 
