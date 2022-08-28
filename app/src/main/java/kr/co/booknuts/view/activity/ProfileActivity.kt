@@ -3,9 +3,11 @@ package kr.co.booknuts.view.activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.google.android.material.tabs.TabLayoutMediator
 import kr.co.booknuts.data.remote.GetProfileResultDTO
 import kr.co.booknuts.databinding.ActivityProfileBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
+import kr.co.booknuts.view.adapter.ProfilePagerAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,6 +16,8 @@ class ProfileActivity : AppCompatActivity() {
 
     val binding by lazy { ActivityProfileBinding.inflate(layoutInflater) }
 
+    private val tabTitleArray = arrayOf("포스트 0", "시리즈 0", "아카이브 0")
+
     var isMine = false
     var isFollow = false
     var userId: Int = -1
@@ -21,6 +25,12 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        // viewPager와 tabLayout 연결
+        binding.viewPager.adapter = this.let { ProfilePagerAdapter(supportFragmentManager, lifecycle) }
+        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+            tab.text = tabTitleArray[position]
+        }.attach()
 
         // 전 액티비티에서 전달받은 유저 닉네임 반환
         val nickname = intent.getStringExtra("nickname")
