@@ -7,9 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageView
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import kotlinx.android.synthetic.main.activity_post_detail.*
@@ -17,7 +15,6 @@ import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.*
 import kr.co.booknuts.databinding.ActivityPostDetailBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
-import kr.co.booknuts.view.adapter.BoardListAdapter
 import kr.co.booknuts.view.fragment.PostCommentFragment
 import retrofit2.Call
 import retrofit2.Callback
@@ -50,6 +47,14 @@ class PostDetailActivity : AppCompatActivity() {
             finish()
         }
 
+        // 프로필 이미지 클릭 시 유저 프로필 조회
+        binding.imgUser.setOnClickListener {
+            var intent = Intent(this@PostDetailActivity, ProfileActivity::class.java)
+            intent.putExtra("nickname", binding.textNickname.text.toString())
+            startActivity(intent)
+        }
+
+        // 개별 게시글 조회 API 연결
         RetrofitBuilder.boardApi.getPostDetail(accessToken, boardId).enqueue(object:
             Callback<PostDetail> {
             override fun onResponse(call: Call<PostDetail>, response: Response<PostDetail>) {

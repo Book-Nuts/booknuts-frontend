@@ -15,10 +15,14 @@
         android:theme="@style/Theme.BookNuts"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.activity.ProfileActivity"
+            android:exported="true" />
+        <activity
             android:name=".view.activity.ChatDetailActivity"
             android:exported="true"
-            android:theme="@style/Theme.MyDialog"/>
-        <activity android:name=".view.activity.ArchiveAddActivity"
+            android:theme="@style/Theme.MyDialog" />
+        <activity
+            android:name=".view.activity.ArchiveAddActivity"
             android:exported="false" />
         <activity
             android:name=".view.activity.MakeArchiveActivity"
@@ -49,9 +53,11 @@
         <activity
             android:name=".view.activity.DebateChatActivity"
             android:exported="true" />
+
         <meta-data
             android:name="com.google.android.actions"
             android:resource="@xml/network_security_config" />
+
         <activity
             android:name=".view.activity.DebateCreateActivity"
             android:exported="true" />
@@ -64,13 +70,13 @@
         <activity
             android:name=".view.activity.IntroActivity"
             android:exported="true"
-            android:theme="@style/Intro">
-        </activity>
+            android:theme="@style/Intro"></activity>
         <activity
             android:name=".view.activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

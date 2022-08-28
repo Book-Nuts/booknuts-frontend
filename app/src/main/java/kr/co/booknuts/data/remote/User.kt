@@ -77,3 +77,18 @@ data class UserInfo (
     @SerializedName("refreshToken")
     val refreshToken: String?,
 )   :Serializable {}
+
+data class GetProfileResultDTO(
+    @SerializedName("userId")
+    val userId: Int?,
+    @SerializedName("nickname")
+    val nickname: String?,
+    @SerializedName("isMyProfile")
+    val isMyProfile: Boolean,
+    @SerializedName("isFollow")
+    val isFollow: Boolean,
+    @SerializedName("followerCount")
+    val follower: Int,
+    @SerializedName("followingCount")
+    val following: Int,
+): Serializable {}
