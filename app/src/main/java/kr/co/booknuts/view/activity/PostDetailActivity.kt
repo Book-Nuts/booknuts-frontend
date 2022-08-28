@@ -11,6 +11,7 @@ import kr.co.booknuts.R
 import kr.co.booknuts.data.remote.PostDetail
 import kr.co.booknuts.databinding.ActivityPostDetailBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
+import kr.co.booknuts.view.adapter.fragment.MyFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,12 +37,19 @@ class PostDetailActivity : AppCompatActivity() {
             finish()
         }
 
+        // 프로필 이미지 클릭 시 유저 프로필 조회
+        binding.imgUser.setOnClickListener {
+            var intent = Intent(this@PostDetailActivity, ProfileActivity::class.java)
+            intent.putExtra("nickname", binding.textNickname.text.toString())
+            startActivity(intent)
+        }
+
+        // 개별 게시글 조회 API 연결
         RetrofitBuilder.boardApi.getPostDetail(savedToken, boardId).enqueue(object:
             Callback<PostDetail> {
             override fun onResponse(call: Call<PostDetail>, response: Response<PostDetail>) {
                 data = response.body()
                 Log.d("Board Detail Get Test", "" + data.toString())
-                //Toast.makeText(this@PostDetailActivity, "통신 성공", Toast.LENGTH_SHORT).show()
 
                 binding.textWriter.text = data?.writer + " 님의 게시글"
                 binding.textTitle.text = data?.title

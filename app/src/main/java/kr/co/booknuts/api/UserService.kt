@@ -31,4 +31,11 @@ interface UserService {
     fun getUserInfo(
         @Header("X-AUTH-TOKEN") token: String?,
     ): Call<UserInfo>
+
+    // 유저 프로필 정보 조회
+    @GET("/user/profile/{nickname}")
+    fun getProfile(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Path("nickname") nickname: String,
+    ): Call<GetProfileResultDTO>
 }

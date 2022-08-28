@@ -112,7 +112,7 @@
                         android:text="나의 20대" />
 
                     <ImageView
-                        android:id="@+id/imageView18"
+                        android:id="@+id/icon_setting"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_gravity="bottom"

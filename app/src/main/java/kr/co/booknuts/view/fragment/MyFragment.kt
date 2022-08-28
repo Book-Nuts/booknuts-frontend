@@ -53,15 +53,7 @@ class MyFragment : Fragment() {
 
     lateinit var recyclerView: RecyclerView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = FragmentMyBinding.inflate(inflater, container, false)
 
         binding.myImgBg.setColorFilter(Color.parseColor("#aaaaaa"), PorterDuff.Mode.MULTIPLY);
@@ -84,28 +76,6 @@ class MyFragment : Fragment() {
             4 -> binding.myImgProfile.setImageResource(kr.co.booknuts.R.drawable.img_user5)
         }
 
-        // 서버에서 유저 데이터 받아오기
-        /*RetrofitBuilder.api.getUserInfo(savedToken).enqueue(object:
-            Callback<UserInfo> {
-            override fun onResponse(call: Call<UserInfo>, response: Response<UserInfo>) {
-                var userInfo = response.body()
-                Log.d("UserInfo Get Test", "data : " + userInfo?.accessToken)
-                Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
-                binding.myTextNickname.text = userInfo?.loginId
-                //binding.myImgProfile.setImageDrawable(resources.getIdentifier("img_user.png", "drawble", "kr.co.fragment"))
-                //var nameLength: Int? = (userInfo?.nickname?.length)?.rem(5)
-                /*when(nameLength) {
-                    0 -> binding.myImgProfile.changeI
-                }*/
-
-                refreshFragment(this@MyFragment, parentFragmentManager)
-            }
-            override fun onFailure(call: Call<UserInfo>, t: Throwable) {
-                Log.d("Approach Fail", "wrong server approach")
-                Toast.makeText(activity, "통신 실패", Toast.LENGTH_SHORT).show()
-            }
-        })*/
-
         RetrofitBuilder.myApi.getMyPostList(accessToken, userId).enqueue(object:
             Callback<ArrayList<Post>> {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
@@ -125,10 +95,7 @@ class MyFragment : Fragment() {
             if(tab == 1){
                 val intent = Intent(activity, SeriesPopUpActivity::class.java)
                 startActivity(intent)
-            } /*else if(tab == 2){
-                val intent = Intent(activity, SeriesPopUpActivity::class.java)
-                startActivity(intent)
-            }*/
+            }
         }
         return binding.root
     }
@@ -242,6 +209,7 @@ class MyFragment : Fragment() {
         })
     }
 
+    // 포스트 탭 선택
     fun postTab() {
         binding.myTextPost.text = "포스트 " + postCnt
         binding.myTextSeries.text = "시리즈"
@@ -265,9 +233,9 @@ class MyFragment : Fragment() {
 
     fun seriesTab() {
         //seriesDataArray = arrayListOf<MySeries>(MySeries(0, "Series Sample", "Content???", "", 0, 0))
-        binding.myTextPost.text = "포스트"
+        binding.myTextPost.text = "포스트" + postCnt
         binding.myTextSeries.text = "시리즈 " + seriesCnt
-        binding.myTextArchive.text = "아카이브"
+        binding.myTextArchive.text = "아카이브" + archiveCnt
 
         recyclerView = binding.myRv
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -290,7 +258,7 @@ class MyFragment : Fragment() {
     fun archiveTab() {
         //archiveDataArray = arrayListOf<MyArchive>(MyArchive(0, "Archive Sample", "Content???", ""))
 
-        binding.myTextPost.text = "포스트"
+        binding.myTextPost.text = "포스트" + postCnt
         binding.myTextSeries.text = "시리즈"
         binding.myTextArchive.text = "아카이브 " + archiveCnt
 
