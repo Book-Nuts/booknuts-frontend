@@ -7,9 +7,9 @@ import androidx.fragment.app.Fragment
 import kr.co.booknuts.R
 import kr.co.booknuts.databinding.ActivityMainBinding
 import kr.co.booknuts.view.adapter.fragment.DebateFragment
-import kr.co.booknuts.view.adapter.fragment.HomeFragment
 import kr.co.booknuts.view.adapter.fragment.MyFragment
 import kr.co.booknuts.view.adapter.fragment.SearchFragment
+import kr.co.booknuts.view.fragment.HomeFragment
 
 class MainActivity : AppCompatActivity() {
 

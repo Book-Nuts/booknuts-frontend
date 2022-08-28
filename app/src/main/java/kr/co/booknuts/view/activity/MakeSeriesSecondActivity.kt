@@ -1,7 +1,6 @@
 package kr.co.booknuts.view.activity
 
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -23,7 +22,7 @@ class MakeSeriesSecondActivity : AppCompatActivity() {
 
     private val fragmentMy by lazy { MyFragment() }
 
-    private var savedToken: String? = null
+    private var accessToken: String? = null
 
     private var imageList: ArrayList<String> = arrayListOf("https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072821_960_720.jpg",
         "https://cdn.pixabay.com/photo/2016/09/08/22/43/books-1655783_1280.jpg",
@@ -52,7 +51,7 @@ class MakeSeriesSecondActivity : AppCompatActivity() {
 
         // 로컬에 저장된 토큰
         val pref = getSharedPreferences("auth", AppCompatActivity.MODE_PRIVATE)
-        savedToken = pref?.getString("accessToken", null).toString()
+        accessToken = pref?.getString("accessToken", null).toString()
 
         // 만들기 버튼 클릭
         binding.textGoNext.setOnClickListener{
@@ -62,13 +61,14 @@ class MakeSeriesSecondActivity : AppCompatActivity() {
             var imgUrl = imageList[random]
 
             if(!title.isEmpty() && !content.isEmpty()){
-                var seriesInfo = SeriesRequestDTO(title, content, imgUrl, postClickedList)
+                var seriesInfo = SeriesRequestDTO(title, content, postClickedList)
+                Log.d("MAKE SERIES", seriesInfo.toString())
                 // 시리즈 생성
-                RetrofitBuilder.myApi.postSeries(savedToken, seriesInfo).enqueue(object : Callback<MySeries> {
+                RetrofitBuilder.myApi.createSeries(accessToken, null, seriesInfo).enqueue(object : Callback<MySeries> {
                     override fun onResponse(call: Call<MySeries>, response: Response<MySeries>) {
-                        Log.d("MAKE_SERIES", seriesInfo.toString())
+                        Log.d("MAKE SERIES", seriesInfo.toString())
                         var responseData = response.body()
-                        Log.d("MAKE_SERIES", responseData.toString())
+                        Log.d("MAKE SERIES", response.toString())
                         finish()
 //                        val intent = Intent(this@MakeSeriesSecondActivity, MainActivity::class.java)
 //                        startActivity(intent)

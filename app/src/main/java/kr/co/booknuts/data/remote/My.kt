@@ -39,8 +39,6 @@ data class SeriesRequestDTO (
     val title: String?,
     @SerializedName("content")
     val content: String?,
-    @SerializedName("imgUrl")
-    val imgUrl: String?,
     @SerializedName("boardIdlist")
     val boardIdlist: List<Long>,
 )   :Serializable {}

@@ -1,9 +1,6 @@
 package kr.co.booknuts.api
 
-import kr.co.booknuts.data.*
-import kr.co.booknuts.data.remote.Post
-import kr.co.booknuts.data.remote.PostDetail
-import kr.co.booknuts.data.remote.PostRequestDTO
+import kr.co.booknuts.data.remote.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -29,5 +26,22 @@ interface BoardService {
     fun doPost(
         @Header("X-AUTH-TOKEN") token: String?,
         @Body postInfo : PostRequestDTO
+    ): Call<PostDetail>
+
+    // 게시글 삭제
+    // request body - boardId
+    @DELETE("/board/{boardId}")
+    fun deletePost(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Path("boardId") boardId: Long?
+    ): Call<DeleteResult>
+
+    // 게시글 수정
+    // request body - boardId
+    @PATCH("/board/{boardId}")
+    fun editPost(
+        @Header("X-AUTH-TOKEN") token: String?,
+        @Path("boardId") boardId: Long?,
+        @Body editInfo: PostEditInfo
     ): Call<PostDetail>
 }

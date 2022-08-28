@@ -87,3 +87,16 @@ data class PostRequestDTO(
     @SerializedName("bookGenre")
     val bookGenre: String?,
 )   : Serializable {}
+
+data class PostEditInfo(
+    @SerializedName("title")
+    val title: String?,
+    @SerializedName("content")
+    val content: String?,
+)   : Serializable {}
+
+data class DeleteResult(
+    @SerializedName("result")
+    val result: String?,
+)   : Serializable {}
+

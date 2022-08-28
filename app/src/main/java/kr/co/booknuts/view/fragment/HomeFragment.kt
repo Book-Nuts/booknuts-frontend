@@ -1,6 +1,7 @@
-package kr.co.booknuts.view.adapter.fragment
+package kr.co.booknuts.view.fragment
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,6 +15,8 @@ import kr.co.booknuts.view.activity.ArchivePopUpActivity
 import kr.co.booknuts.view.activity.PostDetailActivity
 import kr.co.booknuts.view.adapter.BoardListAdapter
 import kr.co.booknuts.R
+import kr.co.booknuts.data.remote.HeartResult
+import kr.co.booknuts.data.remote.NutsResult
 import kr.co.booknuts.data.remote.Post
 import kr.co.booknuts.databinding.FragmentHomeBinding
 import kr.co.booknuts.retrofit.RetrofitBuilder
@@ -22,7 +25,6 @@ import retrofit2.Response
 import retrofit2.Callback
 
 class HomeFragment : Fragment() {
-    //private var swipeRefreshLayout: SwipeRefreshLayout? = null
     var dataArray: ArrayList<Post>? = null
     var tabType: Int = 1    // 0 -> 나의 구독, 1 -> 오늘 추천, 2 -> 독립출판
     var accessToken: String? = null
@@ -62,11 +64,9 @@ class HomeFragment : Fragment() {
             override fun onResponse(call: Call<ArrayList<Post>>, response: Response<ArrayList<Post>>) {
                 if(response.isSuccessful) {
                     dataArray = response.body()
-                    //Log.d("BoardList Get Test", "data : " + dataArray.toString())
-                    //Toast.makeText(activity, "통신 성공", Toast.LENGTH_SHORT).show()
 
                     recyclerView = binding.rvBoard
-                    recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                    //recyclerView.layoutManager = LinearLayoutManager(requireContext())
                     val adapter: BoardListAdapter = BoardListAdapter(dataArray)
                     if(dataArray?.size != 0 )
                         recyclerView.adapter = adapter
@@ -74,8 +74,10 @@ class HomeFragment : Fragment() {
                         override fun onClick(v: View, position: Int) {
                             var intent = Intent(activity, PostDetailActivity::class.java)
                             intent.putExtra("id", dataArray?.get(position)?.boardId)
+                            intent.putExtra("writer", dataArray?.get(position)?.writer)
                             //Log.d("Board ID", "" + dataArray?.get(position)?.boardId)
                             startActivity(intent)
+                            fragmentRefresh()
                         }
                     })
                     adapter.setItemClickListenerArchive(object: BoardListAdapter.OnItemClickListenerArchive{
@@ -84,6 +86,15 @@ class HomeFragment : Fragment() {
                             intent.putExtra("id", dataArray?.get(position)?.boardId)
                             //Log.d("Board ID", "" + dataArray?.get(position)?.boardId)
                             startActivity(intent)
+                            fragmentRefresh()
+                        }
+                    })
+                    adapter.setItemClickListenerNuts(object: BoardListAdapter.OnItemClickListenerNuts{
+                        override fun onClick(v: View, position: Int) {
+                        }
+                    })
+                    adapter.setItemClickListenerHeart(object: BoardListAdapter.OnItemClickListenerHeart{
+                        override fun onClick(v: View, position: Int) {
                         }
                     })
                 } else {
@@ -148,6 +159,17 @@ class HomeFragment : Fragment() {
             binding.homeImgIndieEvent.visibility = View.VISIBLE
             binding.homeImgIndieSample.visibility = View.VISIBLE
 
+        }
+    }
+
+    // 프래그먼트 새로고침
+    private fun fragmentRefresh(){
+        var ft = this.fragmentManager?.beginTransaction()
+        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.N) {
+            ft?.detach(this)?.commitNow()
+            ft?.attach(this)?.commitNow()
+        } else {
+            ft?.detach(this)?.attach(this)?.commit()
         }
     }
 }

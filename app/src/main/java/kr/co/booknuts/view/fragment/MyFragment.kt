@@ -29,6 +29,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import kr.co.booknuts.view.activity.PostDetailActivity
+import kr.co.booknuts.view.fragment.ArchiveDetailFragment
 
 
 class MyFragment : Fragment() {
@@ -152,11 +153,6 @@ class MyFragment : Fragment() {
         }
     }
 
-    fun refreshFragment(fragment: Fragment, fragmentManager: FragmentManager) {
-        var ft: FragmentTransaction = fragmentManager.beginTransaction()
-        ft.detach(fragment).attach(fragment).commit()
-    }
-
     fun getPostData() {
         // 서버에서 내가 쓴 게시글 데이터 받아오기
         RetrofitBuilder.myApi.getMyPostList(accessToken, userId).enqueue(object:
@@ -225,6 +221,7 @@ class MyFragment : Fragment() {
             override fun onClick(v: View, position: Int) {
                 var intent = Intent(activity, PostDetailActivity::class.java)
                 intent.putExtra("id", postDataArray?.get(position)?.boardId)
+                intent.putExtra("writer", postDataArray?.get(position)?.writer)
                 Log.d("Board ID", "" + postDataArray?.get(position)?.boardId)
                 startActivity(intent)
             }
